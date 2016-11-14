@@ -81,10 +81,10 @@ using namespace Gdiplus;
 #include <ProMenuBar.h>
 #include <ProPopupmenu.h>
 
-#include "BaseMacro.h"
 #include "Global.h"
 #include "PreGlobal.h"
 #include "Tracer.h"
+
 
 #ifdef _UNICODE
 #if defined _M_IX86

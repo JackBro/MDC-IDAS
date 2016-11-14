@@ -11,6 +11,8 @@
 #include "MenuHandler.h"
 #include "Global.h"
 #include "MDCIDAS.h"
+#include "CableGlobal.h"
+#include "IKSSmartCableDataMethodMgrAPI.h"
 
 //===================================================================================================
 
@@ -51,6 +53,19 @@ extern "C" int user_initialize()
 
 	CoInitialize(NULL);
 
+	// 设置当前模块路径
+	CString strMainPath;
+	GetMainModulePath(strMainPath, (HMODULE)theApp.m_hInstance);
+	IKS_SMARTCABLINGGLOBAL::SetCurModulePath(strMainPath);
+
+
+	// 创建线缆数据方法的管理器
+	IIKSSmartCableDataMethodMgr *pIKSHT505CableDataMethodMgr = CreateIKSSmartCableDataMethodMgr();
+	if (pIKSHT505CableDataMethodMgr != NULL)
+	{
+		pIKSHT505CableDataMethodMgr->Init();
+	}
+
 	g_pSendBuffer = new BYTE[g_dwSendTotal];
 
 	if (g_pMenuHandler == NULL)
@@ -74,14 +89,21 @@ extern "C" void user_terminate()
 		g_pMenuHandler->UnInit();
 		SAFE_DELETE_POINTER(g_pMenuHandler);
 	}
-	
+
+	SAFE_DELETE_ARRAY(g_pSendBuffer);
+
+	IIKSSmartCableDataMethodMgr *pIKSHT505CableDataMethodMgr = GetIKSSmartCableDataMethodMgr();
+	if (pIKSHT505CableDataMethodMgr != NULL)
+	{
+		pIKSHT505CableDataMethodMgr->UnInit();
+		DestroyIKSSmartCableDataMethodMgr();
+	}
+
 	if (g_gdiplusToken != 0)
 	{
 		GdiplusShutdown(g_gdiplusToken);
 		g_gdiplusToken = 0;
 	}
-
-	SAFE_DELETE_ARRAY(g_pSendBuffer);
 
 	CoUninitialize();
 }
