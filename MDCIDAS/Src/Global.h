@@ -24,8 +24,6 @@ using namespace IKS_MATH;
 
 //===================================================================================================
 
-SVDOUBLE3 Double3ToSVDouble3(double d[3]);
-
 // 得到列表控件的选择项目
 void GetListSelectedItems(CListCtrl &listCtrl, vector<int> &arrItems);
 
