@@ -65,16 +65,6 @@ using namespace std;
 
 #include "gdiplus.h"
 using namespace Gdiplus;
-/*
-#include <ProToolkit.h>
-
-
-#include <ProUtil.h>
-#include <ProMessage.h>
-#include <ProArray.h>
-#include <ProNotify.h>
-#include <ProUICmd.h>
-#include <ProUIMessage.h>*/
 
 #include <ProWindows.h>
 #include <ProMenu.h>
