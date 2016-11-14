@@ -68,7 +68,6 @@ using namespace Gdiplus;
 /*
 #include <ProToolkit.h>
 
-
 #include <ProUtil.h>
 #include <ProMessage.h>
 #include <ProArray.h>
