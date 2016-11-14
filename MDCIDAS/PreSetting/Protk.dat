@@ -1,0 +1,7 @@
+Name      MDCIDAS
+Startup   DLL
+Exec_file D:\MDCIDAS\MDCIDAS_Win64_ProE5.dll
+Text_dir  D:\MDCIDAS\Text
+allow_stop true
+Revision  18
+End

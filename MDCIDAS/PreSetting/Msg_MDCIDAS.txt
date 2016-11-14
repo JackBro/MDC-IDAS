@@ -1,0 +1,337 @@
+MI_MDCIDAS
+&MDC-IDAS
+#
+#
+MI_UserLogin
+用户登录(&L)...
+#
+#
+MI_UserLogin Operator
+用户登录
+#
+#
+Show MI_UserLogin Operator
+用户登录
+#
+#
+MI_NewProject
+新建项目(&P)
+#
+#
+MI_NewProject Operator
+新建项目
+#
+#
+Show MI_NewProject Operator
+新建项目
+#
+#
+MI_ImportOrderTable
+导入订单需求采集表(&I)
+#
+#
+MI_ImportOrderTable Operator
+导入订单需求采集表
+#
+#
+Show MI_ImportOrderTable Operator
+导入订单需求采集表
+#
+#
+MI_LayoutDesign
+整机布局图设计(&T)
+#
+#
+MI_LayoutDesign Operator
+整机布局图设计
+#
+#
+Show MI_LayoutDesign Operator
+整机布局图设计
+#
+#
+MI_ModelDesign
+整机配置设计(&M)
+#
+#
+MI_SelectModelType
+模块化配置选型(&S)
+#
+#
+MI_SelectModelType Operator
+模块化配置选型
+#
+#
+Show MI_SelectModelType Operator
+模块化配置选型
+#
+#
+MI_ParametricDesign
+参数化模型设计(&P)
+#
+#
+MI_ParametricDesign Operator
+参数化模型设计
+#
+#
+Show MI_ParametricDesign Operator
+参数化模型设计
+#
+#
+MI_ModelBuild
+整机配置结构模型生成(&B)
+#
+#
+MI_ModelBuild Operator
+整机配置结构模型生成
+#
+#
+Show MI_ModelBuild Operator
+整机配置结构模型生成
+#
+#
+MI_NewCustomModel
+总装新增定制结构件(&N)
+#
+#
+MI_NewCustomModel Operator
+总装新增定制结构件
+#
+#
+Show MI_NewCustomModel Operator
+总装新增定制结构件
+#
+#
+MI_CableOperator
+电缆智能布线(&C)
+#
+#
+MI_CableDesign
+规格选型与智能布线(&C)
+#
+#
+MI_CableDesign Operator
+规格选型与智能布线
+#
+#
+Show MI_CableDesign Operator
+规格选型与智能布线
+#
+#
+MI_DeleteCablePoint
+电缆位置点快速删除(&D)
+#
+#
+MI_DeleteCablePoint Operator
+电缆位置点快速删除
+#
+#
+Show MI_DeleteCablePoint Operator
+电缆位置点快速删除
+#
+#
+MI_ExportCableTable
+电缆统计汇总表(&T)
+#
+#
+MI_ExportCableTable Operator
+电缆统计汇总表
+#
+#
+Show MI_ExportCableTable Operator
+电缆统计汇总表
+#
+#
+MI_DrawingOperator
+工程图详细设计(&D)
+#
+#
+MI_ExportNewModelList
+导出新增图号清单(&E)
+#
+#
+MI_ExportNewModelList Operator
+导出新增图号清单
+#
+#
+Show MI_ExportNewModelList Operator
+导出新增图号清单
+#
+#
+MI_ImportModel
+导入图号并批量替换(&I)
+#
+#
+MI_ImportModel Operator
+导入图号并批量替换
+#
+#
+Show MI_ImportModel Operator
+导入图号并批量替换
+#
+#
+MI_CreateDrawing
+整机工程图自动生成(&C)
+#
+#
+MI_CreateDrawing Operator
+整机工程图自动生成
+#
+#
+Show MI_CreateDrawing Operator
+整机工程图自动生成
+#
+#
+MI_CreateNewDrawing
+新增结构件工程图自动生成(&N)
+#
+#
+MI_CreateNewDrawing Operator
+新增结构件工程图自动生成
+#
+#
+Show MI_CreateNewDrawing Operator
+新增结构件工程图自动生成
+#
+#
+MI_CreateSettingList
+配置清单生成(&S)
+#
+#
+MI_CreateSettingList Operator
+配置清单生成
+#
+#
+Show MI_CreateSettingList Operator
+配置清单生成
+#
+#
+MI_CreateNewList
+新增结构件清单生成(&L)
+#
+#
+MI_CreateNewList Operator
+新增结构件清单生成
+#
+#
+Show MI_CreateNewList Operator
+新增结构件清单生成
+#
+#
+MI_ExportOrderTemplate
+订单需求采集表模板导出(&E)...
+#
+#
+MI_ExportOrderTemplate Operator
+订单需求采集表模板导出
+#
+#
+Show MI_ExportOrderTemplate Operator
+订单需求采集表模板导出
+#
+#
+MI_OrderQuery
+订单查询(&Q)
+#
+#
+MI_ProjectQuery
+项目查询(&P)
+#
+#
+MI_ProjectQuery Operator
+项目查询
+#
+#
+Show MI_ProjectQuery Operator
+项目查询
+#
+#
+MI_StatisticsQuery
+统计查询(&S)
+#
+#
+MI_SQByProject
+按项目统计查询(&P)
+#
+#
+MI_SQByProject Operator
+按项目统计查询
+#
+#
+Show MI_SQByProject Operator
+按项目统计查询
+#
+#
+MI_SQByUser
+按用户统计查询(&U)
+#
+#
+MI_SQByUser Operator
+按用户统计查询
+#
+#
+Show MI_SQByUser Operator
+按用户统计查询
+#
+#
+MI_SQByCode
+按代码统计查询(&C)
+#
+#
+MI_SQByCode Operator
+按代码统计查询
+#
+#
+Show MI_SQByCode Operator
+按代码统计查询
+#
+#
+MI_LibFileMgr
+库文件管理(&F)
+#
+#
+MI_UserPermissionMgr
+用户权限管理(&P)
+#
+#
+MI_UserPermissionMgr Operator
+用户权限管理
+#
+#
+Show MI_UserPermissionMgr Operator
+用户权限管理
+#
+#
+MI_StructureCodeLibQuery
+结构件代码数据库查询及维护(&S)
+#
+#
+MI_StructureCodeLibQuery Operator
+结构件代码数据库查询及维护
+#
+#
+Show MI_StructureCodeLibQuery Operator
+结构件代码数据库查询及维护
+#
+#
+MI_CableCodeLibQuery
+电缆代码数据库查询及维护(&C)
+#
+#
+MI_CableCodeLibQuery Operator
+电缆代码数据库查询及维护
+#
+#
+Show MI_CableCodeLibQuery Operator
+电缆代码数据库查询及维护
+#
+#
+
+
+
+
+
+
+
+
+

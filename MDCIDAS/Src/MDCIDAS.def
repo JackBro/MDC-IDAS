@@ -1,0 +1,6 @@
+; MDCIDAS.def : Declares the module parameters for the DLL.
+
+LIBRARY      "MDCIDAS"
+
+EXPORTS
+    ; Explicit exports can go here
