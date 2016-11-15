@@ -261,6 +261,7 @@ void OnDeleteCablePointActFn()
 	SAFE_DELETE_SELECTION(pCable);
 	SAFE_DELETE_SELECTION(pCabLocStart);
 	SAFE_DELETE_SELECTION(pCabLocEnd);
+
 }
 
 //===================================================================================================
