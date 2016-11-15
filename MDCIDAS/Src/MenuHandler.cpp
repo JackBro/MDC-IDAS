@@ -83,7 +83,7 @@ void AddMenuItem(char *menuName, char *itemName, actionFunc menuitemAction, acce
 void Test()
 {
 	AFX_MANAGE_STATE(AfxGetStaticModuleState());
-	AfxMessageBox(L"ÄãºÃTest");
+	AfxMessageBox(L"ÄãºÃ1115");
 }
 
 BOOL CMenuHandler::Init()
