@@ -47,6 +47,23 @@
 //===================================================================================================
 // 整机配置模块
 
+// 布局图符号类型
+typedef enum __tagLayoutItemType
+{
+	LIT_UNKNOWN				= -1,					// 未知
+	LIT_IT					= 1,					// 服务器机柜
+	LIT_MJT					= 2,					// 管控柜
+	LIT_CASO4_FLOOR			= 3,					// 硫酸钙地板
+	LIT_STEEL_FLOOR			= 4,					// 全钢通风地板
+	LIT_COLD_FRONT_DOOR		= 5,					// 冷通道前门
+	LIT_COLD_BACK_DOOR		= 6,					// 冷通道后门
+	LIT_LEFT_FRAME			= 7,					// 左框架
+	LIT_RIGHT_FRAME			= 8,					// 右框架
+	LIT_FLIP_WINDOW			= 9,					// 翻转顶窗
+	LIT_FIXED_WINDOW		= 10,					// 固定顶窗
+	LIT_FOOTSTEP			= 11,					// 踏步
+}LayoutItemType;
+
 // 模块类型
 typedef enum __tagMDCModuleType
 {
@@ -308,6 +325,80 @@ typedef struct __tagRequirementTabData
 		return *this;
 	}
 }RequirementTabData;
+
+// 布局图元素数据
+typedef struct __tagLayoutItemData
+{
+	int nType;										// 元素符号类型，参照LayoutItemType
+	double dWidth;									// 宽度
+	double dDepth;									// 深度
+	SVDOUBLE3 o;									// 原点
+	SVDOUBLE3 x;									// X向
+	SVDOUBLE3 y;									// Y向
+
+	__tagLayoutItemData()
+	{
+		nType = LIT_UNKNOWN;
+		dWidth = 0.0;
+		dDepth = 0.0;
+	}
+	__tagLayoutItemData(const __tagLayoutItemData &data)
+	{
+		nType = data.nType;
+		dWidth = data.dWidth;
+		dDepth = data.dDepth;
+		o = data.o;
+		x = data.x;
+		y = data.y;
+	}
+	__tagLayoutItemData operator=(const __tagLayoutItemData &data)
+	{
+		if (&data == this)
+			return *this;
+		nType = data.nType;
+		dWidth = data.dWidth;
+		dDepth = data.dDepth;
+		o = data.o;
+		x = data.x;
+		y = data.y;
+		return *this;
+	}
+}LayoutItemData;
+
+typedef vector<LayoutItemData> LayoutItemDataArray;
+
+// 布局图数据
+typedef struct __tagLayoutData
+{
+	double dTotalLength;							// 总长度
+	double dTotalWidth;								// 总宽度
+	CString strRemark;								// 备注信息
+	LayoutItemDataArray arrItems;					// 符号集
+
+	__tagLayoutData()
+	{
+		dTotalLength = 0.0;
+		dTotalWidth = 0.0;
+		strRemark = _T("");
+	}
+	__tagLayoutData(const __tagLayoutData &data)
+	{
+		dTotalLength = data.dTotalLength;
+		dTotalWidth = data.dTotalWidth;
+		strRemark = data.strRemark;
+		arrItems = data.arrItems;
+	}
+	__tagLayoutData operator=(const __tagLayoutData &data)
+	{
+		if (&data == this)
+			return *this;
+		dTotalLength = data.dTotalLength;
+		dTotalWidth = data.dTotalWidth;
+		strRemark = data.strRemark;
+		arrItems = data.arrItems;
+		return *this;
+	}
+}LayoutData;
 
 //===================================================================================================
 // 电缆模块
