@@ -206,10 +206,10 @@ typedef struct __tagRequirementTabData
 	int nModuleType;								// 模块类型
 	bool bIsExtFloorExist;							// 模块外围有无地板
 	int nAirstreamPattern;							// 气流模式
-	CString strPassageWidth;						// 通道宽度
-	CString strHeightOfITRack;						// IT机柜规格——高度
-	CString strWidthOfITRack;						// IT机柜规格——宽度
-	CString strDepthOfITRack;						// IT机柜规格——深度
+	double dPassageWidth;							// 通道宽度
+	double dHeightOfITRack;							// IT机柜规格——高度
+	double dWidthOfITRack;							// IT机柜规格——宽度
+	double dDepthOfITRack;							// IT机柜规格——深度
 	int nFrontDoorTypeOfITRack;						// IT机柜的前门类型
 	int nBackDoorTypeOfITRack;						// IT机柜的后门类型
 	int nFrontDoorLockTypeOfITRack;					// IT机柜的前门锁类型
@@ -218,13 +218,13 @@ typedef struct __tagRequirementTabData
 	int nHeightOfPedestal;							// 底座高度
 	int nInsideFloorType;							// 模块内部地板
 	int nZouXianJiaType;							// 强弱电走线架配置类型
-	CString strDistanceBetwZXJAndJigui;				// （走线架机房配置），走线架距离机柜顶部距离；
-	CString strNumOf1UPanel;						// 1U假面板的数量
-	CString strNumOf2UPanel;						// 2U假面板的数量
-	CString strNumOfLPallet;						// L型托板的数量
-	CString strNumOfLightLayer;						// 轻载层板的数量
-	CString strNumOfHeavyLayer;						// 重载层板的数量
-	CString strNumOfStringingPanel;					// 穿线面板的数量
+	double dDistanceBetwZXJAndJigui;				// (走线架机房配置)走线架距离机柜顶部距离；
+	int nNumOf1UPanel;								// 1U假面板的数量
+	int nNumOf2UPanel;								// 2U假面板的数量
+	int nNumOfLPallet;								// L型托板的数量
+	int nNumOfLightLayer;							// 轻载层板的数量
+	int nNumOfHeavyLayer;							// 重载层板的数量
+	int nNumOfStringingPanel;						// 穿线面板的数量
 	int nHuiLiuPaiType;								// 汇流排的类型
 	bool bIsWeiBanExist;							// 围板是否配置
 	bool bIsInsideFloorExist;						// 模块内部是否配置地板
@@ -236,10 +236,10 @@ typedef struct __tagRequirementTabData
 		nModuleType = -1;
 		bIsExtFloorExist = false;
 		nAirstreamPattern = -1;
-		strPassageWidth = _T("");
-		strHeightOfITRack = _T("");
-		strWidthOfITRack = _T("");
-		strDepthOfITRack = _T("");
+		dPassageWidth = 0.0;
+		dHeightOfITRack = 0.0;
+		dWidthOfITRack = 0.0;
+		dDepthOfITRack = 0.0;
 		nFrontDoorTypeOfITRack = 1;
 		nBackDoorTypeOfITRack = -1;
 		nFrontDoorLockTypeOfITRack = -1;
@@ -248,13 +248,13 @@ typedef struct __tagRequirementTabData
 		nHeightOfPedestal = -1;
 		nInsideFloorType = -1;
 		nZouXianJiaType = -1;
-		strDistanceBetwZXJAndJigui = _T("");
-		strNumOf1UPanel = _T("");
-		strNumOf2UPanel = _T("");
-		strNumOfLPallet = _T("");
-		strNumOfLightLayer = _T("");
-		strNumOfHeavyLayer = _T("");
-		strNumOfStringingPanel = _T("");
+		dDistanceBetwZXJAndJigui = 0.0;
+		nNumOf1UPanel = -1;
+		nNumOf2UPanel = -1;
+		nNumOfLPallet = -1;
+		nNumOfLightLayer = -1;
+		nNumOfHeavyLayer = -1;
+		nNumOfStringingPanel = -1;
 		nHuiLiuPaiType = -1;
 		bIsWeiBanExist = false;
 		bIsInsideFloorExist = false;
@@ -266,10 +266,10 @@ typedef struct __tagRequirementTabData
 		nModuleType = data.nModuleType;
 		bIsExtFloorExist = data.bIsExtFloorExist;
 		nAirstreamPattern = data.nAirstreamPattern;
-		strPassageWidth = data.strPassageWidth;
-		strHeightOfITRack = data.strHeightOfITRack;
-		strWidthOfITRack = data.strWidthOfITRack;
-		strDepthOfITRack = data.strDepthOfITRack;
+		dPassageWidth = data.dPassageWidth;
+		dHeightOfITRack = data.dHeightOfITRack;
+		dWidthOfITRack = data.dWidthOfITRack;
+		dDepthOfITRack = data.dDepthOfITRack;
 		nFrontDoorTypeOfITRack = data.nFrontDoorTypeOfITRack;
 		nBackDoorTypeOfITRack = data.nBackDoorTypeOfITRack;
 		nFrontDoorLockTypeOfITRack = data.nFrontDoorLockTypeOfITRack;
@@ -278,13 +278,13 @@ typedef struct __tagRequirementTabData
 		nHeightOfPedestal = data.nHeightOfPedestal;
 		nInsideFloorType = data.nInsideFloorType;
 		nZouXianJiaType = data.nZouXianJiaType;
-		strDistanceBetwZXJAndJigui = data.strDistanceBetwZXJAndJigui;
-		strNumOf1UPanel = data.strNumOf1UPanel;
-		strNumOf2UPanel = data.strNumOf2UPanel;
-		strNumOfLPallet = data.strNumOfLPallet;
-		strNumOfLightLayer = data.strNumOfLightLayer;
-		strNumOfHeavyLayer = data.strNumOfHeavyLayer;
-		strNumOfStringingPanel = data.strNumOfStringingPanel;
+		dDistanceBetwZXJAndJigui = data.dDistanceBetwZXJAndJigui;
+		nNumOf1UPanel = data.nNumOf1UPanel;
+		nNumOf2UPanel = data.nNumOf2UPanel;
+		nNumOfLPallet = data.nNumOfLPallet;
+		nNumOfLightLayer = data.nNumOfLightLayer;
+		nNumOfHeavyLayer = data.nNumOfHeavyLayer;
+		nNumOfStringingPanel = data.nNumOfStringingPanel;
 		nHuiLiuPaiType = data.nHuiLiuPaiType;
 		bIsWeiBanExist = data.bIsWeiBanExist;
 		bIsInsideFloorExist = data.bIsInsideFloorExist;
@@ -298,10 +298,10 @@ typedef struct __tagRequirementTabData
 		nModuleType = data.nModuleType;
 		bIsExtFloorExist = data.bIsExtFloorExist;
 		nAirstreamPattern = data.nAirstreamPattern;
-		strPassageWidth = data.strPassageWidth;
-		strHeightOfITRack = data.strHeightOfITRack;
-		strWidthOfITRack = data.strWidthOfITRack;
-		strDepthOfITRack = data.strDepthOfITRack;
+		dPassageWidth = data.dPassageWidth;
+		dHeightOfITRack = data.dHeightOfITRack;
+		dWidthOfITRack = data.dWidthOfITRack;
+		dDepthOfITRack = data.dDepthOfITRack;
 		nFrontDoorTypeOfITRack = data.nFrontDoorTypeOfITRack;
 		nBackDoorTypeOfITRack = data.nBackDoorTypeOfITRack;
 		nFrontDoorLockTypeOfITRack = data.nFrontDoorLockTypeOfITRack;
@@ -310,13 +310,13 @@ typedef struct __tagRequirementTabData
 		nHeightOfPedestal = data.nHeightOfPedestal;
 		nInsideFloorType = data.nInsideFloorType;
 		nZouXianJiaType = data.nZouXianJiaType;
-		strDistanceBetwZXJAndJigui = data.strDistanceBetwZXJAndJigui;
-		strNumOf1UPanel = data.strNumOf1UPanel;
-		strNumOf2UPanel = data.strNumOf2UPanel;
-		strNumOfLPallet = data.strNumOfLPallet;
-		strNumOfLightLayer = data.strNumOfLightLayer;
-		strNumOfHeavyLayer = data.strNumOfHeavyLayer;
-		strNumOfStringingPanel = data.strNumOfStringingPanel;
+		dDistanceBetwZXJAndJigui = data.dDistanceBetwZXJAndJigui;
+		nNumOf1UPanel = data.nNumOf1UPanel;
+		nNumOf2UPanel = data.nNumOf2UPanel;
+		nNumOfLPallet = data.nNumOfLPallet;
+		nNumOfLightLayer = data.nNumOfLightLayer;
+		nNumOfHeavyLayer = data.nNumOfHeavyLayer;
+		nNumOfStringingPanel = data.nNumOfStringingPanel;
 		nHuiLiuPaiType = data.nHuiLiuPaiType;
 		bIsWeiBanExist = data.bIsWeiBanExist;
 		bIsInsideFloorExist = data.bIsInsideFloorExist;
