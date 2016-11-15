@@ -14,15 +14,19 @@
 
 #include "BaseMacro.h"
 #include "SVCLMath.h"
-#include "SVCLGlobal.h"
+// #include "SVCLGlobal.h"
 #include "SVGlobalTools.h"
 #include "SVCLGlobalMFC.h"
 #include "SVCLXMLParse.h"
 #include "ExcelOperatorAPI.h"
+#include "WordControlAPI.h"
+#include "ConstantValue.h"
 
 using namespace IKS_MATH;
 
 //===================================================================================================
+
+SVDOUBLE3 Double3ToSVDouble3(double d[3]);
 
 // 得到列表控件的选择项目
 void GetListSelectedItems(CListCtrl &listCtrl, vector<int> &arrItems);

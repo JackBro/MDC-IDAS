@@ -65,25 +65,16 @@ using namespace std;
 
 #include "gdiplus.h"
 using namespace Gdiplus;
-/*
-#include <ProToolkit.h>
-
-#include <ProUtil.h>
-#include <ProMessage.h>
-#include <ProArray.h>
-#include <ProNotify.h>
-#include <ProUICmd.h>
-#include <ProUIMessage.h>*/
 
 #include <ProWindows.h>
 #include <ProMenu.h>
 #include <ProMenuBar.h>
 #include <ProPopupmenu.h>
 
-#include "BaseMacro.h"
 #include "Global.h"
 #include "PreGlobal.h"
 #include "Tracer.h"
+
 
 #ifdef _UNICODE
 #if defined _M_IX86

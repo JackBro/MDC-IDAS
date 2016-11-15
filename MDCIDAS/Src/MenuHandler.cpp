@@ -10,6 +10,8 @@
 #include "stdafx.h"
 #include "MDCIDAS.h"
 #include "MenuHandler.h"
+#include "IKSSmartCableDataMethodMgrAPI.h"
+#include "CablePreGlobal.h"
 
 //===================================================================================================
 
@@ -81,7 +83,7 @@ void AddMenuItem(char *menuName, char *itemName, actionFunc menuitemAction, acce
 void Test()
 {
 	AFX_MANAGE_STATE(AfxGetStaticModuleState());
-	AfxMessageBox(L"Test");
+	AfxMessageBox(L"你好1115");
 }
 
 BOOL CMenuHandler::Init()
@@ -120,7 +122,7 @@ BOOL CMenuHandler::Init()
 		// 规格选型与智能布线
 		AddMenuItem(szCableOperatorChildMenuName, "MI_CableDesign", Test, MainAccessAvailable, Msg);
 		// 电缆位置点快速删除
-		AddMenuItem(szCableOperatorChildMenuName, "MI_DeleteCablePoint", Test, MainAccessAvailable, Msg);
+		AddMenuItem(szCableOperatorChildMenuName, "MI_DeleteCablePoint", OnDeleteCablePointActFn, MainAccessAvailable, Msg);
 		// 电缆统计汇总表
 		AddMenuItem(szCableOperatorChildMenuName, "MI_ExportCableTable", Test, MainAccessAvailable, Msg);
 	}
@@ -182,4 +184,84 @@ void CMenuHandler::UnInit()
 
 //===================================================================================================
 
+// 电缆位置点快速删除
+void OnDeleteCablePointActFn()
+{
+	AFX_MANAGE_STATE(AfxGetStaticModuleState());
+	if (!GetIKSSmartCableDataMethodMgr()->GetCableValidLicense())
+		return;
 
+	ProSelection pCable = NULL;
+	ProSelection pCabLocStart = NULL;
+	ProSelection pCabLocEnd = NULL;
+	if (IKS_SMARTCABLINGGLOBAL::SelectOneObject(pCable, "location,cable"))
+	{
+		if (IKS_SMARTCABLINGGLOBAL::SelectOneObject(pCabLocStart, "location"))
+		{
+			if (pCable->sel_type == SEL_3D_LOCATION)	// location=SEL_3D_LOCATION
+			{
+				pCabLocEnd = pCabLocStart;
+				pCabLocStart = pCable;
+				pCable = NULL;
+			}
+			else
+			{
+				IKS_SMARTCABLINGGLOBAL::SelectOneObject(pCabLocEnd, "location");
+			}
+		}
+	}
+
+	if (pCabLocStart!=NULL && pCabLocEnd!=NULL)
+	{
+		// 更新当前装配体内的模型树和线束电缆数据
+		GetIKSSmartCableDataMethodMgr()->UpdateCurAsmMdlTreeHarnessCableData(FALSE);
+
+		int nErrType = IKSUNWRAPCABERRT_OK;
+		BOOL bResult = FALSE;
+		if (pCable != NULL)
+			bResult = GetIKSSmartCableDataMethodMgr()->UnwrapCurAsmCable(pCable, pCabLocStart, pCabLocEnd, &nErrType);
+		else
+			bResult = GetIKSSmartCableDataMethodMgr()->UnwrapCurAsmCable(pCabLocStart, pCabLocEnd, &nErrType);
+		if (bResult)
+		{
+			// 重绘窗口
+			IKS_SMARTCABLINGGLOBAL::RepaintCurrentPreWindow();
+		}
+		else
+		{
+			switch (nErrType)
+			{
+			case IKSUNWRAPCABERRT_SELECTCABLE:
+				AfxMessageBox(_T("解绑电缆失败!拾取的电缆不正确!"));
+				break;
+			case IKSUNWRAPCABERRT_SELECTCABLELOC:
+				AfxMessageBox(_T("解绑电缆失败!拾取的电缆位置不正确!"));
+				break;
+			case IKSUNWRAPCABERRT_SELECTCABLELOC_DIFFHARN:
+				AfxMessageBox(_T("解绑电缆失败!拾取的电缆与电缆位置属于不同的线束!"));
+				break;
+			case IKSUNWRAPCABERRT_NOTFINDCABLE:
+				AfxMessageBox(_T("解绑电缆失败!未找到电缆!"));
+				break;
+			case IKSUNWRAPCABERRT_SAMECABLELOC:
+				AfxMessageBox(_T("解绑电缆失败!拾取的两个电缆位置相同!"));
+				break;
+			case IKSUNWRAPCABERRT_NOTFINDCABLELOC:
+				AfxMessageBox(_T("解绑电缆失败!未找到电缆位置(选中的电缆位置可能不属于选中的电缆)!"));
+				break;
+			case IKSUNWRAPCABERRT_CABLELOCISNOTFROMNETWORK:
+				AfxMessageBox(_T("解绑电缆失败!电缆中包含不属于电缆网络的位置!"));
+				break;
+			default:
+				AfxMessageBox(_T("解绑电缆失败!"));
+				break;
+			}
+		}
+	}
+
+	SAFE_DELETE_SELECTION(pCable);
+	SAFE_DELETE_SELECTION(pCabLocStart);
+	SAFE_DELETE_SELECTION(pCabLocEnd);
+}
+
+//===================================================================================================
