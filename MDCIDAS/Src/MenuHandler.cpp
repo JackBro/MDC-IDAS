@@ -11,6 +11,7 @@
 #include "MDCIDAS.h"
 #include "MenuHandler.h"
 #include "IKSSmartCableDataMethodMgrAPI.h"
+#include "TotalUnitBuilder.h"
 #include "CablePreGlobal.h"
 
 //===================================================================================================
@@ -84,6 +85,14 @@ void Test()
 {
 	AFX_MANAGE_STATE(AfxGetStaticModuleState());
 	AfxMessageBox(L"ÄãºÃ1115");
+}
+
+void ModelBuild()
+{
+	TotalUnitConfiguration totalUnitConfig;
+	LayoutData layoutData;
+	CTotalUnitBuilder builder;
+	builder.BuildModel(totalUnitConfig, layoutData);
 }
 
 BOOL CMenuHandler::Init()

@@ -523,6 +523,14 @@
 			<Filter
 				Name="Design"
 				>
+				<File
+					RelativePath=".\Src\Design\TotalUnitBuilder.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Src\Design\TotalUnitBuilder.h"
+					>
+				</File>
 				<Filter
 					Name="DialogUI"
 					>

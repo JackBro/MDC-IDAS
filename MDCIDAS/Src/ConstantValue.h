@@ -47,21 +47,38 @@
 //===================================================================================================
 // 整机配置模块
 
+// 设计用组件类型
+typedef enum __tagDesignModelType
+{
+	DMT_UNKNOWN				= -1,					// 未知
+	DMT_IT					= 1001,					// 服务器机柜
+	DMT_MJT					= 1002,					// 管控柜
+	DMT_CASO4_FLOOR			= 1003,					// 硫酸钙地板
+	DMT_STEEL_FLOOR			= 1004,					// 全钢通风地板
+	DMT_COLD_FRONT_DOOR		= 1005,					// 冷通道前门
+	DMT_COLD_BACK_DOOR		= 1006,					// 冷通道后门
+	DMT_LEFT_FRAME			= 1007,					// 左框架
+	DMT_RIGHT_FRAME			= 1008,					// 右框架
+	DMT_FLIP_WINDOW			= 1009,					// 翻转顶窗
+	DMT_FIXED_WINDOW		= 1010,					// 固定顶窗
+	DMT_FOOTSTEP			= 1011,					// 踏步
+}DesignModelType;
+
 // 布局图符号类型
 typedef enum __tagLayoutItemType
 {
 	LIT_UNKNOWN				= -1,					// 未知
-	LIT_IT					= 1,					// 服务器机柜
-	LIT_MJT					= 2,					// 管控柜
-	LIT_CASO4_FLOOR			= 3,					// 硫酸钙地板
-	LIT_STEEL_FLOOR			= 4,					// 全钢通风地板
-	LIT_COLD_FRONT_DOOR		= 5,					// 冷通道前门
-	LIT_COLD_BACK_DOOR		= 6,					// 冷通道后门
-	LIT_LEFT_FRAME			= 7,					// 左框架
-	LIT_RIGHT_FRAME			= 8,					// 右框架
-	LIT_FLIP_WINDOW			= 9,					// 翻转顶窗
-	LIT_FIXED_WINDOW		= 10,					// 固定顶窗
-	LIT_FOOTSTEP			= 11,					// 踏步
+	LIT_IT					= DMT_IT,				// 服务器机柜
+	LIT_MJT					= DMT_MJT,				// 管控柜
+	LIT_CASO4_FLOOR			= DMT_CASO4_FLOOR,		// 硫酸钙地板
+	LIT_STEEL_FLOOR			= DMT_STEEL_FLOOR,		// 全钢通风地板
+	LIT_COLD_FRONT_DOOR		= DMT_COLD_FRONT_DOOR,	// 冷通道前门
+	LIT_COLD_BACK_DOOR		= DMT_COLD_BACK_DOOR,	// 冷通道后门
+	LIT_LEFT_FRAME			= DMT_LEFT_FRAME,		// 左框架
+	LIT_RIGHT_FRAME			= DMT_RIGHT_FRAME,		// 右框架
+	LIT_FLIP_WINDOW			= DMT_FLIP_WINDOW,		// 翻转顶窗
+	LIT_FIXED_WINDOW		= DMT_FIXED_WINDOW,		// 固定顶窗
+	LIT_FOOTSTEP			= DMT_FOOTSTEP,			// 踏步
 }LayoutItemType;
 
 // 模块类型
@@ -228,7 +245,7 @@ typedef struct __tagRequirementTabData
 	int nHuiLiuPaiType;								// 汇流排的类型
 	bool bIsWeiBanExist;							// 围板是否配置
 	bool bIsInsideFloorExist;						// 模块内部是否配置地板
-	bool bIsTABuExist;								// 是否配置踏步
+	bool bIsTaBuExist;								// 是否配置踏步
 	int nControlCabinetType;						// 管控柜类型
 
 	__tagRequirementTabData()
@@ -258,7 +275,7 @@ typedef struct __tagRequirementTabData
 		nHuiLiuPaiType = -1;
 		bIsWeiBanExist = false;
 		bIsInsideFloorExist = false;
-		bIsTABuExist = false;
+		bIsTaBuExist = false;
 		nControlCabinetType = -1;
 	}
 	__tagRequirementTabData(const __tagRequirementTabData &data)
@@ -288,7 +305,7 @@ typedef struct __tagRequirementTabData
 		nHuiLiuPaiType = data.nHuiLiuPaiType;
 		bIsWeiBanExist = data.bIsWeiBanExist;
 		bIsInsideFloorExist = data.bIsInsideFloorExist;
-		bIsTABuExist = data.bIsTABuExist;
+		bIsTaBuExist = data.bIsTaBuExist;
 		nControlCabinetType = data.nControlCabinetType;
 	}
 	__tagRequirementTabData operator=(const __tagRequirementTabData &data)
@@ -320,7 +337,7 @@ typedef struct __tagRequirementTabData
 		nHuiLiuPaiType = data.nHuiLiuPaiType;
 		bIsWeiBanExist = data.bIsWeiBanExist;
 		bIsInsideFloorExist = data.bIsInsideFloorExist;
-		bIsTABuExist = data.bIsTABuExist;
+		bIsTaBuExist = data.bIsTaBuExist;
 		nControlCabinetType = data.nControlCabinetType;
 		return *this;
 	}
@@ -399,6 +416,115 @@ typedef struct __tagLayoutData
 		return *this;
 	}
 }LayoutData;
+
+// 组件配置
+typedef struct __tagModelConfiguration
+{
+	int nMajorClass;								// 类别
+	int nModelType;									// 组件类型
+	bool bIsCreate;									// 是否配置
+	CString strTempPartNo;							// 临时图号
+	CString strFormalPartNo;						// 正式图号
+	CString strPurchaseNo;							// 采购代码
+	double dHieght;									// 高
+	double dWidth;									// 宽
+	double dDepth;									// 深
+	int nNumber;									// 数量
+	CString strRemark;								// 备注
+
+	__tagModelConfiguration()
+	{
+		nMajorClass = -1;
+		nModelType = -1;
+		bIsCreate = true;
+		strTempPartNo = _T("");
+		strFormalPartNo = _T("");
+		strPurchaseNo = _T("");
+		dHieght = 0.0;
+		dWidth = 0.0;
+		dDepth = 0.0;
+		nNumber = 0;
+		strRemark = _T("");
+	}
+	__tagModelConfiguration(const __tagModelConfiguration &data)
+	{
+		nMajorClass = data.nMajorClass;
+		nModelType = data.nModelType;
+		bIsCreate = data.bIsCreate;
+		strTempPartNo = data.strTempPartNo;
+		strFormalPartNo = data.strFormalPartNo;
+		strPurchaseNo = data.strPurchaseNo;
+		dHieght = data.dHieght;
+		dWidth = data.dWidth;
+		dDepth = data.dDepth;
+		nNumber = data.nNumber;
+		strRemark = data.strRemark;
+	}
+	__tagModelConfiguration operator=(const __tagModelConfiguration &data)
+	{
+		if (&data == this)
+			return *this;
+		nMajorClass = data.nMajorClass;
+		nModelType = data.nModelType;
+		bIsCreate = data.bIsCreate;
+		strTempPartNo = data.strTempPartNo;
+		strFormalPartNo = data.strFormalPartNo;
+		strPurchaseNo = data.strPurchaseNo;
+		dHieght = data.dHieght;
+		dWidth = data.dWidth;
+		dDepth = data.dDepth;
+		nNumber = data.nNumber;
+		strRemark = data.strRemark;
+		return *this;
+	}
+}ModelConfiguration;
+
+typedef vector<ModelConfiguration> ModelConfigurationArray;
+
+// 整机配置表
+typedef struct __tagTotalUnitConfiguration
+{
+	int nCloseType;									// 封闭方式
+	double dCabinetHeight;							// 机柜高度
+	int nModulePosition;							// 模块位置
+	double dBaseHeight;								// 底座高度
+	int nModuleType;								// 模块类型
+	int nSameLayoutNumber;							// 相同布局数量
+	ModelConfigurationArray arrModelConfig;			// 组件模型配置
+
+	__tagTotalUnitConfiguration()
+	{
+		nCloseType = -1;
+		dCabinetHeight = 0.0;
+		nModulePosition = -1;
+		dBaseHeight = 0.0;
+		nModuleType = -1;
+		nSameLayoutNumber = 0;
+	}
+	__tagTotalUnitConfiguration(const __tagTotalUnitConfiguration &data)
+	{
+		nCloseType = data.nCloseType;
+		dCabinetHeight = data.dCabinetHeight;
+		nModulePosition = data.nModulePosition;
+		dBaseHeight = data.dBaseHeight;
+		nModuleType = data.nModuleType;
+		nSameLayoutNumber = data.nSameLayoutNumber;
+		arrModelConfig = data.arrModelConfig;
+	}
+	__tagTotalUnitConfiguration operator=(const __tagTotalUnitConfiguration &data)
+	{
+		if (&data == this)
+			return *this;
+		nCloseType = data.nCloseType;
+		dCabinetHeight = data.dCabinetHeight;
+		nModulePosition = data.nModulePosition;
+		dBaseHeight = data.dBaseHeight;
+		nModuleType = data.nModuleType;
+		nSameLayoutNumber = data.nSameLayoutNumber;
+		arrModelConfig = data.arrModelConfig;
+		return *this;
+	}
+}TotalUnitConfiguration;
 
 //===================================================================================================
 // 电缆模块
