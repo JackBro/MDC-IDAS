@@ -12,17 +12,6 @@
 
 //===================================================================================================
 
-#include "BaseMacro.h"
-#include "SVCLMath.h"
-// #include "SVCLGlobal.h"
-#include "SVGlobalTools.h"
-#include "SVCLGlobalMFC.h"
-#include "SVCLXMLParse.h"
-#include "ExcelOperatorAPI.h"
-#include "WordControlAPI.h"
-#include "ConstantValue.h"
-
-using namespace IKS_MATH;
 
 //===================================================================================================
 
