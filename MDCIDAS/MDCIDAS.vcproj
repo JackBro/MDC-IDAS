@@ -539,9 +539,37 @@
 			<Filter
 				Name="Cable"
 				>
+				<File
+					RelativePath=".\Src\Cable\IKSMDCCableConstantValue.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Src\Cable\IKSMDCCableDataDef.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Src\Cable\IKSMDCCableDataDef.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Src\Cable\IKSMDCCableDataMethodMgr.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Src\Cable\IKSMDCCableDataMethodMgr.h"
+					>
+				</File>
 				<Filter
 					Name="DialogUI"
 					>
+					<File
+						RelativePath=".\Src\Cable\DialogUI\DlgRoutingCableByParam.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Src\Cable\DialogUI\DlgRoutingCableByParam.h"
+						>
+					</File>
 				</Filter>
 			</Filter>
 			<Filter
