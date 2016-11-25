@@ -89,10 +89,8 @@ void Test()
 
 void ModelBuild()
 {
-	TotalUnitConfiguration totalUnitConfig;
-	LayoutData layoutData;
 	CTotalUnitBuilder builder;
-	builder.BuildModel(totalUnitConfig, layoutData);
+	builder.TestBuildModel();
 }
 
 BOOL CMenuHandler::Init()
@@ -120,7 +118,7 @@ BOOL CMenuHandler::Init()
 		// 参数化模型设计
 		AddMenuItem(szModelDesignChildMenuName, "MI_ParametricDesign", Test, MainAccessAvailable, Msg);
 		// 整机配置结构模型生成
-		AddMenuItem(szModelDesignChildMenuName, "MI_ModelBuild", Test, MainAccessAvailable, Msg);
+		AddMenuItem(szModelDesignChildMenuName, "MI_ModelBuild", ModelBuild, MainAccessAvailable, Msg);
 		// 总装新增定制结构件
 		AddMenuItem(szModelDesignChildMenuName, "MI_NewCustomModel", Test, MainAccessAvailable, Msg);
 	}

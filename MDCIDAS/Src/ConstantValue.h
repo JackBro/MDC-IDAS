@@ -421,7 +421,7 @@ typedef struct __tagLayoutData
 typedef struct __tagModelConfiguration
 {
 	int nMajorClass;								// 类别
-	int nModelType;									// 组件类型
+	int nModelType;									// 组件类型，参照DesignModelType
 	bool bIsCreate;									// 是否配置
 	CString strTempPartNo;							// 临时图号
 	CString strFormalPartNo;						// 正式图号
@@ -429,7 +429,7 @@ typedef struct __tagModelConfiguration
 	double dHieght;									// 高
 	double dWidth;									// 宽
 	double dDepth;									// 深
-	int nNumber;									// 数量
+	vector<IKSCsysData> arrPosition;				// 组件位置
 	CString strRemark;								// 备注
 
 	__tagModelConfiguration()
@@ -443,7 +443,6 @@ typedef struct __tagModelConfiguration
 		dHieght = 0.0;
 		dWidth = 0.0;
 		dDepth = 0.0;
-		nNumber = 0;
 		strRemark = _T("");
 	}
 	__tagModelConfiguration(const __tagModelConfiguration &data)
@@ -457,7 +456,7 @@ typedef struct __tagModelConfiguration
 		dHieght = data.dHieght;
 		dWidth = data.dWidth;
 		dDepth = data.dDepth;
-		nNumber = data.nNumber;
+		arrPosition = data.arrPosition;
 		strRemark = data.strRemark;
 	}
 	__tagModelConfiguration operator=(const __tagModelConfiguration &data)
@@ -473,7 +472,7 @@ typedef struct __tagModelConfiguration
 		dHieght = data.dHieght;
 		dWidth = data.dWidth;
 		dDepth = data.dDepth;
-		nNumber = data.nNumber;
+		arrPosition = data.arrPosition;
 		strRemark = data.strRemark;
 		return *this;
 	}
@@ -484,6 +483,7 @@ typedef vector<ModelConfiguration> ModelConfigurationArray;
 // 整机配置表
 typedef struct __tagTotalUnitConfiguration
 {
+	CString strAsmName;								// 组件名称
 	int nCloseType;									// 封闭方式
 	double dCabinetHeight;							// 机柜高度
 	int nModulePosition;							// 模块位置
@@ -494,6 +494,7 @@ typedef struct __tagTotalUnitConfiguration
 
 	__tagTotalUnitConfiguration()
 	{
+		strAsmName = _T("");
 		nCloseType = -1;
 		dCabinetHeight = 0.0;
 		nModulePosition = -1;
@@ -503,6 +504,7 @@ typedef struct __tagTotalUnitConfiguration
 	}
 	__tagTotalUnitConfiguration(const __tagTotalUnitConfiguration &data)
 	{
+		strAsmName = data.strAsmName;
 		nCloseType = data.nCloseType;
 		dCabinetHeight = data.dCabinetHeight;
 		nModulePosition = data.nModulePosition;
@@ -515,6 +517,7 @@ typedef struct __tagTotalUnitConfiguration
 	{
 		if (&data == this)
 			return *this;
+		strAsmName = data.strAsmName;
 		nCloseType = data.nCloseType;
 		dCabinetHeight = data.dCabinetHeight;
 		nModulePosition = data.nModulePosition;

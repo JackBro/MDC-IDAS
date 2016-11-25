@@ -47,7 +47,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)&quot;;&quot;$(ProjectDir)\res&quot;;&quot;$(ProjectDir)\src&quot;;&quot;$(ProjectDir)\src\PublicDialogUI&quot;;&quot;$(ProjectDir)\src\PublicOperator&quot;;&quot;$(ProjectDir)\src\DataBase&quot;;&quot;$(ProjectDir)\src\DataBase\DialogUI&quot;;&quot;$(ProjectDir)\src\Layout&quot;;&quot;$(ProjectDir)\src\Layout\DialogUI&quot;;&quot;$(ProjectDir)\src\Design&quot;;&quot;$(ProjectDir)\src\Design\DialogUI&quot;;&quot;$(ProjectDir)\src\Cable&quot;;&quot;$(ProjectDir)\src\Cable\DialogUI&quot;;&quot;$(ProjectDir)\src\Drawing&quot;;&quot;$(ProjectDir)\src\Drawing\DialogUI&quot;;&quot;$(SolutionDir)\__Internal\Include&quot;;&quot;$(SolutionDir)\__External\Include&quot;;&quot;$(SolutionDir)\__External\Include\ADFLibs&quot;;&quot;$(SolutionDir)\__External\Include\IKSSmartCableLib&quot;;&quot;$(SolutionDir)\__External\Include\ProEComLib\$(PlatformName)\ProE5&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Include\Win32\Pro5\prodevelop&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Include\Win32\Pro5\prodevelop\prodev_appls&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Include\Win32\Pro5\protoolkit&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Include\Win32\Pro5\protoolkit\protk_appls&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)&quot;;&quot;$(ProjectDir)\res&quot;;&quot;$(ProjectDir)\src&quot;;&quot;$(ProjectDir)\src\PublicDialogUI&quot;;&quot;$(ProjectDir)\src\PublicOperator&quot;;&quot;$(ProjectDir)\src\DataBase&quot;;&quot;$(ProjectDir)\src\DataBase\DialogUI&quot;;&quot;$(ProjectDir)\src\Layout&quot;;&quot;$(ProjectDir)\src\Layout\DialogUI&quot;;&quot;$(ProjectDir)\src\Design&quot;;&quot;$(ProjectDir)\src\Design\DialogUI&quot;;&quot;$(ProjectDir)\src\Cable&quot;;&quot;$(ProjectDir)\src\Cable\DialogUI&quot;;&quot;$(ProjectDir)\src\Drawing&quot;;&quot;$(ProjectDir)\src\Drawing\DialogUI&quot;;&quot;$(SolutionDir)\__Internal\Include&quot;;&quot;$(SolutionDir)\__External\Include&quot;;&quot;$(SolutionDir)\__External\Include\ADFLibs&quot;;&quot;$(SolutionDir)\__External\Include\IKSSmartCableLib&quot;;&quot;$(SolutionDir)\__External\Include\IKSComLib\$(PlatformName)&quot;;&quot;$(SolutionDir)\__External\Include\ProEComLib\$(PlatformName)\ProE5&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Include\Win32\Pro5\prodevelop&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Include\Win32\Pro5\prodevelop\prodev_appls&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Include\Win32\Pro5\protoolkit&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Include\Win32\Pro5\protoolkit\protk_appls&quot;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_USRDLL;PRO_USE_VAR_ARGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -71,10 +71,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="wsock32.lib mpr.lib psapi.lib protk_dllmd.lib netapi32.lib gdiplus.lib Iphlpapi.lib ProEComLib_D.lib IKSSmartCableLibD.lib"
+				AdditionalDependencies="wsock32.lib mpr.lib psapi.lib protk_dllmd.lib netapi32.lib gdiplus.lib Iphlpapi.lib IKSComLib_D.lib ProEComLib_D.lib IKSSmartCableLibD.lib"
 				OutputFile="$(OutDir)\Bin\$(ProjectName)_Win32_ProE5.dll"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(SolutionDir)\__Internal\Libs&quot;;&quot;$(SolutionDir)\__External\Libs&quot;;&quot;$(SolutionDir)\__External\Libs\ProEComLib\$(PlatformName)\ProE5&quot;;&quot;$(SolutionDir)\__External\Libs\IKSSmartCableLib\$(PlatformName)\ProE5&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Libs\Win32\Pro5\prodevelop&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Libs\Win32\Pro5\protoolkit&quot;"
+				AdditionalLibraryDirectories="&quot;$(SolutionDir)\__Internal\Libs&quot;;&quot;$(SolutionDir)\__External\Libs&quot;;&quot;$(SolutionDir)\__External\Libs\IKSComLib\$(PlatformName)&quot;;&quot;$(SolutionDir)\__External\Libs\ProEComLib\$(PlatformName)\ProE5&quot;;&quot;$(SolutionDir)\__External\Libs\IKSSmartCableLib\$(PlatformName)\ProE5&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Libs\Win32\Pro5\prodevelop&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Libs\Win32\Pro5\protoolkit&quot;"
 				ModuleDefinitionFile=".\Src\MDCIDAS.def"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)Symbol\$(ProjectName).pdb"
@@ -134,7 +134,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)&quot;;&quot;$(ProjectDir)\res&quot;;&quot;$(ProjectDir)\src&quot;;&quot;$(ProjectDir)\src\PublicDialogUI&quot;;&quot;$(ProjectDir)\src\PublicOperator&quot;;&quot;$(ProjectDir)\src\DataBase&quot;;&quot;$(ProjectDir)\src\DataBase\DialogUI&quot;;&quot;$(ProjectDir)\src\Layout&quot;;&quot;$(ProjectDir)\src\Layout\DialogUI&quot;;&quot;$(ProjectDir)\src\Design&quot;;&quot;$(ProjectDir)\src\Design\DialogUI&quot;;&quot;$(ProjectDir)\src\Cable&quot;;&quot;$(ProjectDir)\src\Cable\DialogUI&quot;;&quot;$(ProjectDir)\src\Drawing&quot;;&quot;$(ProjectDir)\src\Drawing\DialogUI&quot;;&quot;$(SolutionDir)\__Internal\Include&quot;;&quot;$(SolutionDir)\__External\Include&quot;;&quot;$(SolutionDir)\__External\Include\ADFLibs&quot;;&quot;$(SolutionDir)\__External\Include\IKSSmartCableLib&quot;;&quot;$(SolutionDir)\__External\Include\ProEComLib\$(PlatformName)\ProE5&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Include\Win64\Pro5\prodevelop&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Include\Win64\Pro5\prodevelop\prodev_appls&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Include\Win64\Pro5\protoolkit&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Include\Win64\Pro5\protoolkit\protk_appls&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)&quot;;&quot;$(ProjectDir)\res&quot;;&quot;$(ProjectDir)\src&quot;;&quot;$(ProjectDir)\src\PublicDialogUI&quot;;&quot;$(ProjectDir)\src\PublicOperator&quot;;&quot;$(ProjectDir)\src\DataBase&quot;;&quot;$(ProjectDir)\src\DataBase\DialogUI&quot;;&quot;$(ProjectDir)\src\Layout&quot;;&quot;$(ProjectDir)\src\Layout\DialogUI&quot;;&quot;$(ProjectDir)\src\Design&quot;;&quot;$(ProjectDir)\src\Design\DialogUI&quot;;&quot;$(ProjectDir)\src\Cable&quot;;&quot;$(ProjectDir)\src\Cable\DialogUI&quot;;&quot;$(ProjectDir)\src\Drawing&quot;;&quot;$(ProjectDir)\src\Drawing\DialogUI&quot;;&quot;$(SolutionDir)\__Internal\Include&quot;;&quot;$(SolutionDir)\__External\Include&quot;;&quot;$(SolutionDir)\__External\Include\ADFLibs&quot;;&quot;$(SolutionDir)\__External\Include\IKSSmartCableLib&quot;;&quot;$(SolutionDir)\__External\Include\IKSComLib\$(PlatformName)&quot;;&quot;$(SolutionDir)\__External\Include\ProEComLib\$(PlatformName)\ProE5&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Include\Win64\Pro5\prodevelop&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Include\Win64\Pro5\prodevelop\prodev_appls&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Include\Win64\Pro5\protoolkit&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Include\Win64\Pro5\protoolkit\protk_appls&quot;"
 				PreprocessorDefinitions="WIN64;_WINDOWS;_DEBUG;_USRDLL;PRO_USE_VAR_ARGS;SPL_PROE5"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -158,10 +158,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="wsock32.lib mpr.lib psapi.lib protk_dllmd.lib netapi32.lib gdiplus.lib Iphlpapi.lib ProEComLib_D.lib IKSSmartCableLibD.lib"
+				AdditionalDependencies="wsock32.lib mpr.lib psapi.lib protk_dllmd.lib netapi32.lib gdiplus.lib Iphlpapi.lib IKSComLib_D.lib ProEComLib_D.lib IKSSmartCableLibD.lib"
 				OutputFile="$(OutDir)\Bin\$(ProjectName)_Win64_ProE5.dll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(SolutionDir)\__Internal\Libs&quot;;&quot;$(SolutionDir)\__External\Libs&quot;;&quot;$(SolutionDir)\__External\Libs\ProEComLib\$(PlatformName)\ProE5&quot;;&quot;$(SolutionDir)\__External\Libs\IKSSmartCableLib\$(PlatformName)\ProE5&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Libs\Win64\Pro5\prodevelop&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Libs\Win64\Pro5\protoolkit&quot;"
+				AdditionalLibraryDirectories="&quot;$(SolutionDir)\__Internal\Libs&quot;;&quot;$(SolutionDir)\__External\Libs&quot;;&quot;$(SolutionDir)\__External\Libs\IKSComLib\$(PlatformName)&quot;;&quot;$(SolutionDir)\__External\Libs\ProEComLib\$(PlatformName)\ProE5&quot;;&quot;$(SolutionDir)\__External\Libs\IKSSmartCableLib\$(PlatformName)\ProE5&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Libs\Win64\Pro5\prodevelop&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Libs\Win64\Pro5\protoolkit&quot;"
 				ModuleDefinitionFile=".\Src\MDCIDAS.def"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)Symbol\$(ProjectName).pdb"
@@ -222,7 +222,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)&quot;;&quot;$(ProjectDir)\res&quot;;&quot;$(ProjectDir)\src&quot;;&quot;$(ProjectDir)\src\PublicDialogUI&quot;;&quot;$(ProjectDir)\src\PublicOperator&quot;;&quot;$(ProjectDir)\src\DataBase&quot;;&quot;$(ProjectDir)\src\DataBase\DialogUI&quot;;&quot;$(ProjectDir)\src\Layout&quot;;&quot;$(ProjectDir)\src\Layout\DialogUI&quot;;&quot;$(ProjectDir)\src\Design&quot;;&quot;$(ProjectDir)\src\Design\DialogUI&quot;;&quot;$(ProjectDir)\src\Cable&quot;;&quot;$(ProjectDir)\src\Cable\DialogUI&quot;;&quot;$(ProjectDir)\src\Drawing&quot;;&quot;$(ProjectDir)\src\Drawing\DialogUI&quot;;&quot;$(SolutionDir)\__Internal\Include&quot;;&quot;$(SolutionDir)\__External\Include&quot;;&quot;$(SolutionDir)\__External\Include\ADFLibs&quot;;&quot;$(SolutionDir)\__External\Include\IKSSmartCableLib&quot;;&quot;$(SolutionDir)\__External\Include\ProEComLib\$(PlatformName)\ProE5&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Include\Win32\Pro5\prodevelop&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Include\Win32\Pro5\prodevelop\prodev_appls&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Include\Win32\Pro5\protoolkit&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Include\Win32\Pro5\protoolkit\protk_appls&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)&quot;;&quot;$(ProjectDir)\res&quot;;&quot;$(ProjectDir)\src&quot;;&quot;$(ProjectDir)\src\PublicDialogUI&quot;;&quot;$(ProjectDir)\src\PublicOperator&quot;;&quot;$(ProjectDir)\src\DataBase&quot;;&quot;$(ProjectDir)\src\DataBase\DialogUI&quot;;&quot;$(ProjectDir)\src\Layout&quot;;&quot;$(ProjectDir)\src\Layout\DialogUI&quot;;&quot;$(ProjectDir)\src\Design&quot;;&quot;$(ProjectDir)\src\Design\DialogUI&quot;;&quot;$(ProjectDir)\src\Cable&quot;;&quot;$(ProjectDir)\src\Cable\DialogUI&quot;;&quot;$(ProjectDir)\src\Drawing&quot;;&quot;$(ProjectDir)\src\Drawing\DialogUI&quot;;&quot;$(SolutionDir)\__Internal\Include&quot;;&quot;$(SolutionDir)\__External\Include&quot;;&quot;$(SolutionDir)\__External\Include\ADFLibs&quot;;&quot;$(SolutionDir)\__External\Include\IKSSmartCableLib&quot;;&quot;$(SolutionDir)\__External\Include\IKSComLib\$(PlatformName)&quot;;&quot;$(SolutionDir)\__External\Include\ProEComLib\$(PlatformName)\ProE5&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Include\Win32\Pro5\prodevelop&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Include\Win32\Pro5\prodevelop\prodev_appls&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Include\Win32\Pro5\protoolkit&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Include\Win32\Pro5\protoolkit\protk_appls&quot;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;PRO_USE_VAR_ARGS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -244,10 +244,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="wsock32.lib mpr.lib psapi.lib protk_dllmd.lib netapi32.lib gdiplus.lib Iphlpapi.lib ProEComLib.lib IKSSmartCableLib.lib"
+				AdditionalDependencies="wsock32.lib mpr.lib psapi.lib protk_dllmd.lib netapi32.lib gdiplus.lib Iphlpapi.lib IKSComLib.lib ProEComLib.lib IKSSmartCableLib.lib"
 				OutputFile="$(OutDir)\Bin\$(ProjectName)_Win32_ProE5.dll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(SolutionDir)\__Internal\Libs&quot;;&quot;$(SolutionDir)\__External\Libs&quot;;&quot;$(SolutionDir)\__External\Libs\ProEComLib\$(PlatformName)\ProE5&quot;;&quot;$(SolutionDir)\__External\Libs\IKSSmartCableLib\$(PlatformName)\ProE5&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Libs\Win32\Pro5\prodevelop&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Libs\Win32\Pro5\protoolkit&quot;"
+				AdditionalLibraryDirectories="&quot;$(SolutionDir)\__Internal\Libs&quot;;&quot;$(SolutionDir)\__External\Libs&quot;;&quot;$(SolutionDir)\__External\Libs\IKSComLib\$(PlatformName)&quot;;&quot;$(SolutionDir)\__External\Libs\ProEComLib\$(PlatformName)\ProE5&quot;;&quot;$(SolutionDir)\__External\Libs\IKSSmartCableLib\$(PlatformName)\ProE5&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Libs\Win32\Pro5\prodevelop&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Libs\Win32\Pro5\protoolkit&quot;"
 				ModuleDefinitionFile=".\Src\MDCIDAS.def"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)Symbol\$(ProjectName).pdb"
@@ -311,7 +311,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)&quot;;&quot;$(ProjectDir)\res&quot;;&quot;$(ProjectDir)\src&quot;;&quot;$(ProjectDir)\src\PublicDialogUI&quot;;&quot;$(ProjectDir)\src\PublicOperator&quot;;&quot;$(ProjectDir)\src\DataBase&quot;;&quot;$(ProjectDir)\src\DataBase\DialogUI&quot;;&quot;$(ProjectDir)\src\Layout&quot;;&quot;$(ProjectDir)\src\Layout\DialogUI&quot;;&quot;$(ProjectDir)\src\Design&quot;;&quot;$(ProjectDir)\src\Design\DialogUI&quot;;&quot;$(ProjectDir)\src\Cable&quot;;&quot;$(ProjectDir)\src\Cable\DialogUI&quot;;&quot;$(ProjectDir)\src\Drawing&quot;;&quot;$(ProjectDir)\src\Drawing\DialogUI&quot;;&quot;$(SolutionDir)\__Internal\Include&quot;;&quot;$(SolutionDir)\__External\Include&quot;;&quot;$(SolutionDir)\__External\Include\ADFLibs&quot;;&quot;$(SolutionDir)\__External\Include\IKSSmartCableLib&quot;;&quot;$(SolutionDir)\__External\Include\ProEComLib\$(PlatformName)\ProE5&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Include\Win64\Pro5\prodevelop&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Include\Win64\Pro5\prodevelop\prodev_appls&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Include\Win64\Pro5\protoolkit&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Include\Win64\Pro5\protoolkit\protk_appls&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)&quot;;&quot;$(ProjectDir)\res&quot;;&quot;$(ProjectDir)\src&quot;;&quot;$(ProjectDir)\src\PublicDialogUI&quot;;&quot;$(ProjectDir)\src\PublicOperator&quot;;&quot;$(ProjectDir)\src\DataBase&quot;;&quot;$(ProjectDir)\src\DataBase\DialogUI&quot;;&quot;$(ProjectDir)\src\Layout&quot;;&quot;$(ProjectDir)\src\Layout\DialogUI&quot;;&quot;$(ProjectDir)\src\Design&quot;;&quot;$(ProjectDir)\src\Design\DialogUI&quot;;&quot;$(ProjectDir)\src\Cable&quot;;&quot;$(ProjectDir)\src\Cable\DialogUI&quot;;&quot;$(ProjectDir)\src\Drawing&quot;;&quot;$(ProjectDir)\src\Drawing\DialogUI&quot;;&quot;$(SolutionDir)\__Internal\Include&quot;;&quot;$(SolutionDir)\__External\Include&quot;;&quot;$(SolutionDir)\__External\Include\ADFLibs&quot;;&quot;$(SolutionDir)\__External\Include\IKSSmartCableLib&quot;;&quot;$(SolutionDir)\__External\Include\IKSComLib\$(PlatformName)&quot;;&quot;$(SolutionDir)\__External\Include\ProEComLib\$(PlatformName)\ProE5&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Include\Win64\Pro5\prodevelop&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Include\Win64\Pro5\prodevelop\prodev_appls&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Include\Win64\Pro5\protoolkit&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Include\Win64\Pro5\protoolkit\protk_appls&quot;"
 				PreprocessorDefinitions="WIN64;_WINDOWS;NDEBUG;_USRDLL;PRO_USE_VAR_ARGS;SPL_PROE5"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -333,10 +333,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="wsock32.lib mpr.lib psapi.lib protk_dllmd.lib netapi32.lib gdiplus.lib Iphlpapi.lib ProEComLib.lib IKSSmartCableLib.lib"
+				AdditionalDependencies="wsock32.lib mpr.lib psapi.lib protk_dllmd.lib netapi32.lib gdiplus.lib Iphlpapi.lib IKSComLib.lib ProEComLib.lib IKSSmartCableLib.lib"
 				OutputFile="$(OutDir)\Bin\$(ProjectName)_Win64_ProE5.dll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(SolutionDir)\__Internal\Libs&quot;;&quot;$(SolutionDir)\__External\Libs&quot;;&quot;$(SolutionDir)\__External\Libs\ProEComLib\$(PlatformName)\ProE5&quot;;&quot;$(SolutionDir)\__External\Libs\IKSSmartCableLib\$(PlatformName)\ProE5&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Libs\Win64\Pro5\prodevelop&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Libs\Win64\Pro5\protoolkit&quot;"
+				AdditionalLibraryDirectories="&quot;$(SolutionDir)\__Internal\Libs&quot;;&quot;$(SolutionDir)\__External\Libs&quot;;&quot;$(SolutionDir)\__External\Libs\IKSComLib\$(PlatformName)&quot;;&quot;$(SolutionDir)\__External\Libs\ProEComLib\$(PlatformName)\ProE5&quot;;&quot;$(SolutionDir)\__External\Libs\IKSSmartCableLib\$(PlatformName)\ProE5&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Libs\Win64\Pro5\prodevelop&quot;;&quot;$(SolutionDir)\..\..\ProE SDK\Libs\Win64\Pro5\protoolkit&quot;"
 				ModuleDefinitionFile=".\Src\MDCIDAS.def"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)Symbol\$(ProjectName).pdb"

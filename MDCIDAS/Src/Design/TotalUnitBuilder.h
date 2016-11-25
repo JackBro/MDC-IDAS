@@ -22,6 +22,7 @@
 
 //===================================================================================================
 // 常量定义
+const CString g_strCompCsysName = _T("CS_安装");		// 元件安装坐标系名称
 
 //===================================================================================================
 // 结构体定义
@@ -38,10 +39,31 @@ public:
 
 public:
 	// 生成模型
-	BOOL BuildModel(
-		const TotalUnitConfiguration &totalUnitConfig,					// 整机配置
-		const LayoutData &layoutData									// 布局数据
+	bool BuildModel(
+		const TotalUnitConfiguration &totalUnitConfig					// 整机配置(in)
 		);
+	// 根据图号获取模型
+	ProMdl LoadMdlByPartNo(
+		const CString &strPartNo										// 图号(in)
+		);
+	// 装配模型
+	bool AssembleModel(
+		ProAssembly pTopAsm,											// 总组件(in)
+		const ModelConfiguration &mdlConfig								// 模型配置(in)
+		);
+	// 装配模型
+	bool AssembleModel(
+		ProAssembly pTopAsm,											// 总组件(in)
+		ProMdl pCompMdl,												// 元件(in)
+		const IKSCsysData &asmPosition									// 装配位置(in)
+		);
+	// 装配服务器机柜模型
+	bool AssembleModel_IT(
+		ProAssembly pTopAsm,											// 总组件
+		const ModelConfiguration &mdlConfig								// 模型配置
+		);
+	// 测试生成模型
+	bool TestBuildModel();
 };
 
 //===================================================================================================

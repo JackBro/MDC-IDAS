@@ -66,15 +66,27 @@ using namespace std;
 #include "gdiplus.h"
 using namespace Gdiplus;
 
-#include <ProWindows.h>
-#include <ProMenu.h>
-#include <ProMenuBar.h>
-#include <ProPopupmenu.h>
+#include "SVCLMath.h"
+// #include "SVCLGlobal.h"
+#include "SVGlobalTools.h"
+#include "SVCLGlobalMFC.h"
+#include "SVCLXMLParse.h"
+#include "ExcelOperatorAPI.h"
+#include "WordControlAPI.h"
+
+using namespace IKS_MATH;
+
+// ProEComLibÍ·ÎÄ¼þ
+#include "PCLProEAPI.h"
+#include "PCLCsys.h"
+#include "PCLAssembly.h"
+#include "PCLAsmComp.h"
 
 #include "Global.h"
+#include "BaseMacro.h"
+#include "ConstantValue.h"
 #include "PreGlobal.h"
 #include "Tracer.h"
-
 
 #ifdef _UNICODE
 #if defined _M_IX86
