@@ -226,6 +226,23 @@ bool CTotalUnitBuilder::AssembleModel_IT(
 	else
 	{
 		// 如果临时图号不为空，则利用模板模型，生成参数化的模型
+		ProMdl pCompMdl = LoadMdlByPartNo(g_strITTemplateAsmName);
+		if (NULL == pCompMdl)
+			return false;
+		ProName szNewCompName = {0};
+		wcsncpy_s(szNewCompName, PRO_NAME_SIZE, mdlConfig.strTempPartNo, _TRUNCATE);
+		ProMdlRename(pCompMdl, szNewCompName);
+		ProModelitem mdlItem;
+		ProMdlToModelitem(pCompMdl, &mdlItem);
+		CPCLParameter::SetParameter(&mdlItem, g_strITParaHeightName, mdlConfig.dHieght, FALSE);
+		CPCLParameter::SetParameter(&mdlItem, g_strITParaWidthName, mdlConfig.dWidth, FALSE);
+		CPCLParameter::SetParameter(&mdlItem, g_strITParaDepthName, mdlConfig.dDepth, FALSE);
+		ProSolidRegenerate((ProSolid)pCompMdl, PRO_REGEN_NO_FLAGS);
+		// 装配至组件
+		for (size_t i=0; i<mdlConfig.arrPosition.size(); i++)
+		{
+			AssembleModel(pTopAsm, pCompMdl, mdlConfig.arrPosition[i]);
+		}
 	}
 
 	return true;
@@ -293,9 +310,9 @@ bool CTotalUnitBuilder::TestBuildModel()
 	modelConfig.nMajorClass = -1;
 	modelConfig.nModelType = DMT_IT;
 	modelConfig.bIsCreate = true;
-	modelConfig.strTempPartNo = _T("");
-	modelConfig.strFormalPartNo = _T("JIGUI_300X400X100");
-	modelConfig.strPurchaseNo = _T("CG_JIGUI_300X400X100");
+	modelConfig.strTempPartNo = _T("JIGUI_000001");
+	modelConfig.strFormalPartNo = _T("JIGUI_000001");
+	modelConfig.strPurchaseNo = _T("");
 	modelConfig.dHieght = 300.0;
 	modelConfig.dWidth = 400.0;
 	modelConfig.dDepth = 100.0;

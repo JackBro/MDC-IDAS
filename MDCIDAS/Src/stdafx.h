@@ -81,6 +81,7 @@ using namespace IKS_MATH;
 #include "PCLCsys.h"
 #include "PCLAssembly.h"
 #include "PCLAsmComp.h"
+#include "PCLParameter.h"
 
 #include "Global.h"
 #include "BaseMacro.h"
