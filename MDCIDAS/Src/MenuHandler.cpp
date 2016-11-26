@@ -13,6 +13,7 @@
 #include "IKSSmartCableDataMethodMgrAPI.h"
 #include "TotalUnitBuilder.h"
 #include "CablePreGlobal.h"
+#include "DlgMain.h"
 
 //===================================================================================================
 
@@ -84,7 +85,8 @@ void AddMenuItem(char *menuName, char *itemName, actionFunc menuitemAction, acce
 void Test()
 {
 	AFX_MANAGE_STATE(AfxGetStaticModuleState());
-	AfxMessageBox(L"ÄãºÃ1115");
+	CDlgMain dlgMain;
+	dlgMain.DoModal();
 }
 
 void ModelBuild()
