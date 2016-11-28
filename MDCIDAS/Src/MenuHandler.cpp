@@ -204,6 +204,7 @@ void OnCableDesign()
 	if (dlg.DoModal() == IDOK)
 	{
 	}
+
 }
 
 // 电缆位置点快速删除
