@@ -13,6 +13,7 @@
 #include "IKSSmartCableDataMethodMgrAPI.h"
 #include "TotalUnitBuilder.h"
 #include "CablePreGlobal.h"
+#include "DlgRoutingCableByParam.h"
 #include "DlgMain.h"
 
 //===================================================================================================
@@ -129,7 +130,7 @@ BOOL CMenuHandler::Init()
 	ProMenubarmenuMenuAdd(szMDCIDASMenuName, szCableOperatorChildMenuName, "MI_CableOperator", NULL, PRO_B_TRUE, Msg);
 	{
 		// 规格选型与智能布线
-		AddMenuItem(szCableOperatorChildMenuName, "MI_CableDesign", Test, MainAccessAvailable, Msg);
+		AddMenuItem(szCableOperatorChildMenuName, "MI_CableDesign", OnCableDesign, MainAccessAvailable, Msg);
 		// 电缆位置点快速删除
 		AddMenuItem(szCableOperatorChildMenuName, "MI_DeleteCablePoint", OnDeleteCablePointActFn, MainAccessAvailable, Msg);
 		// 电缆统计汇总表
@@ -192,6 +193,19 @@ void CMenuHandler::UnInit()
 }
 
 //===================================================================================================
+
+// 规格选型与智能布线
+void OnCableDesign()
+{
+	AFX_MANAGE_STATE(AfxGetStaticModuleState());
+	if (!GetIKSSmartCableDataMethodMgr()->GetCableValidLicense())
+		return;
+
+	CDlgRoutingCableByParam dlg;
+	if (dlg.DoModal() == IDOK)
+	{
+	}
+}
 
 // 电缆位置点快速删除
 void OnDeleteCablePointActFn()
