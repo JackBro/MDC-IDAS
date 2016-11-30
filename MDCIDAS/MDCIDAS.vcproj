@@ -740,11 +740,27 @@
 				Name="PublicOperator"
 				>
 				<File
+					RelativePath=".\Src\PublicOperator\DocModelDef.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Src\PublicOperator\LayObject.h"
+					>
+				</File>
+				<File
 					RelativePath=".\Src\PublicOperator\ListCtrlOperator.cpp"
 					>
 				</File>
 				<File
 					RelativePath=".\Src\PublicOperator\ListCtrlOperator.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Src\PublicOperator\XmlToObject.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Src\PublicOperator\XmlToObject.h"
 					>
 				</File>
 			</Filter>
