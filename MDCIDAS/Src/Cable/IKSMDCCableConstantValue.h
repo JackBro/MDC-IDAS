@@ -512,5 +512,6 @@ typedef struct __tagIKSMDCCableDesignParam
 	}
 } IKSMDCCableDesignParam;
 
+
 //===================================================================================================
 
