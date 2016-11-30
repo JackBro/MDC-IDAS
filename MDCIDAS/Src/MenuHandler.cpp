@@ -203,7 +203,6 @@ void OnCableDesign()
 	CDlgRoutingCableByParam dlg;
 	if (dlg.DoModal() == IDOK)
 	{
-		;
 	}
 
 }
