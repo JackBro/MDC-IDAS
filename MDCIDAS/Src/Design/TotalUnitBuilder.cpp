@@ -94,10 +94,10 @@ bool CTotalUnitBuilder::AssembleModel(
 	bool bRet = false;
 	switch (mdlConfig.nModelType)
 	{
-	case DMT_IT:						// 服务器机柜
+	case DMT_ITC:						// 服务器机柜
 		bRet = AssembleModel_IT(pTopAsm, mdlConfig);
 		break;
-	case DMT_MJT:						// 管控柜
+	case DMT_MGT:						// 管控柜
 		break;
 	case DMT_CASO4_FLOOR:				// 硫酸钙地板
 		break;
@@ -256,7 +256,7 @@ bool CTotalUnitBuilder::TestBuildModel()
 	totalUnitConfig.strAsmName = _T("TOTAL_MODEL_00001");
 	ModelConfiguration modelConfig;
 	modelConfig.nMajorClass = -1;
-	modelConfig.nModelType = DMT_IT;
+	modelConfig.nModelType = DMT_ITC;
 	modelConfig.bIsCreate = true;
 	modelConfig.strTempPartNo = _T("");
 	modelConfig.strFormalPartNo = _T("JIGUI_300X300X100");
@@ -276,7 +276,7 @@ bool CTotalUnitBuilder::TestBuildModel()
 	modelConfig.strRemark = _T("");
 	totalUnitConfig.arrModelConfig.push_back(modelConfig);
 	modelConfig.nMajorClass = -1;
-	modelConfig.nModelType = DMT_IT;
+	modelConfig.nModelType = DMT_ITC;
 	modelConfig.bIsCreate = true;
 	modelConfig.strTempPartNo = _T("");
 	modelConfig.strFormalPartNo = _T("JIGUI_300X200X100");
@@ -292,7 +292,7 @@ bool CTotalUnitBuilder::TestBuildModel()
 	modelConfig.strRemark = _T("");
 	totalUnitConfig.arrModelConfig.push_back(modelConfig);
 	modelConfig.nMajorClass = -1;
-	modelConfig.nModelType = DMT_IT;
+	modelConfig.nModelType = DMT_ITC;
 	modelConfig.bIsCreate = true;
 	modelConfig.strTempPartNo = _T("");
 	modelConfig.strFormalPartNo = _T("JIGUI_300X100X100");
@@ -308,7 +308,7 @@ bool CTotalUnitBuilder::TestBuildModel()
 	modelConfig.strRemark = _T("");
 	totalUnitConfig.arrModelConfig.push_back(modelConfig);
 	modelConfig.nMajorClass = -1;
-	modelConfig.nModelType = DMT_IT;
+	modelConfig.nModelType = DMT_ITC;
 	modelConfig.bIsCreate = true;
 	modelConfig.strTempPartNo = _T("JIGUI_000001");
 	modelConfig.strFormalPartNo = _T("JIGUI_000001");

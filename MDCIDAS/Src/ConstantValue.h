@@ -51,34 +51,59 @@
 typedef enum __tagDesignModelType
 {
 	DMT_UNKNOWN				= -1,					// 未知
-	DMT_IT					= 1001,					// 服务器机柜
-	DMT_MJT					= 1002,					// 管控柜
-	DMT_CASO4_FLOOR			= 1003,					// 硫酸钙地板
-	DMT_STEEL_FLOOR			= 1004,					// 全钢通风地板
-	DMT_COLD_FRONT_DOOR		= 1005,					// 冷通道前门
-	DMT_COLD_BACK_DOOR		= 1006,					// 冷通道后门
-	DMT_LEFT_FRAME			= 1007,					// 左框架
-	DMT_RIGHT_FRAME			= 1008,					// 右框架
-	DMT_FLIP_WINDOW			= 1009,					// 翻转顶窗
-	DMT_FIXED_WINDOW		= 1010,					// 固定顶窗
-	DMT_FOOTSTEP			= 1011,					// 踏步
+	DMT_ITC					= 1001,					// 服务器机柜
+	DMT_MGT					= 1002,					// 管控柜
+	DMT_FMCC				= 1003,					// 列头管控柜
+	DMT_TAC					= 1004,					// 空调柜
+	DMT_FHC					= 1005,					// 消防柜
+	DMT_FEC					= 1006,					// 列头空柜
+	DMT_PDC					= 1007,					// 配电柜
+	DMT_FPDC				= 1008,					// 列头配电柜
+	DMT_IEC				    = 1009,					// 行间空柜
+	DMT_AGC					= 1010,					// 导风柜
+	DMT_CASO4_FLOOR			= 1011,					// 硫酸钙地板
+	DMT_STEEL_FLOOR			= 1012,					// 全钢通风地板
+	DMT_COLD_FRONT_DOOR		= 1013,					// 通道平门
+	DMT_COLD_BACK_DOOR		= 1014,					// 通道凸门
+	DMT_LEFT_FRAME			= 1015,					// 左框架
+	DMT_RIGHT_FRAME			= 1016,					// 右框架
+	DMT_FLIP_WINDOW			= 1017,					// 翻转顶窗
+	DMT_FIXED_WINDOW		= 1018,					// 固定顶窗
+	DMT_ADJUST_WINDOW		= 1019,					// 可调顶窗
+	DMT_FOOTSTEP			= 1020,					// 踏步
+	DMT_ZOU_XIAN_JIA		= 1021,					// 强弱电走线架
+	DMT_GUANG_XIAN_ZXJ		= 1022,					// 光纤走线架
+	DMT_WALL_PILLAR			= 1023,					// 墙柱
 }DesignModelType;
 
 // 布局图符号类型
 typedef enum __tagLayoutItemType
 {
 	LIT_UNKNOWN				= -1,					// 未知
-	LIT_IT					= DMT_IT,				// 服务器机柜
-	LIT_MJT					= DMT_MJT,				// 管控柜
+	LIT_ITC					= DMT_ITC,				// 服务器机柜
+	LIT_MJT					= DMT_MGT,				// 管控柜
+	LIT_FMCC				= DMT_FMCC,				// 列头管控柜
+	LIT_TAC					= DMT_TAC,				// 空调柜
+	LIT_FHC					= DMT_FHC,				// 消防柜
+	LIT_FEC					= DMT_FEC,				// 列头空柜
+	LIT_PDC					= DMT_PDC,				// 配电柜
+	LIT_FPDC				= DMT_FPDC,				// 列头配电柜
+	LIT_IEC				    = DMT_IEC,				// 行间空柜
+	LIT_AGC					= DMT_AGC,				// 导风柜
 	LIT_CASO4_FLOOR			= DMT_CASO4_FLOOR,		// 硫酸钙地板
 	LIT_STEEL_FLOOR			= DMT_STEEL_FLOOR,		// 全钢通风地板
-	LIT_COLD_FRONT_DOOR		= DMT_COLD_FRONT_DOOR,	// 冷通道前门
-	LIT_COLD_BACK_DOOR		= DMT_COLD_BACK_DOOR,	// 冷通道后门
+	LIT_COLD_FRONT_DOOR		= DMT_COLD_FRONT_DOOR,	// 通道平门
+	LIT_COLD_BACK_DOOR		= DMT_COLD_BACK_DOOR,	// 通道凸门
 	LIT_LEFT_FRAME			= DMT_LEFT_FRAME,		// 左框架
 	LIT_RIGHT_FRAME			= DMT_RIGHT_FRAME,		// 右框架
 	LIT_FLIP_WINDOW			= DMT_FLIP_WINDOW,		// 翻转顶窗
 	LIT_FIXED_WINDOW		= DMT_FIXED_WINDOW,		// 固定顶窗
+	LIT_ADJUST_WINDOW		= DMT_ADJUST_WINDOW,	// 可调顶窗
 	LIT_FOOTSTEP			= DMT_FOOTSTEP,			// 踏步
+	LIT_ZOU_XIAN_JIA		= DMT_ZOU_XIAN_JIA,		// 强弱电走线架
+	LIT_GUANG_XIAN_ZXJ		= DMT_GUANG_XIAN_ZXJ,	// 光纤走线架
+	LIT_WALL_PILLAR			= DMT_WALL_PILLAR,		// 墙柱
+
 }LayoutItemType;
 
 // 模块类型
