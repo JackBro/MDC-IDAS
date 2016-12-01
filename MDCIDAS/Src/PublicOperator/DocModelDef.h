@@ -59,7 +59,7 @@ enum SYMBOLSUBTYPE
 
 	SCT_FTW				=	50,	// 固定顶窗
 	SCT_RTW				=	51,	// 翻转顶窗
-	SCT_ATW				=	51,	// 可调顶窗
+	SCT_ATW				=	52,	// 可调顶窗
 };
 
 // 线型

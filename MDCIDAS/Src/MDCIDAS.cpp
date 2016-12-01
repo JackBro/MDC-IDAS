@@ -12,6 +12,7 @@
 #include "Global.h"
 #include "MDCIDAS.h"
 #include "CableGlobal.h"
+#include "DesignGlobal.h"
 #include "IKSSmartCableDataMethodMgrAPI.h"
 
 //===================================================================================================
@@ -65,6 +66,9 @@ extern "C" int user_initialize()
 	{
 		pIKSHT505CableDataMethodMgr->Init();
 	}
+
+	// 初始化整机配置相关数据
+	InitDesignGlobalData();
 
 	g_pSendBuffer = new BYTE[g_dwSendTotal];
 
