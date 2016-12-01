@@ -377,6 +377,14 @@
 			Name="PreSetting"
 			>
 			<File
+				RelativePath=".\PreSetting\CableConfig.ini"
+				>
+			</File>
+			<File
+				RelativePath=".\PreSetting\DesignConfig.ini"
+				>
+			</File>
+			<File
 				RelativePath=".\PreSetting\Msg_MDCIDAS.txt"
 				>
 			</File>
