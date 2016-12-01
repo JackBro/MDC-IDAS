@@ -10,6 +10,7 @@
 #pragma once
 
 #include "SVBaseDef.h"
+#include "DocModelDef.h"
 
 //===================================================================================================
 //===================================================================================================
@@ -75,36 +76,6 @@ typedef enum __tagDesignModelType
 	DMT_GUANG_XIAN_ZXJ		= 1022,					// 光纤走线架
 	DMT_WALL_PILLAR			= 1023,					// 墙柱
 }DesignModelType;
-
-// 布局图符号类型
-typedef enum __tagLayoutItemType
-{
-	LIT_UNKNOWN				= -1,					// 未知
-	LIT_ITC					= DMT_ITC,				// 服务器机柜
-	LIT_MJT					= DMT_MGT,				// 管控柜
-	LIT_FMCC				= DMT_FMCC,				// 列头管控柜
-	LIT_TAC					= DMT_TAC,				// 空调柜
-	LIT_FHC					= DMT_FHC,				// 消防柜
-	LIT_FEC					= DMT_FEC,				// 列头空柜
-	LIT_PDC					= DMT_PDC,				// 配电柜
-	LIT_FPDC				= DMT_FPDC,				// 列头配电柜
-	LIT_IEC				    = DMT_IEC,				// 行间空柜
-	LIT_AGC					= DMT_AGC,				// 导风柜
-	LIT_CASO4_FLOOR			= DMT_CASO4_FLOOR,		// 硫酸钙地板
-	LIT_STEEL_FLOOR			= DMT_STEEL_FLOOR,		// 全钢通风地板
-	LIT_COLD_FRONT_DOOR		= DMT_COLD_FRONT_DOOR,	// 通道平门
-	LIT_COLD_BACK_DOOR		= DMT_COLD_BACK_DOOR,	// 通道凸门
-	LIT_LEFT_FRAME			= DMT_LEFT_FRAME,		// 左框架
-	LIT_RIGHT_FRAME			= DMT_RIGHT_FRAME,		// 右框架
-	LIT_FLIP_WINDOW			= DMT_FLIP_WINDOW,		// 翻转顶窗
-	LIT_FIXED_WINDOW		= DMT_FIXED_WINDOW,		// 固定顶窗
-	LIT_ADJUST_WINDOW		= DMT_ADJUST_WINDOW,	// 可调顶窗
-	LIT_FOOTSTEP			= DMT_FOOTSTEP,			// 踏步
-	LIT_ZOU_XIAN_JIA		= DMT_ZOU_XIAN_JIA,		// 强弱电走线架
-	LIT_GUANG_XIAN_ZXJ		= DMT_GUANG_XIAN_ZXJ,	// 光纤走线架
-	LIT_WALL_PILLAR			= DMT_WALL_PILLAR,		// 墙柱
-
-}LayoutItemType;
 
 // 模块类型
 typedef enum __tagMDCModuleType
@@ -380,7 +351,7 @@ typedef struct __tagLayoutItemData
 
 	__tagLayoutItemData()
 	{
-		nType = LIT_UNKNOWN;
+		nType = SCT_NULL;
 		dWidth = 0.0;
 		dDepth = 0.0;
 	}

@@ -524,6 +524,14 @@
 				Name="Design"
 				>
 				<File
+					RelativePath=".\Src\Design\DesignGlobal.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Src\Design\DesignGlobal.h"
+					>
+				</File>
+				<File
 					RelativePath=".\Src\Design\TotalUnitBuilder.cpp"
 					>
 				</File>
