@@ -11,6 +11,7 @@
 
 #include "stdafx.h"
 #include "PCLCsys.h"
+#include "DesignGlobal.h"
 #include "TotalUnitBuilder.h"
 
 //===================================================================================================
@@ -127,6 +128,7 @@ bool CTotalUnitBuilder::AssembleModel(
 bool CTotalUnitBuilder::AssembleModel(
 	ProAssembly pTopAsm,											// 总组件(in)
 	ProMdl pCompMdl,												// 元件(in)
+	const CString &strCompCsysName,									// 元件装配坐标(in)
 	const IKSCsysData &asmPosition									// 装配位置(in)
 	)
 {
@@ -176,7 +178,7 @@ bool CTotalUnitBuilder::AssembleModel(
 	ProSelection pSelCompCsys = NULL;
 	ProGeomitem compCsysItem;
 	ProName szCompCsysName = {0};
-	wcsncpy_s(szCompCsysName, PRO_NAME_SIZE, g_strCompCsysName, _TRUNCATE);
+	wcsncpy_s(szCompCsysName, PRO_NAME_SIZE, strCompCsysName, _TRUNCATE);
 	if (ProModelitemByNameInit(pCompMdl, PRO_CSYS, szCompCsysName, &compCsysItem) != PRO_TK_NO_ERROR)
 	{
 		CPCLCsys::GetSolidDefaultCsys((ProSolid)pCompMdl, pDefaultCsys);
@@ -219,14 +221,14 @@ bool CTotalUnitBuilder::AssembleModel_IT(
 		// 装配至组件
 		for (size_t i=0; i<mdlConfig.arrPosition.size(); i++)
 		{
-			AssembleModel(pTopAsm, pCompMdl, mdlConfig.arrPosition[i]);
+			AssembleModel(pTopAsm, pCompMdl, g_strFWQJGCompCsysName, mdlConfig.arrPosition[i]);
 		}
 
 	}
 	else
 	{
 		// 如果临时图号不为空，则利用模板模型，生成参数化的模型
-		ProMdl pCompMdl = LoadMdlByPartNo(g_strITTemplateAsmName);
+		ProMdl pCompMdl = LoadMdlByPartNo(g_strFWQJGTemplateAsmName);
 		if (NULL == pCompMdl)
 			return false;
 		ProName szNewCompName = {0};
@@ -241,7 +243,7 @@ bool CTotalUnitBuilder::AssembleModel_IT(
 		// 装配至组件
 		for (size_t i=0; i<mdlConfig.arrPosition.size(); i++)
 		{
-			AssembleModel(pTopAsm, pCompMdl, mdlConfig.arrPosition[i]);
+			AssembleModel(pTopAsm, pCompMdl, g_strFWQJGCompCsysName, mdlConfig.arrPosition[i]);
 		}
 	}
 

@@ -21,12 +21,7 @@
 // 枚举定义
 
 //===================================================================================================
-// 常量定义
-const CString g_strCompCsysName = _T("CS_安装");					// 元件安装坐标系名称
-const CString g_strITTemplateAsmName = _T("JIGUI_TEMPLATE");		// 机柜模板组件名称
-const CString g_strITParaHeightName = _T("HEIGHT");					// 机柜模板参数_高
-const CString g_strITParaWidthName = _T("Width");					// 机柜模板参数_高
-const CString g_strITParaDepthName = _T("Depth");					// 机柜模板参数_高
+// 全局变量定义
 
 //===================================================================================================
 // 结构体定义
@@ -59,6 +54,7 @@ public:
 	bool AssembleModel(
 		ProAssembly pTopAsm,											// 总组件(in)
 		ProMdl pCompMdl,												// 元件(in)
+		const CString &strCompCsysName,									// 元件装配坐标(in)
 		const IKSCsysData &asmPosition									// 装配位置(in)
 		);
 	// 装配服务器机柜模型
