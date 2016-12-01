@@ -101,70 +101,64 @@ bool CTotalUnitBuilder::AssembleModel(
 		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
 		break;
 	case DMT_MGT:						// 管控柜
-		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
+		bRet = AssembleModel(pTopAsm, g_strGKGTemplateAsmName, g_strGKGCompCsysName, mdlConfig);
 		break;
 	case DMT_COL_HAED_MGT:				// 列头管控柜
-		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
+		bRet = AssembleModel(pTopAsm, g_strGKGTemplateAsmName, g_strGKGCompCsysName, mdlConfig);
 		break;
 	case DMT_TAC:						// 空调柜
-		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
+		bRet = AssembleModel(pTopAsm, g_strKTGTemplateAsmName, g_strKTGCompCsysName, mdlConfig);
 		break;
 	case DMT_FHC:						// 消防柜
-		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
+		bRet = AssembleModel(pTopAsm, g_strXFGTemplateAsmName, g_strXFGCompCsysName, mdlConfig);
 		break;
 	case DMT_COL_HAED_EMPTY:			// 列头空柜
-		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
+		bRet = AssembleModel(pTopAsm, g_strGKGTemplateAsmName, g_strGKGCompCsysName, mdlConfig);
 		break;
 	case DMT_PDR:						// 配电柜
-		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
+		bRet = AssembleModel(pTopAsm, g_strPDGTemplateAsmName, g_strPDGCompCsysName, mdlConfig);
 		break;
 	case DMT_COL_HEAD_PDR:				// 列头配电柜
-		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
+		bRet = AssembleModel(pTopAsm, g_strPDGTemplateAsmName, g_strPDGCompCsysName, mdlConfig);
 		break;
 	case DMT_ROW_EMPTY:					// 行间空柜
-		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
+		bRet = AssembleModel(pTopAsm, g_strHJKGTemplateAsmName, g_strHJKGCompCsysName, mdlConfig);
 		break;
 	case DMT_DAO_FENG:					// 导风柜
-		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
+		bRet = AssembleModel(pTopAsm, g_strDFGTemplateAsmName, g_strDFGCompCsysName, mdlConfig);
 		break;
 	case DMT_CASO4_FLOOR:				// 硫酸钙地板
-		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
 		break;
 	case DMT_STEEL_FLOOR:				// 全钢通风地板
-		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
 		break;
 	case DMT_COLD_FRONT_DOOR:			// 通道平门
-		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
+		bRet = AssembleModel(pTopAsm, g_strTDPMTemplateAsmName, g_strTDPMCompCsysName, mdlConfig);
 		break;
 	case DMT_COLD_BACK_DOOR:			// 通道凸门
-		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
+		bRet = AssembleModel(pTopAsm, g_strTDTMTemplateAsmName, g_strTDTMCompCsysName, mdlConfig);
 		break;
 	case DMT_LEFT_FRAME:				// 左框架
-		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
 		break;
 	case DMT_RIGHT_FRAME:				// 右框架
-		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
 		break;
 	case DMT_FLIP_WINDOW:				// 翻转顶窗
-		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
+		bRet = AssembleModel(pTopAsm, g_strFZDCTemplateAsmName, g_strFZDCCompCsysName, mdlConfig);
 		break;
 	case DMT_FIXED_WINDOW:				// 固定顶窗
-		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
+		bRet = AssembleModel(pTopAsm, g_strGDDCTemplateAsmName, g_strGDDCCompCsysName, mdlConfig);
 		break;
 	case DMT_ADJUST_WINDOW:				// 可调顶窗
-		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
+		bRet = AssembleModel(pTopAsm, g_strKTDCTemplateAsmName, g_strKTDCCompCsysName, mdlConfig);
 		break;
 	case DMT_FOOTSTEP:					// 踏步
-		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
 		break;
 	case DMT_ZOU_XIAN_JIA:				// 强弱电走线架
-		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
+		bRet = AssembleModel(pTopAsm, g_strZXJTemplateAsmName, g_strZXJCompCsysName, mdlConfig);
 		break;
 	case DMT_GUANG_XIAN_ZXJ:			// 光纤走线架
-		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
+		bRet = AssembleModel(pTopAsm, g_strGXCTemplateAsmName, g_strGXCCompCsysName, mdlConfig);
 		break;
 	case DMT_WALL_PILLAR:				// 墙柱
-		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
 		break;
 	default:
 		break;
