@@ -1263,6 +1263,9 @@ public:
 	CIKSMDCRoutCabProjHarnessDataGK		m_HarnGK;
 	CIKSMDCRoutCabProjHarnessDataJDX	m_HarnJDX;
 	CIKSMDCRoutCabProjHarnessDataWX		m_HarnWX;
+
+public:
+	std::vector<IKSMDCConnector> m_vecConnector;
 };
 
 //===================================================================================================

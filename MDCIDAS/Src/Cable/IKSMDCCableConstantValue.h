@@ -44,6 +44,36 @@ typedef enum _IKSMDCROUTCABPROJTYPE
 //===================================================================================================
 // 以下为结构体定义
 
+// 电连接器的信息
+typedef struct __tagIKSMDCConnector
+{
+	IKSConnectorParamInfo stuConnParam;		// 电连接器参数
+	IKSConnector stuConnDataInCurAsm;		// 当前装配体内的电连接器数据
+
+	__tagIKSMDCConnector()
+	{
+		Clear();
+	}
+	__tagIKSMDCConnector(const __tagIKSMDCConnector &info)
+	{
+		stuConnParam = info.stuConnParam;
+		stuConnDataInCurAsm = info.stuConnDataInCurAsm;
+	}
+	__tagIKSMDCConnector& operator=(const __tagIKSMDCConnector &info)
+	{
+		if (&info == this)
+			return *this;
+		stuConnParam = info.stuConnParam;
+		stuConnDataInCurAsm = info.stuConnDataInCurAsm;
+		return *this;
+	}
+	void Clear()
+	{
+		stuConnParam.Clear();
+		stuConnDataInCurAsm.Clear();
+	}
+} IKSMDCConnector;
+
 // 电缆布局参数
 typedef struct __tagIKSMDCCableLayoutParam
 {
@@ -511,7 +541,6 @@ typedef struct __tagIKSMDCCableDesignParam
 		stuWX.Clear();
 	}
 } IKSMDCCableDesignParam;
-
 
 //===================================================================================================
 
