@@ -60,7 +60,7 @@ typedef enum __tagDesignModelType
 	DMT_COL_HAED_EMPTY		= 1006,					// 列头空柜
 	DMT_PDR					= 1007,					// 配电柜
 	DMT_COL_HEAD_PDR		= 1008,					// 列头配电柜
-	DMT_ROW__EMPTY			= 1009,					// 行间空柜
+	DMT_ROW_EMPTY			= 1009,					// 行间空柜
 	DMT_DAO_FENG			= 1010,					// 导风柜
 	DMT_CASO4_FLOOR			= 1011,					// 硫酸钙地板
 	DMT_STEEL_FLOOR			= 1012,					// 全钢通风地板

@@ -11,7 +11,9 @@
 
 #include "stdafx.h"
 #include "PCLCsys.h"
+#include "PCLMdl.h"
 #include "DesignGlobal.h"
+#include "XmlToObject.h"
 #include "TotalUnitBuilder.h"
 
 //===================================================================================================
@@ -96,27 +98,73 @@ bool CTotalUnitBuilder::AssembleModel(
 	switch (mdlConfig.nModelType)
 	{
 	case DMT_ITC:						// 服务器机柜
-		bRet = AssembleModel_IT(pTopAsm, mdlConfig);
+		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
 		break;
 	case DMT_MGT:						// 管控柜
+		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
+		break;
+	case DMT_COL_HAED_MGT:				// 列头管控柜
+		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
+		break;
+	case DMT_TAC:						// 空调柜
+		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
+		break;
+	case DMT_FHC:						// 消防柜
+		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
+		break;
+	case DMT_COL_HAED_EMPTY:			// 列头空柜
+		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
+		break;
+	case DMT_PDR:						// 配电柜
+		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
+		break;
+	case DMT_COL_HEAD_PDR:				// 列头配电柜
+		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
+		break;
+	case DMT_ROW_EMPTY:					// 行间空柜
+		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
+		break;
+	case DMT_DAO_FENG:					// 导风柜
+		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
 		break;
 	case DMT_CASO4_FLOOR:				// 硫酸钙地板
+		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
 		break;
 	case DMT_STEEL_FLOOR:				// 全钢通风地板
+		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
 		break;
-	case DMT_COLD_FRONT_DOOR:			// 冷通道前门
+	case DMT_COLD_FRONT_DOOR:			// 通道平门
+		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
 		break;
-	case DMT_COLD_BACK_DOOR:			// 冷通道后门
+	case DMT_COLD_BACK_DOOR:			// 通道凸门
+		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
 		break;
 	case DMT_LEFT_FRAME:				// 左框架
+		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
 		break;
 	case DMT_RIGHT_FRAME:				// 右框架
+		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
 		break;
 	case DMT_FLIP_WINDOW:				// 翻转顶窗
+		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
 		break;
 	case DMT_FIXED_WINDOW:				// 固定顶窗
+		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
+		break;
+	case DMT_ADJUST_WINDOW:				// 可调顶窗
+		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
 		break;
 	case DMT_FOOTSTEP:					// 踏步
+		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
+		break;
+	case DMT_ZOU_XIAN_JIA:				// 强弱电走线架
+		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
+		break;
+	case DMT_GUANG_XIAN_ZXJ:			// 光纤走线架
+		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
+		break;
+	case DMT_WALL_PILLAR:				// 墙柱
+		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
 		break;
 	default:
 		break;
@@ -195,10 +243,12 @@ bool CTotalUnitBuilder::AssembleModel(
 	return true;
 }
 
-// 装配服务器机柜模型
-bool CTotalUnitBuilder::AssembleModel_IT(
-	ProAssembly pTopAsm,											// 总组件
-	const ModelConfiguration &mdlConfig								// 模型配置
+// 装配模型
+bool CTotalUnitBuilder::AssembleModel(
+	ProAssembly pTopAsm,											// 总组件(in)
+	const CString &strTemplateName,									// 模型名称(in)
+	const CString &strCompCsysName,									// 元件装配坐标(in)
+	const ModelConfiguration &mdlConfig								// 模型配置(in)
 	)
 {
 	if (NULL == pTopAsm)
@@ -221,19 +271,33 @@ bool CTotalUnitBuilder::AssembleModel_IT(
 		// 装配至组件
 		for (size_t i=0; i<mdlConfig.arrPosition.size(); i++)
 		{
-			AssembleModel(pTopAsm, pCompMdl, g_strFWQJGCompCsysName, mdlConfig.arrPosition[i]);
+			AssembleModel(pTopAsm, pCompMdl, strCompCsysName, mdlConfig.arrPosition[i]);
 		}
 
 	}
 	else
 	{
 		// 如果临时图号不为空，则利用模板模型，生成参数化的模型
-		ProMdl pCompMdl = LoadMdlByPartNo(g_strFWQJGTemplateAsmName);
+		ProMdl pCompMdl = LoadMdlByPartNo(strTemplateName);
 		if (NULL == pCompMdl)
 			return false;
 		ProName szNewCompName = {0};
 		wcsncpy_s(szNewCompName, PRO_NAME_SIZE, mdlConfig.strTempPartNo, _TRUNCATE);
 		ProMdlRename(pCompMdl, szNewCompName);
+		vector<ProAsmcomp> arrComps;
+		CPCLMdl::GetSolidFeature((ProSolid)pCompMdl, PRO_FEAT_COMPONENT, arrComps);
+		ProMdl pSubMdl = NULL;
+		ProName szNewSubMdlName;
+		CString strNewSubMdlName;
+		for (size_t i=0; i<arrComps.size(); i++)
+		{
+			ProAsmcompMdlGet(&arrComps[i], &pSubMdl);
+			if (NULL == pSubMdl)
+				continue;
+			strNewSubMdlName.Format(L"%s_P%d", szNewCompName, i+1);
+			wcsncpy_s(szNewSubMdlName, PRO_NAME_SIZE, strNewSubMdlName, _TRUNCATE);
+			ProMdlRename(pSubMdl, szNewSubMdlName);
+		}
 		ProModelitem mdlItem;
 		ProMdlToModelitem(pCompMdl, &mdlItem);
 		CPCLParameter::SetParameter(&mdlItem, g_strITParaHeightName, mdlConfig.dHieght, FALSE);
@@ -243,9 +307,62 @@ bool CTotalUnitBuilder::AssembleModel_IT(
 		// 装配至组件
 		for (size_t i=0; i<mdlConfig.arrPosition.size(); i++)
 		{
-			AssembleModel(pTopAsm, pCompMdl, g_strFWQJGCompCsysName, mdlConfig.arrPosition[i]);
+			AssembleModel(pTopAsm, pCompMdl, strCompCsysName, mdlConfig.arrPosition[i]);
 		}
 	}
+
+	return true;
+}
+
+// 查找组件配置项
+int CTotalUnitBuilder::FindModelConfig(
+	int nModelType,													// 模型类型(in)
+	double dSymbolWidth,											// 符号的宽度(in)
+	double dSymbolHeight,											// 符号的高度(in)
+	const ModelConfigurationArray &arrMdlConfig						// 组件配置集(in)
+	)
+{
+	int nFind = -1;
+	for (size_t i=0; i<arrMdlConfig.size(); i++)
+	{
+		if (arrMdlConfig[i].nModelType == nModelType && 
+			ISDEQUAL(arrMdlConfig[i].dWidth, dSymbolWidth) &&
+			ISDEQUAL(arrMdlConfig[i].dDepth, dSymbolHeight))
+		{
+			nFind = (int)i;
+			break;
+		}
+	}
+
+	return nFind;
+}
+
+// 根据符号中心位置和旋转角度，计算装配位置
+bool CTotalUnitBuilder::GetModelPosition(
+	double dLayoutLeft,												// 布局图的左上角X(in)
+	double dLayoutTop,												// 布局图的左上角Y(in)
+	double dLayoutWidth,											// 布局图的宽度(in)
+	double dLayoutHeight,											// 布局图的高度(in)
+	double dSymbolWidth,											// 符号的宽度(in)
+	double dSymbolHeight,											// 符号的高度(in)
+	double dCenterX,												// 符号中心X(in)
+	double dCenterY,												// 符号中心Y(in)
+	double dAngle,													// 符号顺时针旋转角度(in)
+	IKSCsysData &position											// 模型装配位置(out)
+	)
+{
+	dLayoutWidth;
+	SVDOUBLE3 vRealCenter(dCenterX - dLayoutLeft, dLayoutHeight - dCenterY + dLayoutTop, 0.0);
+	SVDOUBLE3 vCenterToOrigin(-dSymbolWidth*0.5, -dSymbolHeight*0.5, 0.0);
+	double dRadian = BPToDRadian(-dAngle);
+	double dCosA = cos(dRadian);
+	double dSinA = sin(dRadian);
+	SVDOUBLE3 vRealCenterToOrigin(vCenterToOrigin.x*dCosA-vCenterToOrigin.y*dSinA, vCenterToOrigin.x*dSinA+vCenterToOrigin.y*dCosA, 0.0);
+	position.o = vRealCenter + vRealCenterToOrigin;
+	BPVec3Normalize(&vRealCenterToOrigin, &vRealCenterToOrigin);
+	position.x = SVDOUBLE3(dCosA, dSinA, 0.0);
+	position.y = SVDOUBLE3(cos(dRadian+BP_D_PI*0.5), sin(dRadian+BP_D_PI*0.5), 0.0);
+	position.z = SVDOUBLE3(0.0, 0.0, 1.0);
 
 	return true;
 }
@@ -399,6 +516,73 @@ bool CTotalUnitBuilder::TestBuildModel()
 	//itemData.x = SVDOUBLE3(1.0, 0.0, 0.0);
 	//itemData.y = SVDOUBLE3(0.0, 1.0, 0.0);
 	//stuLayoutData.arrItems.push_back(itemData);
+
+	BuildModel(totalUnitConfig);
+	return true;
+}
+
+// 根据XML文件生成模型
+bool CTotalUnitBuilder::TestBuildModelByXML(const CString &strXMLPath)
+{
+	CXmlToObject xmlParse;
+	xmlParse.Init();
+	xmlParse.OpenFile(strXMLPath);
+
+	// 获取符号集
+	vector<CLaySymbolObj*> arrSymbols;
+	for (int i=0; i<(int)xmlParse.m_arrObject.GetSize(); i++)
+	{
+		if (xmlParse.m_arrObject[i]->m_nType == AOT_CABINET)
+			arrSymbols.push_back((CLaySymbolObj*)xmlParse.m_arrObject[i]);
+		else if (xmlParse.m_arrObject[i]->m_nType == AOT_CR)
+			arrSymbols.push_back((CLaySymbolObj*)xmlParse.m_arrObject[i]);
+		else if (xmlParse.m_arrObject[i]->m_nType == AOT_WCLN)
+			arrSymbols.push_back((CLaySymbolObj*)xmlParse.m_arrObject[i]);
+		else if (xmlParse.m_arrObject[i]->m_nType == AOT_DOOR)
+			arrSymbols.push_back((CLaySymbolObj*)xmlParse.m_arrObject[i]);
+		else if (xmlParse.m_arrObject[i]->m_nType == AOT_WINDOW)
+			arrSymbols.push_back((CLaySymbolObj*)xmlParse.m_arrObject[i]);
+	}
+
+	// 生成整机配置信息
+	TotalUnitConfiguration totalUnitConfig;
+	totalUnitConfig.strAsmName = _T("TOTAL_MODEL_00001");
+	ModelConfiguration modelConfig;
+	int nModelType = -1, nFindMdlConfig = -1;
+	int nIndex = 1;
+	for (size_t i=0; i<arrSymbols.size(); i++)
+	{
+		nModelType = GetDesignModelType(arrSymbols[i]->m_nSubType);
+		if (nModelType < 0)
+			continue;
+		nFindMdlConfig = FindModelConfig(nModelType, arrSymbols[i]->m_dWidth, arrSymbols[i]->m_dHeight, totalUnitConfig.arrModelConfig);
+		if (nFindMdlConfig < 0)
+		{
+			// 增加新的整机配置项
+			modelConfig.nMajorClass = -1;
+			modelConfig.nModelType = nModelType;
+			modelConfig.bIsCreate = true;
+			modelConfig.strTempPartNo.Format( _T("JIGUI_%d"), nIndex++);
+			modelConfig.strFormalPartNo = _T("");
+			modelConfig.strPurchaseNo = _T("");
+			modelConfig.dHieght = 500.0;
+			modelConfig.dWidth = arrSymbols[i]->m_dWidth;
+			modelConfig.dDepth = arrSymbols[i]->m_dHeight;
+			modelConfig.arrPosition.resize(1);
+			GetModelPosition(xmlParse.m_dLeft, xmlParse.m_dTop, xmlParse.m_dWidth, xmlParse.m_dHeight, arrSymbols[i]->m_dWidth, arrSymbols[i]->m_dHeight, arrSymbols[i]->m_ptCenter.x, arrSymbols[i]->m_ptCenter.y, arrSymbols[i]->m_dAngle, modelConfig.arrPosition[0]);
+			modelConfig.strRemark = _T("");
+			totalUnitConfig.arrModelConfig.push_back(modelConfig);
+		}
+		else
+		{
+			// 设置已有整机配置项
+			IKSCsysData newPosition;
+			GetModelPosition(xmlParse.m_dLeft, xmlParse.m_dTop, xmlParse.m_dWidth, xmlParse.m_dHeight, arrSymbols[i]->m_dWidth, arrSymbols[i]->m_dHeight, arrSymbols[i]->m_ptCenter.x, arrSymbols[i]->m_ptCenter.y, arrSymbols[i]->m_dAngle, newPosition);
+			totalUnitConfig.arrModelConfig[nFindMdlConfig].arrPosition.push_back(newPosition);
+		}
+	}
+
+	xmlParse.UnInit();
 
 	BuildModel(totalUnitConfig);
 	return true;

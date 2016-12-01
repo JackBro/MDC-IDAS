@@ -57,13 +57,39 @@ public:
 		const CString &strCompCsysName,									// 元件装配坐标(in)
 		const IKSCsysData &asmPosition									// 装配位置(in)
 		);
-	// 装配服务器机柜模型
-	bool AssembleModel_IT(
-		ProAssembly pTopAsm,											// 总组件
-		const ModelConfiguration &mdlConfig								// 模型配置
+	// 装配模型
+	bool AssembleModel(
+		ProAssembly pTopAsm,											// 总组件(in)
+		const CString &strTemplateName,									// 模型名称(in)
+		const CString &strCompCsysName,									// 元件装配坐标(in)
+		const ModelConfiguration &mdlConfig								// 模型配置(in)
 		);
+	// 查找组件配置项
+	int FindModelConfig(
+		int nModelType,													// 模型类型(in)
+		double dSymbolWidth,											// 符号的宽度(in)
+		double dSymbolHeight,											// 符号的高度(in)
+		const ModelConfigurationArray &arrMdlConfig						// 组件配置集(in)
+		);
+	// 根据符号中心位置和旋转角度，计算装配位置
+	bool GetModelPosition(
+		double dLayoutLeft,												// 布局图的左上角X(in)
+		double dLayoutTop,												// 布局图的左上角Y(in)
+		double dLayoutWidth,											// 布局图的宽度(in)
+		double dLayoutHeight,											// 布局图的高度(in)
+		double dSymbolWidth,											// 符号的宽度(in)
+		double dSymbolHeight,											// 符号的高度(in)
+		double dCenterX,												// 符号中心X(in)
+		double dCenterY,												// 符号中心Y(in)
+		double dAngle,													// 符号顺时针旋转角度(in)
+		IKSCsysData &position											// 模型装配位置(out)
+		);
+
+
 	// 测试生成模型
 	bool TestBuildModel();
+	// 根据XML文件生成模型
+	bool TestBuildModelByXML(const CString &strXMLPath);
 };
 
 //===================================================================================================

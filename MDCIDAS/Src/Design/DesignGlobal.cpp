@@ -25,6 +25,7 @@ CString g_strITParaWidthName = _T("Width");
 CString g_strITParaDepthName = _T("Depth");
 // 机柜模板参数_高
 CString g_strITParaHeightName = _T("Height");
+
 // 服务器机柜装配坐标
 CString g_strFWQJGCompCsysName = _T("CS_安装");
 
@@ -56,7 +57,7 @@ int GetDesignModelType(int nSymbolSubtype)
 	case SCT_FPDC:
 		return DMT_COL_HEAD_PDR;
 	case SCT_IEC:
-		return DMT_ROW__EMPTY;
+		return DMT_ROW_EMPTY;
 	case SCT_AGC:
 		return DMT_DAO_FENG;
 	case SCT_CR:

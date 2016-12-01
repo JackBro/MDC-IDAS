@@ -242,7 +242,7 @@ BOOL CXmlToObject::ReadBaseInfoFromXml(MSXML2::IXMLDOMNodePtr pNode, CLayObject 
 			pAnnObj->m_dHeight = _wtof(strAttributeValue);
 
 			// Ω«∂»
-			GetAttribute(pNode, IDS_ANN_POS_A, strAttributeValue);
+			GetAttribute(pChildNode, IDS_ANN_POS_A, strAttributeValue);
 			pAnnObj->m_dAngle = _wtof(strAttributeValue);
 		}		
 		else if (strNodeName == IDS_ANN_NAME) // Œª÷√

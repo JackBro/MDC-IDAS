@@ -19,6 +19,7 @@ extern CString g_strITParaWidthName;
 extern CString g_strITParaDepthName;
 // 机柜模板参数_高
 extern CString g_strITParaHeightName;
+
 // 服务器机柜装配坐标
 extern CString g_strFWQJGCompCsysName;
 
