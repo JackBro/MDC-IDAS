@@ -294,7 +294,7 @@ bool CTotalUnitBuilder::AssembleModel(
 		}
 		ProModelitem mdlItem;
 		ProMdlToModelitem(pCompMdl, &mdlItem);
-		CPCLParameter::SetParameter(&mdlItem, g_strITParaHeightName, mdlConfig.dHieght, FALSE);
+		CPCLParameter::SetParameter(&mdlItem, g_strITParaHeightName, mdlConfig.dHeight, FALSE);
 		CPCLParameter::SetParameter(&mdlItem, g_strITParaWidthName, mdlConfig.dWidth, FALSE);
 		CPCLParameter::SetParameter(&mdlItem, g_strITParaDepthName, mdlConfig.dDepth, FALSE);
 		ProSolidRegenerate((ProSolid)pCompMdl, PRO_REGEN_NO_FLAGS);
@@ -374,7 +374,7 @@ bool CTotalUnitBuilder::TestBuildModel()
 	modelConfig.strTempPartNo = _T("");
 	modelConfig.strFormalPartNo = _T("JIGUI_300X300X100");
 	modelConfig.strPurchaseNo = _T("CG_JIGUI_300X300X100");
-	modelConfig.dHieght = 300.0;
+	modelConfig.dHeight = 300.0;
 	modelConfig.dWidth = 300.0;
 	modelConfig.dDepth = 100.0;
 	modelConfig.arrPosition.resize(2);
@@ -394,7 +394,7 @@ bool CTotalUnitBuilder::TestBuildModel()
 	modelConfig.strTempPartNo = _T("");
 	modelConfig.strFormalPartNo = _T("JIGUI_300X200X100");
 	modelConfig.strPurchaseNo = _T("CG_JIGUI_300X200X100");
-	modelConfig.dHieght = 300.0;
+	modelConfig.dHeight = 300.0;
 	modelConfig.dWidth = 200.0;
 	modelConfig.dDepth = 100.0;
 	modelConfig.arrPosition.resize(1);
@@ -410,7 +410,7 @@ bool CTotalUnitBuilder::TestBuildModel()
 	modelConfig.strTempPartNo = _T("");
 	modelConfig.strFormalPartNo = _T("JIGUI_300X100X100");
 	modelConfig.strPurchaseNo = _T("CG_JIGUI_300X100X100");
-	modelConfig.dHieght = 300.0;
+	modelConfig.dHeight = 300.0;
 	modelConfig.dWidth = 100.0;
 	modelConfig.dDepth = 100.0;
 	modelConfig.arrPosition.resize(1);
@@ -426,7 +426,7 @@ bool CTotalUnitBuilder::TestBuildModel()
 	modelConfig.strTempPartNo = _T("JIGUI_000001");
 	modelConfig.strFormalPartNo = _T("JIGUI_000001");
 	modelConfig.strPurchaseNo = _T("");
-	modelConfig.dHieght = 300.0;
+	modelConfig.dHeight = 300.0;
 	modelConfig.dWidth = 400.0;
 	modelConfig.dDepth = 100.0;
 	modelConfig.arrPosition.resize(4);
@@ -559,7 +559,7 @@ bool CTotalUnitBuilder::TestBuildModelByXML(const CString &strXMLPath)
 			modelConfig.strTempPartNo.Format( _T("JIGUI_%d"), nIndex++);
 			modelConfig.strFormalPartNo = _T("");
 			modelConfig.strPurchaseNo = _T("");
-			modelConfig.dHieght = 500.0;
+			modelConfig.dHeight = 500.0;
 			modelConfig.dWidth = arrSymbols[i]->m_dWidth;
 			modelConfig.dDepth = arrSymbols[i]->m_dHeight;
 			modelConfig.arrPosition.resize(1);

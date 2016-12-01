@@ -422,7 +422,7 @@ typedef struct __tagModelConfiguration
 	CString strTempPartNo;							// 临时图号
 	CString strFormalPartNo;						// 正式图号
 	CString strPurchaseNo;							// 采购代码
-	double dHieght;									// 高
+	double dHeight;									// 高
 	double dWidth;									// 宽
 	double dDepth;									// 深
 	vector<IKSCsysData> arrPosition;				// 组件位置
@@ -436,7 +436,7 @@ typedef struct __tagModelConfiguration
 		strTempPartNo = _T("");
 		strFormalPartNo = _T("");
 		strPurchaseNo = _T("");
-		dHieght = 0.0;
+		dHeight = 0.0;
 		dWidth = 0.0;
 		dDepth = 0.0;
 		strRemark = _T("");
@@ -449,7 +449,7 @@ typedef struct __tagModelConfiguration
 		strTempPartNo = data.strTempPartNo;
 		strFormalPartNo = data.strFormalPartNo;
 		strPurchaseNo = data.strPurchaseNo;
-		dHieght = data.dHieght;
+		dHeight = data.dHeight;
 		dWidth = data.dWidth;
 		dDepth = data.dDepth;
 		arrPosition = data.arrPosition;
@@ -465,7 +465,7 @@ typedef struct __tagModelConfiguration
 		strTempPartNo = data.strTempPartNo;
 		strFormalPartNo = data.strFormalPartNo;
 		strPurchaseNo = data.strPurchaseNo;
-		dHieght = data.dHieght;
+		dHeight = data.dHeight;
 		dWidth = data.dWidth;
 		dDepth = data.dDepth;
 		arrPosition = data.arrPosition;
