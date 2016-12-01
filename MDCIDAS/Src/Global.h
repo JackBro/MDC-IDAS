@@ -28,4 +28,13 @@ BOOL CStringArrayToCString(const CStringArray &arr, CString &str, const CString 
 
 //===================================================================================================
 
+// 获取UDF文件夹路径
+CString GetUDFFolderPath();
+// 获取Template文件夹路径
+CString GetTemplateFolderPath();
+// 获取电缆配置文件路径
+CString GetCableConfigPath();
+
+//===================================================================================================
+
 #endif
