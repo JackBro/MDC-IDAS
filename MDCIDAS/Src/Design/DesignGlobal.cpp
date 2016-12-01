@@ -41,6 +41,40 @@ int GetDesignModelType(int nSymbolSubtype)
 	{
 	case SCT_ITC:
 		return DMT_ITC;
+	case SCT_MCC:
+		return DMT_MGT;
+	case SCT_FMCC:
+		return DMT_COL_HAED_MGT;
+	case SCT_TAC:
+		return DMT_TAC;
+	case SCT_FHC:
+		return DMT_FHC;
+	case SCT_FEC:
+		return DMT_COL_HAED_EMPTY;
+	case SCT_PDC:
+		return DMT_PDR;
+	case SCT_FPDC:
+		return DMT_COL_HEAD_PDR;
+	case SCT_IEC:
+		return DMT_ROW__EMPTY;
+	case SCT_AGC:
+		return DMT_DAO_FENG;
+	case SCT_CR:
+		return DMT_ZOU_XIAN_JIA;
+	case SCT_OFG:
+		return DMT_GUANG_XIAN_ZXJ;
+	case SCT_WCln:
+		return DMT_WALL_PILLAR;
+	case SCT_Cdoor:
+		return DMT_COLD_BACK_DOOR;
+	case SCT_Fdoor:
+		return DMT_COLD_FRONT_DOOR;
+	case SCT_FTW:
+		return DMT_FIXED_WINDOW;
+	case SCT_RTW:
+		return DMT_FLIP_WINDOW;
+	case SCT_ATW:
+		return DMT_ADJUST_WINDOW;
 	default:
 		break;
 	}
