@@ -212,8 +212,13 @@ bool CTotalUnitBuilder::AssembleModel(
 		ProMdl pCompMdl = LoadMdlByPartNo(strTemplateName);
 		if (NULL == pCompMdl)
 			return false;
+		CString strNewCompName = strTemplateName;
+		int nFindUnderline = strNewCompName.ReverseFind(L'_');
+		if (nFindUnderline >= 0)
+			strNewCompName = strNewCompName.Left(nFindUnderline);
+		strNewCompName = GetTempPartNo(strNewCompName);
 		ProName szNewCompName = {0};
-		wcsncpy_s(szNewCompName, PRO_NAME_SIZE, mdlConfig.strTempPartNo, _TRUNCATE);
+		wcsncpy_s(szNewCompName, PRO_NAME_SIZE, strNewCompName, _TRUNCATE);
 		ProMdlRename(pCompMdl, szNewCompName);
 		vector<ProAsmcomp> arrComps;
 		CPCLMdl::GetSolidFeature((ProSolid)pCompMdl, PRO_FEAT_COMPONENT, arrComps);
@@ -225,7 +230,12 @@ bool CTotalUnitBuilder::AssembleModel(
 			ProAsmcompMdlGet(&arrComps[i], &pSubMdl);
 			if (NULL == pSubMdl)
 				continue;
-			strNewSubMdlName.Format(L"%s_P%d", szNewCompName, i+1);
+			ProMdlNameGet(pSubMdl, szNewSubMdlName);
+			strNewSubMdlName = szNewSubMdlName;
+			nFindUnderline = strNewSubMdlName.ReverseFind(L'_');
+			if (nFindUnderline >= 0)
+				strNewSubMdlName = strNewSubMdlName.Left(nFindUnderline);
+			strNewSubMdlName = GetTempPartNo(strNewSubMdlName);
 			wcsncpy_s(szNewSubMdlName, PRO_NAME_SIZE, strNewSubMdlName, _TRUNCATE);
 			ProMdlRename(pSubMdl, szNewSubMdlName);
 		}
@@ -305,7 +315,18 @@ CString CTotalUnitBuilder::GetTempPartNo(
 {
 	static int nIndex = 1;
 	CString strTempPartNo;
-	strTempPartNo.Format(L"%s_%d", strTemplateName, nIndex++);
+	if (nIndex >= 1 && nIndex <= 9)
+		strTempPartNo.Format(L"%s_00000%d", strTemplateName, nIndex++);
+	else if (nIndex >= 10 && nIndex <= 99)
+		strTempPartNo.Format(L"%s_0000%d", strTemplateName, nIndex++);
+	else if (nIndex >= 100 && nIndex <= 999)
+		strTempPartNo.Format(L"%s_000%d", strTemplateName, nIndex++);
+	else if (nIndex >= 1000 && nIndex <= 9999)
+		strTempPartNo.Format(L"%s_00%d", strTemplateName, nIndex++);
+	else if (nIndex >= 10000 && nIndex <= 99999)
+		strTempPartNo.Format(L"%s_0%d", strTemplateName, nIndex++);
+	else
+		strTempPartNo.Format(L"%s_%d", strTemplateName, nIndex++);
 	return strTempPartNo;
 }
 
@@ -496,7 +517,7 @@ bool CTotalUnitBuilder::SelectFWQJGConfiguration(
 	else
 	{
 		// 生成临时图号
-		modelConfig.strTempPartNo = GetTempPartNo(GetTemplateNameByModelType(modelConfig.nModelType));
+		modelConfig.strTempPartNo = GetTemplateNameByModelType(modelConfig.nModelType);
 		modelConfig.strFormalPartNo = _T("");
 		modelConfig.strPurchaseNo = _T("");
 		modelConfig.dHeight = reqTabData.dHeightOfITRack;
@@ -565,7 +586,7 @@ bool CTotalUnitBuilder::SelectGKGConfiguration(
 	else
 	{
 		// 生成临时图号
-		gkgConfig.strTempPartNo = GetTempPartNo(GetTemplateNameByModelType(gkgConfig.nModelType));
+		gkgConfig.strTempPartNo = GetTemplateNameByModelType(gkgConfig.nModelType);
 		gkgConfig.strFormalPartNo = _T("");
 		gkgConfig.strPurchaseNo = _T("");
 		gkgConfig.dHeight = reqTabData.dHeightOfITRack;
@@ -905,7 +926,7 @@ bool CTotalUnitBuilder::TestBuildModelByXML(const CString &strXMLPath)
 			modelConfig.strMajorClass = _T("");
 			modelConfig.nModelType = nModelType;
 			modelConfig.bIsCreate = true;
-			modelConfig.strTempPartNo = GetTempPartNo(GetTemplateNameByModelType(nModelType));
+			modelConfig.strTempPartNo = GetTemplateNameByModelType(nModelType);
 			modelConfig.strFormalPartNo = _T("");
 			modelConfig.strPurchaseNo = _T("");
 			modelConfig.dHeight = 2000.0;
