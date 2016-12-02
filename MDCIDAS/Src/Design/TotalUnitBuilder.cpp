@@ -678,3 +678,40 @@ bool CTotalUnitBuilder::TestBuildModelByXML(const CString &strXMLPath)
 	BuildModel(totalUnitConfig);
 	return true;
 }
+
+// 根据订单需求采集表和整机布局图XML文件生成整机配置模型
+bool CTotalUnitBuilder::TestBuildModelByReqTableAndLayoutFile(const CString &strXMLPath)
+{
+	// 需求采集表的初始化测试数据
+	RequirementTabData reqTabData;
+	reqTabData.nModuleType = MT_LONG_MODULE;						// 长模块
+	reqTabData.bIsExtFloorExist = true;								// 是否存在外部地板
+	reqTabData.nAirstreamPattern = AP_COLD_SEAL;					// 冷通道封闭
+	reqTabData.dPassageWidth = 1800.0;								// 通道宽度
+	reqTabData.dHeightOfITRack = 2000;								// IT机柜规格——高度
+	reqTabData.dWidthOfITRack = 600;								// IT机柜规格——宽度
+	reqTabData.dDepthOfITRack = 1200;								// IT机柜规格——深度
+	reqTabData.nFrontDoorTypeOfITRack = FDT_SINGLE_DENSEHOLE_DOOR;	// IT机柜的前门类型
+	reqTabData.nBackDoorTypeOfITRack = FDT_SINGLE_DENSEHOLE_DOOR;	// IT机柜的后门类型
+	reqTabData.nFrontDoorLockTypeOfITRack = FDLT_UNIVERSIAL_LOCK;	// IT机柜的前门锁类型
+	reqTabData.nBackDoorLockTypeOfITRack = FDLT_UNIVERSIAL_LOCK;	// IT机柜的后门锁类型
+	reqTabData.nSideDoorTypeOfITRack = SDT_DEFAULT_TYPE;			// IT机柜的侧门
+	reqTabData.nHeightOfPedestal = HP_300;							// 底座高度
+	reqTabData.nInsideFloorType = IFT_DEFAULT_FLOOR;				// 模块内部地板
+	reqTabData.nZouXianJiaType = ZXJT_MODULE_TYPE;					// 强弱电走线架配置类型
+	reqTabData.dDistanceBetwZXJAndJigui = 0.0;						// (走线架机房配置)走线架距离机柜顶部距离；
+	reqTabData.nNumOf1UPanel = 5;									// 1U假面板的数量
+	reqTabData.nNumOf2UPanel = 5;									// 2U假面板的数量
+	reqTabData.nNumOfLPallet = 5;									// L型托板的数量
+	reqTabData.nNumOfLightLayer = 5;								// 轻载层板的数量
+	reqTabData.nNumOfHeavyLayer = 5;								// 重载层板的数量
+	reqTabData.nNumOfStringingPanel = 5;							// 穿线面板的数量
+	reqTabData.nHuiLiuPaiType = HLPT_SHUZHUANG_TYPE;				// 汇流排的类型
+	reqTabData.bIsWeiBanExist = true;								// 围板是否配置
+	reqTabData.bIsInsideFloorExist = true;							// 模块内部是否配置地板
+	reqTabData.bIsTaBuExist = true;									// 是否配置踏步
+	reqTabData.nControlCabinetType = CCT_IT_PAD_CAB;				// 管控柜类型
+
+
+	return true;
+}
