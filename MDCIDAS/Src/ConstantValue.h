@@ -416,7 +416,7 @@ typedef struct __tagLayoutData
 // 组件配置
 typedef struct __tagModelConfiguration
 {
-	int nMajorClass;								// 类别
+	CString strMajorClass;							// 所属类别
 	int nModelType;									// 组件类型，参照DesignModelType
 	bool bIsCreate;									// 是否配置
 	CString strTempPartNo;							// 临时图号
@@ -430,7 +430,7 @@ typedef struct __tagModelConfiguration
 
 	__tagModelConfiguration()
 	{
-		nMajorClass = -1;
+		strMajorClass = _T("");
 		nModelType = -1;
 		bIsCreate = true;
 		strTempPartNo = _T("");
@@ -443,7 +443,7 @@ typedef struct __tagModelConfiguration
 	}
 	__tagModelConfiguration(const __tagModelConfiguration &data)
 	{
-		nMajorClass = data.nMajorClass;
+		strMajorClass = data.strMajorClass;
 		nModelType = data.nModelType;
 		bIsCreate = data.bIsCreate;
 		strTempPartNo = data.strTempPartNo;
@@ -459,7 +459,7 @@ typedef struct __tagModelConfiguration
 	{
 		if (&data == this)
 			return *this;
-		nMajorClass = data.nMajorClass;
+		strMajorClass = data.strMajorClass;
 		nModelType = data.nModelType;
 		bIsCreate = data.bIsCreate;
 		strTempPartNo = data.strTempPartNo;
@@ -524,6 +524,96 @@ typedef struct __tagTotalUnitConfiguration
 		return *this;
 	}
 }TotalUnitConfiguration;
+
+// 机柜的数据
+typedef struct __tagJiGuiDBData
+{
+	CString strCode;								// 代码
+	CString strPartNo;								// 图号
+	CString strName;								// 名称
+	CString strEngName;								// 英文名
+	CString strUnit;								// 单位
+	CString strState;								// 状态
+	CString strClass;								// 类别
+	double dHeight;									// 高
+	double dWidth;									// 宽
+	double dDepth;									// 深
+	CString strFrontDoor;							// 前门
+	CString strFrontDoorLock;						// 前门锁型
+	CString strBackDoor;							// 后门
+	CString strBackDoorLock;						// 后门锁型
+	CString strJiaMianBan;							// 假面板
+	CString strChuanXianMianBan;					// 穿线面板
+	CString strLTuoBan;								// L型托板
+	CString strRemark;								// 备注
+
+	__tagJiGuiDBData()
+	{
+		strCode = _T("");
+		strPartNo = _T("");
+		strName = _T("");
+		strEngName = _T("");
+		strUnit = _T("");
+		strState = _T("");
+		strClass = _T("");
+		dHeight = 0.0;
+		dWidth = 0.0;
+		dDepth = 0.0;
+		strFrontDoor = _T("");
+		strFrontDoorLock = _T("");
+		strBackDoor = _T("");
+		strBackDoorLock = _T("");
+		strJiaMianBan = _T("");
+		strChuanXianMianBan = _T("");
+		strLTuoBan = _T("");
+		strRemark = _T("");
+	}
+	__tagJiGuiDBData(const __tagJiGuiDBData &data)
+	{
+		strCode = data.strCode;
+		strPartNo = data.strPartNo;
+		strName = data.strName;
+		strEngName = data.strEngName;
+		strUnit = data.strUnit;
+		strState = data.strState;
+		strClass = data.strClass;
+		dHeight = data.dHeight;
+		dWidth = data.dWidth;
+		dDepth = data.dDepth;
+		strFrontDoor = data.strFrontDoor;
+		strFrontDoorLock = data.strFrontDoorLock;
+		strBackDoor = data.strBackDoor;
+		strBackDoorLock = data.strBackDoorLock;
+		strJiaMianBan = data.strJiaMianBan;
+		strChuanXianMianBan = data.strChuanXianMianBan;
+		strLTuoBan = data.strLTuoBan;
+		strRemark = data.strRemark;
+	}
+	__tagJiGuiDBData operator=(const __tagJiGuiDBData &data)
+	{
+		if (&data == this)
+			return *this;
+		strCode = data.strCode;
+		strPartNo = data.strPartNo;
+		strName = data.strName;
+		strEngName = data.strEngName;
+		strUnit = data.strUnit;
+		strState = data.strState;
+		strClass = data.strClass;
+		dHeight = data.dHeight;
+		dWidth = data.dWidth;
+		dDepth = data.dDepth;
+		strFrontDoor = data.strFrontDoor;
+		strFrontDoorLock = data.strFrontDoorLock;
+		strBackDoor = data.strBackDoor;
+		strBackDoorLock = data.strBackDoorLock;
+		strJiaMianBan = data.strJiaMianBan;
+		strChuanXianMianBan = data.strChuanXianMianBan;
+		strLTuoBan = data.strLTuoBan;
+		strRemark = data.strRemark;
+		return *this;
+	}
+}JiGuiDBData;
 
 //===================================================================================================
 // 电缆模块

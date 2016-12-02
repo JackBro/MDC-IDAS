@@ -13,6 +13,8 @@
 
 //===================================================================================================
 // 头文件
+#include "LayObject.h"
+#include "XmlToObject.h"
 
 //===================================================================================================
 // 宏定义
@@ -97,10 +99,44 @@ public:
 		int nModelType													// 组件类型
 		);
 
+	// 根据订单采集表和布局图符号集，选配服务器机柜
+	bool SelectFWQJGConfiguration(
+		const RequirementTabData &reqTabData,							// 需求采集表
+		CXmlToObject &xmlData,											// 布局图XML相关数据
+		vector<CLaySymbolObj*> &arrSymbols,								// 布局图符号集
+		ModelConfiguration &modelConfig									// 整机配置
+		);
+	// 根据订单采集表和布局图符号集，选配管控柜
+	bool SelectGKGConfiguration(
+		const RequirementTabData &reqTabData,							// 需求采集表
+		CXmlToObject &xmlData,											// 布局图XML相关数据
+		vector<CLaySymbolObj*> &arrSymbols,								// 布局图符号集
+		ModelConfiguration &gkgConfig									// 整机配置
+		);
+
+	// 根据订单采集表，通过数据库获取服务器机柜的配置信息
+	bool GetFWQJGDBData(
+		const RequirementTabData &reqTabData,							// 需求采集表
+		JiGuiDBData &jiguiData											// 机柜数据
+		);
+
+	// 根据订单采集表，通过数据库获取管控柜的配置信息
+	bool GetGKGDBData(
+		const RequirementTabData &reqTabData,							// 需求采集表
+		JiGuiDBData &gkgData											// 机柜数据
+		);
+
+	// 获取指定类型的布局图符号集
+	bool GetLayoutSymbols(int nSymbolType, const vector<CLaySymbolObj*> &arrAllSymbols, vector<CLaySymbolObj*> &arrOutSymbols);
+	// 获取底座高度
+	double GetHeightOfPedestal(int nHeightOfPedestal);
+
 	// 测试生成模型
 	bool TestBuildModel();
 	// 根据XML文件生成模型
 	bool TestBuildModelByXML(const CString &strXMLPath);
+	// 根据订单需求采集表和整机布局图XML文件生成整机配置模型
+	bool TestBuildModelByReqTableAndLayoutFile(const CString &strXMLPath);
 };
 
 //===================================================================================================

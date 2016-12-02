@@ -92,8 +92,12 @@ void Test()
 
 void ModelBuild()
 {
+	ProPath szCurPath;
+	ProDirectoryCurrentGet(szCurPath);
 	CTotalUnitBuilder builder;
-	builder.TestBuildModelByXML(L"E:\\ProETest\\MDC-IDAS\\布局\\DVF接口.xml");
+	CString strXMLPath = szCurPath;
+	strXMLPath += L"\\布局\\测试.xml";
+	builder.TestBuildModelByReqTableAndLayoutFile(strXMLPath);
 }
 
 BOOL CMenuHandler::Init()
