@@ -533,16 +533,6 @@ bool CTotalUnitBuilder::SelectGKGConfiguration(
 	// 获取管控柜符号集
 	vector<CLaySymbolObj*> arrMCCSymbols;
 	GetLayoutSymbols(SCT_MCC, arrSymbols, arrMCCSymbols);
-	vector<CLaySymbolObj*> arrTempMCCSymbols;
-	GetLayoutSymbols(SCT_FMCC, arrSymbols, arrTempMCCSymbols);
-	if (!arrTempMCCSymbols.empty())
-	{
-		for (size_t i = 0; i < arrTempMCCSymbols.size(); i++)
-		{
-			arrMCCSymbols.push_back(arrTempMCCSymbols[i]);
-		}
-	}
-
 	if (arrMCCSymbols.empty())
 		return false;
 
