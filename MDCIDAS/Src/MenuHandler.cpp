@@ -93,7 +93,7 @@ void Test()
 void ModelBuild()
 {
 	CTotalUnitBuilder builder;
-	builder.TestBuildModelByXML(L"E:\\ProETest\\MDC-IDAS\\布局\\DVF接口.xml");
+	builder.TestBuildModelByReqTableAndLayoutFile(L"E:\\ProETest\\MDC-IDAS\\布局\\测试.xml");
 }
 
 BOOL CMenuHandler::Init()

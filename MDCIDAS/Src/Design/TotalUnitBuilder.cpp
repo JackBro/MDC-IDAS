@@ -459,6 +459,154 @@ CString CTotalUnitBuilder::GetCompCsysNameByModelType(
 	return strCompCsysName;
 }
 
+// 根据订单采集表和布局图符号集，选配服务器机柜
+bool CTotalUnitBuilder::SelectFWQJGConfiguration(
+	const RequirementTabData &reqTabData,							// 需求采集表
+	CXmlToObject &xmlData,											// 布局图XML相关数据
+	vector<CLaySymbolObj*> &arrSymbols,								// 布局图符号集
+	ModelConfiguration &modelConfig									// 整机配置
+	)
+{
+	// 获取服务器机柜符号集
+	vector<CLaySymbolObj*> arrITCSymbols;
+	GetLayoutSymbols(SCT_ITC, arrSymbols, arrITCSymbols);
+	if (arrITCSymbols.empty())
+		return false;
+
+	modelConfig.strMajorClass = _T("机柜");
+	modelConfig.nModelType = DMT_ITC;
+
+	// 获取数据库选配数据
+	JiGuiDBData FWQJGDBData;
+	if (GetFWQJGDBData(reqTabData, FWQJGDBData))
+	{
+		// 把正式图号的相关数据写入整机配置中
+		modelConfig.strTempPartNo = _T("");
+		modelConfig.strFormalPartNo = FWQJGDBData.strPartNo;
+		modelConfig.strPurchaseNo = FWQJGDBData.strCode;
+		modelConfig.dHeight = FWQJGDBData.dHeight;
+		modelConfig.dWidth = FWQJGDBData.dWidth;
+		modelConfig.dDepth = FWQJGDBData.dDepth;
+		modelConfig.strRemark = FWQJGDBData.strRemark;
+	}
+	else
+	{
+		// 生成临时图号
+		modelConfig.strTempPartNo = GetTempPartNo(GetTemplateNameByModelType(modelConfig.nModelType));
+		modelConfig.strFormalPartNo = _T("");
+		modelConfig.strPurchaseNo = _T("");
+		modelConfig.dHeight = reqTabData.dHeightOfITRack;
+		modelConfig.dWidth = reqTabData.dWidthOfITRack;
+		modelConfig.dDepth = reqTabData.dDepthOfITRack;
+		modelConfig.strRemark = _T("");
+	}
+
+	// 获取装配位置
+	modelConfig.arrPosition.resize(arrITCSymbols.size());
+	for (size_t i=0; i<arrITCSymbols.size(); i++)
+		GetModelPosition(xmlData.m_dLeft, xmlData.m_dTop, xmlData.m_dWidth, xmlData.m_dHeight, arrITCSymbols[i]->m_dWidth, arrITCSymbols[i]->m_dHeight, arrITCSymbols[i]->m_ptCenter.x, arrITCSymbols[i]->m_ptCenter.y, arrITCSymbols[i]->m_dAngle, modelConfig.arrPosition[i]);
+	// 确定装配高度
+	double dZ = GetHeightOfPedestal(reqTabData.nHeightOfPedestal);
+	if (!ISDEQUAL(dZ, 0.0))
+	{
+		for (size_t i=0; i<modelConfig.arrPosition.size(); i++)
+			modelConfig.arrPosition[i].o.z = dZ;
+	}
+
+	return true;
+}
+
+// 根据订单采集表和布局图中服务器机柜符号的数量，通过数据库获取服务器机柜的配置信息
+bool CTotalUnitBuilder::GetFWQJGDBData(
+	const RequirementTabData &reqTabData,							// 需求采集表
+	JiGuiDBData &jiguiData											// 机柜数据
+	)
+{
+	reqTabData;
+	jiguiData.strCode = _T("624100324601");					// 代码
+	jiguiData.strPartNo = _T("624100324600");				// 图号
+	jiguiData.strName = _T("Z6012-20B机柜");				// 名称
+	jiguiData.strEngName = _T("Z6012-20Bcabinet");			// 英文名
+	jiguiData.strUnit = _T("个");							// 单位
+	jiguiData.strState = _T("通用");						// 状态
+	jiguiData.strClass = _T("服务器机柜");					// 类别
+	jiguiData.dHeight = 2000.0;								// 高
+	jiguiData.dWidth = 600;									// 宽
+	jiguiData.dDepth = 1200;								// 深
+	jiguiData.strFrontDoor = _T("单开密孔门");				// 前门
+	jiguiData.strFrontDoorLock = _T("通用");				// 前门锁型
+	jiguiData.strBackDoor = _T("双开密孔门");				// 后门
+	jiguiData.strBackDoorLock = _T("通用");					// 后门锁型
+	jiguiData.strJiaMianBan = _T("");						// 假面板
+	jiguiData.strChuanXianMianBan = _T("");					// 穿线面板
+	jiguiData.strLTuoBan = _T("8");							// L型托板
+	// 备注
+	jiguiData.strRemark = _T("冷通道封闭或热通道封闭，无脚轮和地脚；8对L型导轨；1套127032931003门接地线；左一条扎线板，右两条PDU安装板");
+	return true;
+}
+
+// 获取指定类型的布局图符号集
+bool CTotalUnitBuilder::GetLayoutSymbols(int nSymbolType, const vector<CLaySymbolObj*> &arrAllSymbols, vector<CLaySymbolObj*> &arrOutSymbols)
+{
+	arrOutSymbols.clear();
+	for (size_t i=0; i<arrAllSymbols.size(); i++)
+	{
+		if (arrAllSymbols[i]->m_nSubType == nSymbolType)
+			arrOutSymbols.push_back(arrAllSymbols[i]);
+	}
+
+	return (!arrOutSymbols.empty());
+}
+
+// 获取底座高度
+double CTotalUnitBuilder::GetHeightOfPedestal(int nHeightOfPedestal)
+{
+	double dPedestalHeight = 0.0;
+	switch (nHeightOfPedestal)
+	{
+	case HP_250:					// 250mm
+		dPedestalHeight = 250.00;
+		break;
+	case HP_300:					// 300mm
+		dPedestalHeight = 300.00;
+		break;
+	case HP_350:					// 350mm
+		dPedestalHeight = 350.00;
+		break;
+	case HP_400:					// 400mm
+		dPedestalHeight = 400.00;
+		break;
+	case HP_450:					// 450mm
+		dPedestalHeight = 450.00;
+		break;
+	case HP_500:					// 500mm
+		dPedestalHeight = 500.00;
+		break;
+	case HP_550:					// 550mm
+		dPedestalHeight = 550.00;
+		break;
+	case HP_600:					// 600mm
+		dPedestalHeight = 600.00;
+		break;
+	case HP_650:					// 650mm
+		dPedestalHeight = 650.00;
+		break;
+	case HP_700:					// 700mm
+		dPedestalHeight = 700.00;
+		break;
+	case HP_750:					// 750mm
+		dPedestalHeight = 750.00;
+		break;
+	case HP_800:					// 800mm
+		dPedestalHeight = 800.00;
+		break;
+	default:
+		break;
+	}
+
+	return dPedestalHeight;
+}
+
 // 测试生成模型
 bool CTotalUnitBuilder::TestBuildModel()
 {
@@ -466,7 +614,7 @@ bool CTotalUnitBuilder::TestBuildModel()
 	TotalUnitConfiguration totalUnitConfig;
 	totalUnitConfig.strAsmName = _T("TOTAL_MODEL_00001");
 	ModelConfiguration modelConfig;
-	modelConfig.nMajorClass = -1;
+	modelConfig.strMajorClass = _T("");
 	modelConfig.nModelType = DMT_ITC;
 	modelConfig.bIsCreate = true;
 	modelConfig.strTempPartNo = _T("");
@@ -486,7 +634,7 @@ bool CTotalUnitBuilder::TestBuildModel()
 	modelConfig.arrPosition[1].z = SVDOUBLE3(0.0, 0.0, 1.0);
 	modelConfig.strRemark = _T("");
 	totalUnitConfig.arrModelConfig.push_back(modelConfig);
-	modelConfig.nMajorClass = -1;
+	modelConfig.strMajorClass = _T("");
 	modelConfig.nModelType = DMT_ITC;
 	modelConfig.bIsCreate = true;
 	modelConfig.strTempPartNo = _T("");
@@ -502,7 +650,7 @@ bool CTotalUnitBuilder::TestBuildModel()
 	modelConfig.arrPosition[0].z = SVDOUBLE3(0.0, 0.0, 1.0);
 	modelConfig.strRemark = _T("");
 	totalUnitConfig.arrModelConfig.push_back(modelConfig);
-	modelConfig.nMajorClass = -1;
+	modelConfig.strMajorClass = _T("");
 	modelConfig.nModelType = DMT_ITC;
 	modelConfig.bIsCreate = true;
 	modelConfig.strTempPartNo = _T("");
@@ -518,7 +666,7 @@ bool CTotalUnitBuilder::TestBuildModel()
 	modelConfig.arrPosition[0].z = SVDOUBLE3(0.0, 0.0, 1.0);
 	modelConfig.strRemark = _T("");
 	totalUnitConfig.arrModelConfig.push_back(modelConfig);
-	modelConfig.nMajorClass = -1;
+	modelConfig.strMajorClass = _T("");
 	modelConfig.nModelType = DMT_ITC;
 	modelConfig.bIsCreate = true;
 	modelConfig.strTempPartNo = _T("JIGUI_000001");
@@ -650,13 +798,13 @@ bool CTotalUnitBuilder::TestBuildModelByXML(const CString &strXMLPath)
 		if (nFindMdlConfig < 0)
 		{
 			// 增加新的整机配置项
-			modelConfig.nMajorClass = -1;
+			modelConfig.strMajorClass = _T("");
 			modelConfig.nModelType = nModelType;
 			modelConfig.bIsCreate = true;
 			modelConfig.strTempPartNo = GetTempPartNo(GetTemplateNameByModelType(nModelType));
 			modelConfig.strFormalPartNo = _T("");
 			modelConfig.strPurchaseNo = _T("");
-			modelConfig.dHeight = 500.0;
+			modelConfig.dHeight = 2000.0;
 			modelConfig.dWidth = arrSymbols[i]->m_dWidth;
 			modelConfig.dDepth = arrSymbols[i]->m_dHeight;
 			modelConfig.arrPosition.resize(1);
@@ -692,7 +840,7 @@ bool CTotalUnitBuilder::TestBuildModelByReqTableAndLayoutFile(const CString &str
 	reqTabData.dWidthOfITRack = 600;								// IT机柜规格——宽度
 	reqTabData.dDepthOfITRack = 1200;								// IT机柜规格——深度
 	reqTabData.nFrontDoorTypeOfITRack = FDT_SINGLE_DENSEHOLE_DOOR;	// IT机柜的前门类型
-	reqTabData.nBackDoorTypeOfITRack = FDT_SINGLE_DENSEHOLE_DOOR;	// IT机柜的后门类型
+	reqTabData.nBackDoorTypeOfITRack = FDT_DOUBLE_DENSEHOLE_DOOR;	// IT机柜的后门类型
 	reqTabData.nFrontDoorLockTypeOfITRack = FDLT_UNIVERSIAL_LOCK;	// IT机柜的前门锁类型
 	reqTabData.nBackDoorLockTypeOfITRack = FDLT_UNIVERSIAL_LOCK;	// IT机柜的后门锁类型
 	reqTabData.nSideDoorTypeOfITRack = SDT_DEFAULT_TYPE;			// IT机柜的侧门
@@ -712,6 +860,73 @@ bool CTotalUnitBuilder::TestBuildModelByReqTableAndLayoutFile(const CString &str
 	reqTabData.bIsTaBuExist = true;									// 是否配置踏步
 	reqTabData.nControlCabinetType = CCT_IT_PAD_CAB;				// 管控柜类型
 
+	CXmlToObject xmlParse;
+	xmlParse.Init();
+	xmlParse.OpenFile(strXMLPath);
+
+	// 获取符号集
+	vector<CLaySymbolObj*> arrSymbols;
+	for (int i=0; i<(int)xmlParse.m_arrObject.GetSize(); i++)
+	{
+		if (xmlParse.m_arrObject[i]->m_nType == AOT_CABINET)
+			arrSymbols.push_back((CLaySymbolObj*)xmlParse.m_arrObject[i]);
+		else if (xmlParse.m_arrObject[i]->m_nType == AOT_CR)
+			arrSymbols.push_back((CLaySymbolObj*)xmlParse.m_arrObject[i]);
+		else if (xmlParse.m_arrObject[i]->m_nType == AOT_WCLN)
+			arrSymbols.push_back((CLaySymbolObj*)xmlParse.m_arrObject[i]);
+		else if (xmlParse.m_arrObject[i]->m_nType == AOT_DOOR)
+			arrSymbols.push_back((CLaySymbolObj*)xmlParse.m_arrObject[i]);
+		else if (xmlParse.m_arrObject[i]->m_nType == AOT_WINDOW)
+			arrSymbols.push_back((CLaySymbolObj*)xmlParse.m_arrObject[i]);
+	}
+
+	// 生成整机配置信息
+	TotalUnitConfiguration totalUnitConfig;
+	totalUnitConfig.strAsmName = _T("TOTAL_MODEL_00001");
+
+	// 选配服务器机柜
+	ModelConfiguration FWQJGConfig;
+	bool bRet = SelectFWQJGConfiguration(reqTabData, xmlParse, arrSymbols, FWQJGConfig);
+	if (bRet)
+		totalUnitConfig.arrModelConfig.push_back(FWQJGConfig);
+
+	//ModelConfiguration modelConfig;
+	//int nModelType = -1, nFindMdlConfig = -1;
+	//for (size_t i=0; i<arrSymbols.size(); i++)
+	//{
+	//	nModelType = GetDesignModelType(arrSymbols[i]->m_nSubType);
+	//	if (nModelType < 0)
+	//		continue;
+	//	nFindMdlConfig = FindModelConfig(nModelType, arrSymbols[i]->m_dWidth, arrSymbols[i]->m_dHeight, totalUnitConfig.arrModelConfig);
+	//	if (nFindMdlConfig < 0)
+	//	{
+	//		// 增加新的整机配置项
+	//		modelConfig.strMajorClass = _T("");
+	//		modelConfig.nModelType = nModelType;
+	//		modelConfig.bIsCreate = true;
+	//		modelConfig.strTempPartNo = GetTempPartNo(GetTemplateNameByModelType(nModelType));
+	//		modelConfig.strFormalPartNo = _T("");
+	//		modelConfig.strPurchaseNo = _T("");
+	//		modelConfig.dHeight = 2000.0;
+	//		modelConfig.dWidth = arrSymbols[i]->m_dWidth;
+	//		modelConfig.dDepth = arrSymbols[i]->m_dHeight;
+	//		modelConfig.arrPosition.resize(1);
+	//		GetModelPosition(xmlParse.m_dLeft, xmlParse.m_dTop, xmlParse.m_dWidth, xmlParse.m_dHeight, arrSymbols[i]->m_dWidth, arrSymbols[i]->m_dHeight, arrSymbols[i]->m_ptCenter.x, arrSymbols[i]->m_ptCenter.y, arrSymbols[i]->m_dAngle, modelConfig.arrPosition[0]);
+	//		modelConfig.strRemark = _T("");
+	//		totalUnitConfig.arrModelConfig.push_back(modelConfig);
+	//	}
+	//	else
+	//	{
+	//		// 设置已有整机配置项
+	//		IKSCsysData newPosition;
+	//		GetModelPosition(xmlParse.m_dLeft, xmlParse.m_dTop, xmlParse.m_dWidth, xmlParse.m_dHeight, arrSymbols[i]->m_dWidth, arrSymbols[i]->m_dHeight, arrSymbols[i]->m_ptCenter.x, arrSymbols[i]->m_ptCenter.y, arrSymbols[i]->m_dAngle, newPosition);
+	//		totalUnitConfig.arrModelConfig[nFindMdlConfig].arrPosition.push_back(newPosition);
+	//	}
+	//}
+
+	xmlParse.UnInit();
+
+	BuildModel(totalUnitConfig);
 
 	return true;
 }
