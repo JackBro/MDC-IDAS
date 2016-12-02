@@ -38,8 +38,29 @@ public:
 	const CSVWString& GetName() const { return m_strName; }
 	void SetName(const CSVWString& strName) { m_strName = strName; }
 
+	const CSVWString& GetCabConnRefDes1() const { return m_strCabConnRefDes1; }
+	void SetCabConnRefDes1(const CSVWString& strCabConnRefDes1) { m_strCabConnRefDes1 = strCabConnRefDes1; }
+
+	const CSVWString& GetCabConnRefDes2() const { return m_strCabConnRefDes2; }
+	void SetCabConnRefDes2(const CSVWString& strCabConnRefDes2) { m_strCabConnRefDes2 = strCabConnRefDes2; }
+
+	const std::vector<SVBASEDOUBLE3>& GetCabMidPos() const { return m_vecCabMidPos; }
+	void SetCabMidPos(const std::vector<SVBASEDOUBLE3>& vecCabMidPos) { m_vecCabMidPos = vecCabMidPos; }
+
+	const ProCable& GetProeCable() const { return m_stuProeCable; }
+	void SetProeCable(const ProCable& stuProeCable) { m_stuProeCable = stuProeCable; }
+
+	UINT GetCurAsmHarnCableIndex() const { return m_uCurAsmHarnCableIndex; }
+	void SetCurAsmHarnCableIndex(UINT uCurAsmHarnCableIndex) { m_uCurAsmHarnCableIndex = uCurAsmHarnCableIndex; }
+
 private:
-	CSVWString m_strName;
+	CSVWString m_strName;				// 电缆名称
+	CSVWString m_strCabConnRefDes1;		// 电缆起始电连接器的逻辑名称(指定名称)(第一个电缆位置对应的电连接器)
+	CSVWString m_strCabConnRefDes2;		// 电缆终止电连接器的逻辑名称(指定名称)(最后一个电缆位置对应的电连接器)
+	std::vector<SVBASEDOUBLE3> m_vecCabMidPos;		// 电缆中间点的位置
+
+	ProCable m_stuProeCable;			// ProE的数据
+	UINT m_uCurAsmHarnCableIndex;		// 当前装配体内线束数据中的电缆索引
 };
 
 class CIKSMDCCableIT : public CIKSMDCCable
@@ -378,8 +399,21 @@ public:
 	const CSVWString& GetName() const { return m_strName; }
 	void SetName(const CSVWString& strName) { m_strName = strName; }
 
+	IKSSpool* GetSpoolPt() { return &m_stuSpool; }
+	const IKSSpool* GetSpoolPt() const { return &m_stuSpool; }
+	const IKSSpool& GetSpool() const { return m_stuSpool; }
+	void SetSpool(const IKSSpool& stuSpool) { m_stuSpool = stuSpool; }
+
+	IKSHarness* GetHarnDataInCurAsmPt() { return &m_stuHarnDataInCurAsm; }
+	const IKSHarness* GetHarnDataInCurAsmPt() const { return &m_stuHarnDataInCurAsm; }
+	const IKSHarness& GetHarnDataInCurAsm() const { return m_stuHarnDataInCurAsm; }
+	void SetHarnDataInCurAsm(const IKSHarness& stuHarnDataInCurAsm) { m_stuHarnDataInCurAsm = stuHarnDataInCurAsm; }
+
 private:
-	CSVWString m_strName;
+	CSVWString m_strName;				// 线束名称
+	IKSSpool m_stuSpool;				// 线束的线轴
+
+	IKSHarness m_stuHarnDataInCurAsm;	// 当前装配体内的线束数据
 };
 
 class CIKSMDCHarnessIT : public CIKSMDCHarness
@@ -406,6 +440,14 @@ protected:
 public:
 	const std::vector<CIKSMDCCableIT>& GetCable() const { return m_vecCable; }
 	void SetCable(const std::vector<CIKSMDCCableIT>& vecCable) { m_vecCable = vecCable;}
+	void ResizeCable(UINT uSize) { m_vecCable.resize(uSize); }
+	UINT GetCableSize() const { return UINT(m_vecCable.size()); }
+	CIKSMDCCableIT *GetCableByIndex(UINT uIndex)
+	{
+		if (uIndex >= GetCableSize())
+			return NULL;
+		return &(m_vecCable[uIndex]);
+	}
 
 private:
 	std::vector<CIKSMDCCableIT> m_vecCable;
@@ -435,6 +477,14 @@ protected:
 public:
 	const std::vector<CIKSMDCCableTAC>& GetCable() const { return m_vecCable; }
 	void SetCable(const std::vector<CIKSMDCCableTAC>& vecCable) { m_vecCable = vecCable;}
+	void ResizeCable(UINT uSize) { m_vecCable.resize(uSize); }
+	UINT GetCableSize() const { return UINT(m_vecCable.size()); }
+	CIKSMDCCableTAC *GetCableByIndex(UINT uIndex)
+	{
+		if (uIndex >= GetCableSize())
+			return NULL;
+		return &(m_vecCable[uIndex]);
+	}
 
 private:
 	std::vector<CIKSMDCCableTAC> m_vecCable;
@@ -464,6 +514,14 @@ protected:
 public:
 	const std::vector<CIKSMDCCableBAT>& GetCable() const { return m_vecCable; }
 	void SetCable(const std::vector<CIKSMDCCableBAT>& vecCable) { m_vecCable = vecCable;}
+	void ResizeCable(UINT uSize) { m_vecCable.resize(uSize); }
+	UINT GetCableSize() const { return UINT(m_vecCable.size()); }
+	CIKSMDCCableBAT *GetCableByIndex(UINT uIndex)
+	{
+		if (uIndex >= GetCableSize())
+			return NULL;
+		return &(m_vecCable[uIndex]);
+	}
 
 private:
 	std::vector<CIKSMDCCableBAT> m_vecCable;
@@ -493,6 +551,14 @@ protected:
 public:
 	const std::vector<CIKSMDCCableHVDC>& GetCable() const { return m_vecCable; }
 	void SetCable(const std::vector<CIKSMDCCableHVDC>& vecCable) { m_vecCable = vecCable;}
+	void ResizeCable(UINT uSize) { m_vecCable.resize(uSize); }
+	UINT GetCableSize() const { return UINT(m_vecCable.size()); }
+	CIKSMDCCableHVDC *GetCableByIndex(UINT uIndex)
+	{
+		if (uIndex >= GetCableSize())
+			return NULL;
+		return &(m_vecCable[uIndex]);
+	}
 
 private:
 	std::vector<CIKSMDCCableHVDC> m_vecCable;
@@ -522,6 +588,14 @@ protected:
 public:
 	const std::vector<CIKSMDCCableUPS>& GetCable() const { return m_vecCable; }
 	void SetCable(const std::vector<CIKSMDCCableUPS>& vecCable) { m_vecCable = vecCable;}
+	void ResizeCable(UINT uSize) { m_vecCable.resize(uSize); }
+	UINT GetCableSize() const { return UINT(m_vecCable.size()); }
+	CIKSMDCCableUPS *GetCableByIndex(UINT uIndex)
+	{
+		if (uIndex >= GetCableSize())
+			return NULL;
+		return &(m_vecCable[uIndex]);
+	}
 
 private:
 	std::vector<CIKSMDCCableUPS> m_vecCable;
@@ -551,6 +625,14 @@ protected:
 public:
 	const std::vector<CIKSMDCCableITPDRH>& GetCable() const { return m_vecCable; }
 	void SetCable(const std::vector<CIKSMDCCableITPDRH>& vecCable) { m_vecCable = vecCable;}
+	void ResizeCable(UINT uSize) { m_vecCable.resize(uSize); }
+	UINT GetCableSize() const { return UINT(m_vecCable.size()); }
+	CIKSMDCCableITPDRH *GetCableByIndex(UINT uIndex)
+	{
+		if (uIndex >= GetCableSize())
+			return NULL;
+		return &(m_vecCable[uIndex]);
+	}
 
 private:
 	std::vector<CIKSMDCCableITPDRH> m_vecCable;
@@ -580,6 +662,14 @@ protected:
 public:
 	const std::vector<CIKSMDCCableITPDRU>& GetCable() const { return m_vecCable; }
 	void SetCable(const std::vector<CIKSMDCCableITPDRU>& vecCable) { m_vecCable = vecCable;}
+	void ResizeCable(UINT uSize) { m_vecCable.resize(uSize); }
+	UINT GetCableSize() const { return UINT(m_vecCable.size()); }
+	CIKSMDCCableITPDRU *GetCableByIndex(UINT uIndex)
+	{
+		if (uIndex >= GetCableSize())
+			return NULL;
+		return &(m_vecCable[uIndex]);
+	}
 
 private:
 	std::vector<CIKSMDCCableITPDRU> m_vecCable;
@@ -609,6 +699,14 @@ protected:
 public:
 	const std::vector<CIKSMDCCableFC>& GetCable() const { return m_vecCable; }
 	void SetCable(const std::vector<CIKSMDCCableFC>& vecCable) { m_vecCable = vecCable;}
+	void ResizeCable(UINT uSize) { m_vecCable.resize(uSize); }
+	UINT GetCableSize() const { return UINT(m_vecCable.size()); }
+	CIKSMDCCableFC *GetCableByIndex(UINT uIndex)
+	{
+		if (uIndex >= GetCableSize())
+			return NULL;
+		return &(m_vecCable[uIndex]);
+	}
 
 private:
 	std::vector<CIKSMDCCableFC> m_vecCable;
@@ -638,6 +736,14 @@ protected:
 public:
 	const std::vector<CIKSMDCCableZM>& GetCable() const { return m_vecCable; }
 	void SetCable(const std::vector<CIKSMDCCableZM>& vecCable) { m_vecCable = vecCable;}
+	void ResizeCable(UINT uSize) { m_vecCable.resize(uSize); }
+	UINT GetCableSize() const { return UINT(m_vecCable.size()); }
+	CIKSMDCCableZM *GetCableByIndex(UINT uIndex)
+	{
+		if (uIndex >= GetCableSize())
+			return NULL;
+		return &(m_vecCable[uIndex]);
+	}
 
 private:
 	std::vector<CIKSMDCCableZM> m_vecCable;
@@ -667,6 +773,14 @@ protected:
 public:
 	const std::vector<CIKSMDCCableMJ>& GetCable() const { return m_vecCable; }
 	void SetCable(const std::vector<CIKSMDCCableMJ>& vecCable) { m_vecCable = vecCable;}
+	void ResizeCable(UINT uSize) { m_vecCable.resize(uSize); }
+	UINT GetCableSize() const { return UINT(m_vecCable.size()); }
+	CIKSMDCCableMJ *GetCableByIndex(UINT uIndex)
+	{
+		if (uIndex >= GetCableSize())
+			return NULL;
+		return &(m_vecCable[uIndex]);
+	}
 
 private:
 	std::vector<CIKSMDCCableMJ> m_vecCable;
@@ -696,6 +810,14 @@ protected:
 public:
 	const std::vector<CIKSMDCCableJJAN>& GetCable() const { return m_vecCable; }
 	void SetCable(const std::vector<CIKSMDCCableJJAN>& vecCable) { m_vecCable = vecCable;}
+	void ResizeCable(UINT uSize) { m_vecCable.resize(uSize); }
+	UINT GetCableSize() const { return UINT(m_vecCable.size()); }
+	CIKSMDCCableJJAN *GetCableByIndex(UINT uIndex)
+	{
+		if (uIndex >= GetCableSize())
+			return NULL;
+		return &(m_vecCable[uIndex]);
+	}
 
 private:
 	std::vector<CIKSMDCCableJJAN> m_vecCable;
@@ -725,6 +847,14 @@ protected:
 public:
 	const std::vector<CIKSMDCCableGK>& GetCable() const { return m_vecCable; }
 	void SetCable(const std::vector<CIKSMDCCableGK>& vecCable) { m_vecCable = vecCable;}
+	void ResizeCable(UINT uSize) { m_vecCable.resize(uSize); }
+	UINT GetCableSize() const { return UINT(m_vecCable.size()); }
+	CIKSMDCCableGK *GetCableByIndex(UINT uIndex)
+	{
+		if (uIndex >= GetCableSize())
+			return NULL;
+		return &(m_vecCable[uIndex]);
+	}
 
 private:
 	std::vector<CIKSMDCCableGK> m_vecCable;
@@ -754,6 +884,14 @@ protected:
 public:
 	const std::vector<CIKSMDCCableJDX>& GetCable() const { return m_vecCable; }
 	void SetCable(const std::vector<CIKSMDCCableJDX>& vecCable) { m_vecCable = vecCable;}
+	void ResizeCable(UINT uSize) { m_vecCable.resize(uSize); }
+	UINT GetCableSize() const { return UINT(m_vecCable.size()); }
+	CIKSMDCCableJDX *GetCableByIndex(UINT uIndex)
+	{
+		if (uIndex >= GetCableSize())
+			return NULL;
+		return &(m_vecCable[uIndex]);
+	}
 
 private:
 	std::vector<CIKSMDCCableJDX> m_vecCable;
@@ -783,6 +921,14 @@ protected:
 public:
 	const std::vector<CIKSMDCCableWX>& GetCable() const { return m_vecCable; }
 	void SetCable(const std::vector<CIKSMDCCableWX>& vecCable) { m_vecCable = vecCable;}
+	void ResizeCable(UINT uSize) { m_vecCable.resize(uSize); }
+	UINT GetCableSize() const { return UINT(m_vecCable.size()); }
+	CIKSMDCCableWX *GetCableByIndex(UINT uIndex)
+	{
+		if (uIndex >= GetCableSize())
+			return NULL;
+		return &(m_vecCable[uIndex]);
+	}
 
 private:
 	std::vector<CIKSMDCCableWX> m_vecCable;
@@ -843,6 +989,14 @@ protected:
 public:
 	const std::vector<CIKSMDCHarnessIT>& GetHarness() const { return m_vecHarness; }
 	void SetHarness(const std::vector<CIKSMDCHarnessIT>& vecHarness) { m_vecHarness = vecHarness;}
+	void ResizeHarness(UINT uSize) { m_vecHarness.resize(uSize); }
+	UINT GetHarnessSize() const { return UINT(m_vecHarness.size()); }
+	CIKSMDCHarnessIT *GetHarnessByIndex(UINT uIndex)
+	{
+		if (uIndex >= GetHarnessSize())
+			return NULL;
+		return &(m_vecHarness[uIndex]);
+	}
 
 private:
 	std::vector<CIKSMDCHarnessIT> m_vecHarness;
@@ -872,6 +1026,14 @@ protected:
 public:
 	const std::vector<CIKSMDCHarnessTAC>& GetHarness() const { return m_vecHarness; }
 	void SetHarness(const std::vector<CIKSMDCHarnessTAC>& vecHarness) { m_vecHarness = vecHarness;}
+	void ResizeHarness(UINT uSize) { m_vecHarness.resize(uSize); }
+	UINT GetHarnessSize() const { return UINT(m_vecHarness.size()); }
+	CIKSMDCHarnessTAC *GetHarnessByIndex(UINT uIndex)
+	{
+		if (uIndex >= GetHarnessSize())
+			return NULL;
+		return &(m_vecHarness[uIndex]);
+	}
 
 private:
 	std::vector<CIKSMDCHarnessTAC> m_vecHarness;
@@ -901,6 +1063,14 @@ protected:
 public:
 	const std::vector<CIKSMDCHarnessBAT>& GetHarness() const { return m_vecHarness; }
 	void SetHarness(const std::vector<CIKSMDCHarnessBAT>& vecHarness) { m_vecHarness = vecHarness;}
+	void ResizeHarness(UINT uSize) { m_vecHarness.resize(uSize); }
+	UINT GetHarnessSize() const { return UINT(m_vecHarness.size()); }
+	CIKSMDCHarnessBAT *GetHarnessByIndex(UINT uIndex)
+	{
+		if (uIndex >= GetHarnessSize())
+			return NULL;
+		return &(m_vecHarness[uIndex]);
+	}
 
 private:
 	std::vector<CIKSMDCHarnessBAT> m_vecHarness;
@@ -930,6 +1100,14 @@ protected:
 public:
 	const std::vector<CIKSMDCHarnessHVDC>& GetHarness() const { return m_vecHarness; }
 	void SetHarness(const std::vector<CIKSMDCHarnessHVDC>& vecHarness) { m_vecHarness = vecHarness;}
+	void ResizeHarness(UINT uSize) { m_vecHarness.resize(uSize); }
+	UINT GetHarnessSize() const { return UINT(m_vecHarness.size()); }
+	CIKSMDCHarnessHVDC *GetHarnessByIndex(UINT uIndex)
+	{
+		if (uIndex >= GetHarnessSize())
+			return NULL;
+		return &(m_vecHarness[uIndex]);
+	}
 
 private:
 	std::vector<CIKSMDCHarnessHVDC> m_vecHarness;
@@ -959,6 +1137,14 @@ protected:
 public:
 	const std::vector<CIKSMDCHarnessUPS>& GetHarness() const { return m_vecHarness; }
 	void SetHarness(const std::vector<CIKSMDCHarnessUPS>& vecHarness) { m_vecHarness = vecHarness;}
+	void ResizeHarness(UINT uSize) { m_vecHarness.resize(uSize); }
+	UINT GetHarnessSize() const { return UINT(m_vecHarness.size()); }
+	CIKSMDCHarnessUPS *GetHarnessByIndex(UINT uIndex)
+	{
+		if (uIndex >= GetHarnessSize())
+			return NULL;
+		return &(m_vecHarness[uIndex]);
+	}
 
 private:
 	std::vector<CIKSMDCHarnessUPS> m_vecHarness;
@@ -988,6 +1174,14 @@ protected:
 public:
 	const std::vector<CIKSMDCHarnessITPDRH>& GetHarness() const { return m_vecHarness; }
 	void SetHarness(const std::vector<CIKSMDCHarnessITPDRH>& vecHarness) { m_vecHarness = vecHarness;}
+	void ResizeHarness(UINT uSize) { m_vecHarness.resize(uSize); }
+	UINT GetHarnessSize() const { return UINT(m_vecHarness.size()); }
+	CIKSMDCHarnessITPDRH *GetHarnessByIndex(UINT uIndex)
+	{
+		if (uIndex >= GetHarnessSize())
+			return NULL;
+		return &(m_vecHarness[uIndex]);
+	}
 
 private:
 	std::vector<CIKSMDCHarnessITPDRH> m_vecHarness;
@@ -1017,6 +1211,14 @@ protected:
 public:
 	const std::vector<CIKSMDCHarnessITPDRU>& GetHarness() const { return m_vecHarness; }
 	void SetHarness(const std::vector<CIKSMDCHarnessITPDRU>& vecHarness) { m_vecHarness = vecHarness;}
+	void ResizeHarness(UINT uSize) { m_vecHarness.resize(uSize); }
+	UINT GetHarnessSize() const { return UINT(m_vecHarness.size()); }
+	CIKSMDCHarnessITPDRU *GetHarnessByIndex(UINT uIndex)
+	{
+		if (uIndex >= GetHarnessSize())
+			return NULL;
+		return &(m_vecHarness[uIndex]);
+	}
 
 private:
 	std::vector<CIKSMDCHarnessITPDRU> m_vecHarness;
@@ -1046,6 +1248,14 @@ protected:
 public:
 	const std::vector<CIKSMDCHarnessFC>& GetHarness() const { return m_vecHarness; }
 	void SetHarness(const std::vector<CIKSMDCHarnessFC>& vecHarness) { m_vecHarness = vecHarness;}
+	void ResizeHarness(UINT uSize) { m_vecHarness.resize(uSize); }
+	UINT GetHarnessSize() const { return UINT(m_vecHarness.size()); }
+	CIKSMDCHarnessFC *GetHarnessByIndex(UINT uIndex)
+	{
+		if (uIndex >= GetHarnessSize())
+			return NULL;
+		return &(m_vecHarness[uIndex]);
+	}
 
 private:
 	std::vector<CIKSMDCHarnessFC> m_vecHarness;
@@ -1075,6 +1285,14 @@ protected:
 public:
 	const std::vector<CIKSMDCHarnessZM>& GetHarness() const { return m_vecHarness; }
 	void SetHarness(const std::vector<CIKSMDCHarnessZM>& vecHarness) { m_vecHarness = vecHarness;}
+	void ResizeHarness(UINT uSize) { m_vecHarness.resize(uSize); }
+	UINT GetHarnessSize() const { return UINT(m_vecHarness.size()); }
+	CIKSMDCHarnessZM *GetHarnessByIndex(UINT uIndex)
+	{
+		if (uIndex >= GetHarnessSize())
+			return NULL;
+		return &(m_vecHarness[uIndex]);
+	}
 
 private:
 	std::vector<CIKSMDCHarnessZM> m_vecHarness;
@@ -1104,6 +1322,14 @@ protected:
 public:
 	const std::vector<CIKSMDCHarnessMJ>& GetHarness() const { return m_vecHarness; }
 	void SetHarness(const std::vector<CIKSMDCHarnessMJ>& vecHarness) { m_vecHarness = vecHarness;}
+	void ResizeHarness(UINT uSize) { m_vecHarness.resize(uSize); }
+	UINT GetHarnessSize() const { return UINT(m_vecHarness.size()); }
+	CIKSMDCHarnessMJ *GetHarnessByIndex(UINT uIndex)
+	{
+		if (uIndex >= GetHarnessSize())
+			return NULL;
+		return &(m_vecHarness[uIndex]);
+	}
 
 private:
 	std::vector<CIKSMDCHarnessMJ> m_vecHarness;
@@ -1133,6 +1359,14 @@ protected:
 public:
 	const std::vector<CIKSMDCHarnessJJAN>& GetHarness() const { return m_vecHarness; }
 	void SetHarness(const std::vector<CIKSMDCHarnessJJAN>& vecHarness) { m_vecHarness = vecHarness;}
+	void ResizeHarness(UINT uSize) { m_vecHarness.resize(uSize); }
+	UINT GetHarnessSize() const { return UINT(m_vecHarness.size()); }
+	CIKSMDCHarnessJJAN *GetHarnessByIndex(UINT uIndex)
+	{
+		if (uIndex >= GetHarnessSize())
+			return NULL;
+		return &(m_vecHarness[uIndex]);
+	}
 
 private:
 	std::vector<CIKSMDCHarnessJJAN> m_vecHarness;
@@ -1162,6 +1396,14 @@ protected:
 public:
 	const std::vector<CIKSMDCHarnessGK>& GetHarness() const { return m_vecHarness; }
 	void SetHarness(const std::vector<CIKSMDCHarnessGK>& vecHarness) { m_vecHarness = vecHarness;}
+	void ResizeHarness(UINT uSize) { m_vecHarness.resize(uSize); }
+	UINT GetHarnessSize() const { return UINT(m_vecHarness.size()); }
+	CIKSMDCHarnessGK *GetHarnessByIndex(UINT uIndex)
+	{
+		if (uIndex >= GetHarnessSize())
+			return NULL;
+		return &(m_vecHarness[uIndex]);
+	}
 
 private:
 	std::vector<CIKSMDCHarnessGK> m_vecHarness;
@@ -1191,6 +1433,14 @@ protected:
 public:
 	const std::vector<CIKSMDCHarnessJDX>& GetHarness() const { return m_vecHarness; }
 	void SetHarness(const std::vector<CIKSMDCHarnessJDX>& vecHarness) { m_vecHarness = vecHarness;}
+	void ResizeHarness(UINT uSize) { m_vecHarness.resize(uSize); }
+	UINT GetHarnessSize() const { return UINT(m_vecHarness.size()); }
+	CIKSMDCHarnessJDX *GetHarnessByIndex(UINT uIndex)
+	{
+		if (uIndex >= GetHarnessSize())
+			return NULL;
+		return &(m_vecHarness[uIndex]);
+	}
 
 private:
 	std::vector<CIKSMDCHarnessJDX> m_vecHarness;
@@ -1220,6 +1470,14 @@ protected:
 public:
 	const std::vector<CIKSMDCHarnessWX>& GetHarness() const { return m_vecHarness; }
 	void SetHarness(const std::vector<CIKSMDCHarnessWX>& vecHarness) { m_vecHarness = vecHarness;}
+	void ResizeHarness(UINT uSize) { m_vecHarness.resize(uSize); }
+	UINT GetHarnessSize() const { return UINT(m_vecHarness.size()); }
+	CIKSMDCHarnessWX *GetHarnessByIndex(UINT uIndex)
+	{
+		if (uIndex >= GetHarnessSize())
+			return NULL;
+		return &(m_vecHarness[uIndex]);
+	}
 
 private:
 	std::vector<CIKSMDCHarnessWX> m_vecHarness;
@@ -1240,6 +1498,15 @@ public:
 public:
 	// 清空数据
 	void Clear();
+
+public:
+	// 获取项目内所有线束的基类指针
+	BOOL GetRoutCabProjHarnessDataPt(std::vector<CIKSMDCRoutCabProjHarnessData*> &vecRoutCabProjHarnDataPt) const;
+	// 获取项目内所有线束的基类指针
+	BOOL GetHarnessPt(std::vector<CIKSMDCHarness*> &vecHarnessPt) const;
+	// 获取项目内所有电缆的基类指针
+	BOOL GetCablePt(std::vector<CIKSMDCCable*> &vecCablePt) const;
+
 
 protected:
 

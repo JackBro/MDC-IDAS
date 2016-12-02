@@ -962,12 +962,12 @@ void CDlgRoutingCableByParam::ShowSubDlgByCatalogueSel()
 // 初始化布线项目数据信息
 void CDlgRoutingCableByParam::InitRoutCabProjDataInf()
 {
-	// 更新布局参数(从当前装配体获取参数)
-	m_MDCCableDMMgr.UpdateLayoutParamFromCurAsm();
-	// 更新电缆布局参数(从当前装配体获取参数)
-	m_MDCCableDMMgr.UpdateCableLayoutParamFromCurAsm();
-	// 更新电缆设计参数(从当前装配体获取参数)
-	m_MDCCableDMMgr.UpdateCableDesignParamFromCurAsm();
+	// 获取布局参数(从当前装配体获取参数)
+	m_MDCCableDMMgr.GetLayoutParamFromCurAsm();
+	// 获取电缆布局参数(从当前装配体获取参数)
+	m_MDCCableDMMgr.GetCableLayoutParamFromCurAsm();
+	// 获取电缆设计参数(从当前装配体获取参数)
+	m_MDCCableDMMgr.GetCableDesignParamFromCurAsm();
 
 	// 根据布局参数修正电缆设计参数
 	m_MDCCableDMMgr.CorrectCableDesignParamByLayoutParam();
