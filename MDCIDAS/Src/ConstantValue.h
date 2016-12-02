@@ -615,6 +615,150 @@ typedef struct __tagJiGuiDBData
 	}
 }JiGuiDBData;
 
+// 面板的数据
+typedef struct __tagPanelDBData
+{
+	CString strCode;								// 代码
+	CString strPartNo;								// 图号
+	CString strName;								// 名称
+	CString strEngName;								// 英文名
+	CString strUnit;								// 单位
+	CString strState;								// 状态
+	CString strClass;								// 类别
+	double dHeight;									// 高度
+	double dWidth;									// 宽度
+	double dDepth;									// 深度
+	CString strUNum;								// 适配U数
+	CString strRemark;								// 备注
+
+	__tagPanelDBData()
+	{
+		strCode = _T("");
+		strPartNo = _T("");
+		strName = _T("");
+		strEngName = _T("");
+		strUnit = _T("");
+		strState = _T("");
+		strClass = _T("");
+		dHeight = 0.0;
+		dWidth = 0.0;
+		dDepth = 0.0;
+		strUNum = _T("");
+		strRemark = _T("");
+	}
+	__tagPanelDBData(const __tagPanelDBData &data)
+	{
+		strCode = data.strCode;
+		strPartNo = data.strPartNo;
+		strName = data.strName;
+		strEngName = data.strEngName;
+		strUnit = data.strUnit;
+		strState = data.strState;
+		strClass = data.strClass;
+		dHeight = data.dHeight;
+		dWidth = data.dWidth;
+		dDepth = data.dDepth;
+		strUNum = data.strUNum;
+		strRemark = data.strRemark;
+	}
+	__tagPanelDBData operator=(const __tagPanelDBData &data)
+	{
+		if (&data == this)
+			return *this;
+		strCode = data.strCode;
+		strPartNo = data.strPartNo;
+		strName = data.strName;
+		strEngName = data.strEngName;
+		strUnit = data.strUnit;
+		strState = data.strState;
+		strClass = data.strClass;
+		dHeight = data.dHeight;
+		dWidth = data.dWidth;
+		dDepth = data.dDepth;
+		strUNum = data.strUNum;
+		strRemark = data.strRemark;
+		return *this;
+	}
+}PanelDBData;
+
+// 机柜门的数据
+typedef struct __tagJiGuiMenDBData
+{
+	CString strCode;								// 代码
+	CString strPartNo;								// 图号
+	CString strName;								// 名称
+	CString strEngName;								// 英文名
+	CString strUnit;								// 单位
+	CString strState;								// 状态
+	CString strClass;								// 类别
+	double dHeight;									// 高度
+	double dWidth;									// 宽度
+	double dDepth;									// 深度
+	double dFixedHeight;							// 适配高度
+	double dFixedWidth;								// 适配宽度
+	CString strIsPadHole;							// PAD安装孔
+	CString strIsHinge;								// 铰链
+	CString strRemark;								// 备注
+
+	__tagJiGuiMenDBData()
+	{
+		strCode = _T("");
+		strPartNo = _T("");
+		strName = _T("");
+		strEngName = _T("");
+		strUnit = _T("");
+		strState = _T("");
+		strClass = _T("");
+		dHeight = 0.0;
+		dWidth = 0.0;
+		dDepth = 0.0;
+		dFixedHeight = 0.0;
+		dFixedWidth = 0.0;
+		strIsPadHole = _T("");
+		strIsHinge = _T("");
+		strRemark = _T("");
+	}
+	__tagJiGuiMenDBData(const __tagJiGuiMenDBData &data)
+	{
+		strCode = data.strCode;
+		strPartNo = data.strPartNo;
+		strName = data.strName;
+		strEngName = data.strEngName;
+		strUnit = data.strUnit;
+		strState = data.strState;
+		strClass = data.strClass;
+		dHeight = data.dHeight;
+		dWidth = data.dWidth;
+		dDepth = data.dDepth;
+		dFixedHeight = data.dFixedHeight;
+		dFixedWidth = data.dFixedWidth;
+		strIsPadHole = data.strIsPadHole;
+		strIsHinge = data.strIsHinge;
+		strRemark = data.strRemark;
+	}
+	__tagJiGuiMenDBData operator=(const __tagJiGuiMenDBData &data)
+	{
+		if (&data == this)
+			return *this;
+		strCode = data.strCode;
+		strPartNo = data.strPartNo;
+		strName = data.strName;
+		strEngName = data.strEngName;
+		strUnit = data.strUnit;
+		strState = data.strState;
+		strClass = data.strClass;
+		dHeight = data.dHeight;
+		dWidth = data.dWidth;
+		dDepth = data.dDepth;
+		dFixedHeight = data.dFixedHeight;
+		dFixedWidth = data.dFixedWidth;
+		strIsPadHole = data.strIsPadHole;
+		strIsHinge = data.strIsHinge;
+		strRemark = data.strRemark;
+		return *this;
+	}
+}JiGuiMenDBData;
+
 //===================================================================================================
 // 电缆模块
 
