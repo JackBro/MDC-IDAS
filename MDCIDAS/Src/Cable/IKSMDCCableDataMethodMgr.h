@@ -34,16 +34,18 @@ protected:
 
 // 电缆布局参数和电缆设计参数
 public:
-	// 更新布局参数(从当前装配体获取参数)
-	void UpdateLayoutParamFromCurAsm();
+	// 获取布局参数(从当前装配体获取参数)
+	void GetLayoutParamFromCurAsm();
 
-	// 更新电缆布局参数(从当前装配体获取参数)
-	void UpdateCableLayoutParamFromCurAsm();
-	// 更新电缆布局参数至当前装配体
-	void UpdateCableLayoutParamToCurAsm() const;
+	// 获取电缆布局参数(从当前装配体获取参数)
+	void GetCableLayoutParamFromCurAsm();
+// 	// 更新电缆布局参数至当前装配体
+// 	void UpdateCableLayoutParamToCurAsm() const;
 
-	// 更新电缆设计参数(从当前装配体获取参数)
-	void UpdateCableDesignParamFromCurAsm();
+	// 获取电缆设计参数(从当前布线装配体获取参数)
+	void GetCableDesignParamFromCurAsm();
+	// 获取电缆设计参数(从输入布线装配体获取参数)
+	void GetCableDesignParamFromCurAsm(IKSMDCCableDesignParam &stuCableDesignParam, ProAssembly pCablingAsm=NULL);
 	// 更新电缆设计参数至当前装配体
 	void UpdateCableDesignParamToCurAsm() const;
 
@@ -54,6 +56,9 @@ public:
 public:
 	// 更新布线装配体（从当前装配体中获取布线装配体，若未找到则进行创建）
 	BOOL UpdateCablingAsm();
+
+	// 验证当前装配体是否需要重建
+	BOOL IsCablingAsmNeedToRebuild(const IKSMDCCableDesignParam &stuOriCableDesignParam, const IKSMDCCableDesignParam &stuCurCableDesignParam);
 
 // 布线装配体
 protected:
@@ -74,10 +79,15 @@ protected:
 
 // 电连接器
 public:
+	// 在布线装配体中创建电连接器定位坐标系（若已存在则将其删除后重新创建或进行修改）（根据顶层装配体中的电连接器定位坐标系进行创建）
+	BOOL CreateConnLocCSysInCablingAsm();
+
 	// 装配并指定电连接器
 	BOOL AssemblyAndDesignateConnector(CBPDynamicArray<UINT> *parrFailedAsmConnIndex=NULL, ProAssembly pConnParentAsm=NULL, ProAsmcomppath* pLocateCSysSolidCmpPath=NULL);
 	// 装配并指定电连接器
 	BOOL AssemblyAndDesignateConnector(std::vector<IKSMDCConnector> &vecMDCConnector, CBPDynamicArray<UINT> &arrFailedAsmConnIndex, ProAssembly pConnParentAsm=NULL, ProAsmcomppath* pLocateCSysSolidCmpPath=NULL);
+	// 检验电连接器能否装配
+	BOOL CheckConnectorAssembly(CBPDynamicArray<UINT> *parrLostCSysConnIndex=NULL, CBPDynamicArray<UINT> *parrFailedLoadMdlConnIndex=NULL, ProAsmcomppath* pLocateCSysSolidCmpPath=NULL, CUnicodeString *pPrompt=NULL);
 	// 检验电连接器能否装配
 	BOOL CheckConnectorAssembly(const std::vector<IKSMDCConnector> &vecMDCConnector, CBPDynamicArray<UINT> &arrLostCSysConnIndex, CBPDynamicArray<UINT> &arrFailedLoadMdlConnIndex, ProAsmcomppath* pLocateCSysSolidCmpPath=NULL, CUnicodeString *pPrompt=NULL);
 	// 加载的电连接器模板模型
@@ -85,6 +95,34 @@ public:
 
 	// 初始化电连接器参数
 	void InitConnectorParam(IKSConnectorParamInfo &stuConnParam);
+	// 电连接器端口坐标系ProSelection的数据申请
+	BOOL ConnectorPortCSysProSelectionAlloc(const CIKSMDCRoutCabProjDataInf &stuRoutCabProjDataInf, const CSVWString &strRefDes, ProSelection &pSelection, CSVStringIndexMgr *pmapConnRefDesIndexMgr=NULL);
+
+// 线束
+public:
+	// 通过布线项目数据信息创建线束及其电缆特征和线轴特征
+	BOOL CreateHarnessCableSplData();
+	// 通过布线项目数据信息创建线束及其电缆特征和线轴特征
+	BOOL CreateHarnessCableSplData(const CIKSMDCRoutCabProjDataInf &stuRoutCabProjDataInf, ProAssembly pCablingAsm);
+
+	// 根据当前ProE模型数据更新布线项目数据信息中的线束数据
+	BOOL UpdateRoutCabProjHarnDataByCurAsmData();
+	// 根据当前ProE模型数据更新布线项目数据信息中的线束数据
+	BOOL UpdateRoutCabProjHarnDataByCurAsmData(CIKSMDCRoutCabProjDataInf &stuRoutCabProjDataInf);
+
+	// 通过布线项目数据信息布线电缆
+	BOOL RoutingCable();
+	// 通过布线项目数据信息布线电缆
+	BOOL RoutingCable(const CIKSMDCRoutCabProjDataInf &stuRoutCabProjDataInf, ProAssembly pCablingAsm);
+
+// 线束
+protected:
+	// 创建线束模型
+	BOOL CreateHarnessMdl(CIKSMDCHarness* pHarness, ProAssembly pCablingAsm);
+	// 创建线束内的电缆特征
+	BOOL CreateCableFeatInHarn(CIKSMDCHarness* pHarness);
+	// 创建电缆特征
+	BOOL CreateCableFeat(CIKSMDCHarness* pHarness, CIKSMDCCable* pCable);
 
 // 试验
 public:
@@ -105,8 +143,8 @@ public:
 	ProAssembly GetCablingAsm() const { return m_pCablingAsm; }
 	void SetCablingAsm(ProAssembly pCablingAsm) { m_pCablingAsm = pCablingAsm; }
 
-	ProAsmcomppath GetCablingAsmCompPath() const { return m_stuCablingAsmCompPath; }
 	ProAsmcomppath* GetCablingAsmCompPathPt() { return &m_stuCablingAsmCompPath; }
+	ProAsmcomppath GetCablingAsmCompPath() const { return m_stuCablingAsmCompPath; }
 	void SetCablingAsmCompPath(const ProAsmcomppath &stuCablingAsmCompPath) { m_stuCablingAsmCompPath = stuCablingAsmCompPath; }
 
 // 私有数据
