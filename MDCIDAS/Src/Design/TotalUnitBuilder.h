@@ -84,7 +84,18 @@ public:
 		double dAngle,													// 符号顺时针旋转角度(in)
 		IKSCsysData &position											// 模型装配位置(out)
 		);
-
+	// 获取临时图号
+	CString GetTempPartNo(
+		const CString &strTemplateName									// 模板文件名
+		);
+	// 获取模板文件名
+	CString GetTemplateNameByModelType(
+		int nModelType													// 组件类型
+		);
+	// 获取装配坐标名名
+	CString GetCompCsysNameByModelType(
+		int nModelType													// 组件类型
+		);
 
 	// 测试生成模型
 	bool TestBuildModel();

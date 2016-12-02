@@ -94,76 +94,7 @@ bool CTotalUnitBuilder::AssembleModel(
 	const ModelConfiguration &mdlConfig								// 模型配置
 	)
 {
-	bool bRet = false;
-	switch (mdlConfig.nModelType)
-	{
-	case DMT_ITC:						// 服务器机柜
-		bRet = AssembleModel(pTopAsm, g_strFWQJGTemplateAsmName, g_strFWQJGCompCsysName, mdlConfig);
-		break;
-	case DMT_MGT:						// 管控柜
-		bRet = AssembleModel(pTopAsm, g_strGKGTemplateAsmName, g_strGKGCompCsysName, mdlConfig);
-		break;
-	case DMT_COL_HAED_MGT:				// 列头管控柜
-		bRet = AssembleModel(pTopAsm, g_strGKGTemplateAsmName, g_strGKGCompCsysName, mdlConfig);
-		break;
-	case DMT_TAC:						// 空调柜
-		bRet = AssembleModel(pTopAsm, g_strKTGTemplateAsmName, g_strKTGCompCsysName, mdlConfig);
-		break;
-	case DMT_FHC:						// 消防柜
-		bRet = AssembleModel(pTopAsm, g_strXFGTemplateAsmName, g_strXFGCompCsysName, mdlConfig);
-		break;
-	case DMT_COL_HAED_EMPTY:			// 列头空柜
-		bRet = AssembleModel(pTopAsm, g_strGKGTemplateAsmName, g_strGKGCompCsysName, mdlConfig);
-		break;
-	case DMT_PDR:						// 配电柜
-		bRet = AssembleModel(pTopAsm, g_strPDGTemplateAsmName, g_strPDGCompCsysName, mdlConfig);
-		break;
-	case DMT_COL_HEAD_PDR:				// 列头配电柜
-		bRet = AssembleModel(pTopAsm, g_strPDGTemplateAsmName, g_strPDGCompCsysName, mdlConfig);
-		break;
-	case DMT_ROW_EMPTY:					// 行间空柜
-		bRet = AssembleModel(pTopAsm, g_strHJKGTemplateAsmName, g_strHJKGCompCsysName, mdlConfig);
-		break;
-	case DMT_DAO_FENG:					// 导风柜
-		bRet = AssembleModel(pTopAsm, g_strDFGTemplateAsmName, g_strDFGCompCsysName, mdlConfig);
-		break;
-	case DMT_CASO4_FLOOR:				// 硫酸钙地板
-		break;
-	case DMT_STEEL_FLOOR:				// 全钢通风地板
-		break;
-	case DMT_COLD_FRONT_DOOR:			// 通道平门
-		bRet = AssembleModel(pTopAsm, g_strTDPMTemplateAsmName, g_strTDPMCompCsysName, mdlConfig);
-		break;
-	case DMT_COLD_BACK_DOOR:			// 通道凸门
-		bRet = AssembleModel(pTopAsm, g_strTDTMTemplateAsmName, g_strTDTMCompCsysName, mdlConfig);
-		break;
-	case DMT_LEFT_FRAME:				// 左框架
-		break;
-	case DMT_RIGHT_FRAME:				// 右框架
-		break;
-	case DMT_FLIP_WINDOW:				// 翻转顶窗
-		bRet = AssembleModel(pTopAsm, g_strFZDCTemplateAsmName, g_strFZDCCompCsysName, mdlConfig);
-		break;
-	case DMT_FIXED_WINDOW:				// 固定顶窗
-		bRet = AssembleModel(pTopAsm, g_strGDDCTemplateAsmName, g_strGDDCCompCsysName, mdlConfig);
-		break;
-	case DMT_ADJUST_WINDOW:				// 可调顶窗
-		bRet = AssembleModel(pTopAsm, g_strKTDCTemplateAsmName, g_strKTDCCompCsysName, mdlConfig);
-		break;
-	case DMT_FOOTSTEP:					// 踏步
-		break;
-	case DMT_ZOU_XIAN_JIA:				// 强弱电走线架
-		bRet = AssembleModel(pTopAsm, g_strZXJTemplateAsmName, g_strZXJCompCsysName, mdlConfig);
-		break;
-	case DMT_GUANG_XIAN_ZXJ:			// 光纤走线架
-		bRet = AssembleModel(pTopAsm, g_strGXCTemplateAsmName, g_strGXCCompCsysName, mdlConfig);
-		break;
-	case DMT_WALL_PILLAR:				// 墙柱
-		break;
-	default:
-		break;
-	}
-	return bRet;
+	return AssembleModel(pTopAsm, GetTemplateNameByModelType(mdlConfig.nModelType), GetCompCsysNameByModelType(mdlConfig.nModelType), mdlConfig);
 }
 
 // 装配模型
@@ -246,6 +177,8 @@ bool CTotalUnitBuilder::AssembleModel(
 	)
 {
 	if (NULL == pTopAsm)
+		return false;
+	if (strTemplateName.IsEmpty() || strCompCsysName.IsEmpty())
 		return false;
 
 	// 不需要配置
@@ -359,6 +292,171 @@ bool CTotalUnitBuilder::GetModelPosition(
 	position.z = SVDOUBLE3(0.0, 0.0, 1.0);
 
 	return true;
+}
+
+// 获取临时图号
+CString CTotalUnitBuilder::GetTempPartNo(
+	const CString &strTemplateName									// 模板文件名
+	)
+{
+	static int nIndex = 1;
+	CString strTempPartNo;
+	strTempPartNo.Format(L"%s_%d", strTemplateName, nIndex++);
+	return strTempPartNo;
+}
+
+// 获取模板文件名
+CString CTotalUnitBuilder::GetTemplateNameByModelType(
+	int nModelType													// 组件类型
+	)
+{
+	CString strTemplateName;
+	switch (nModelType)
+	{
+	case DMT_ITC:						// 服务器机柜
+		strTemplateName = g_strFWQJGTemplateAsmName;
+		break;
+	case DMT_MGT:						// 管控柜
+		strTemplateName = g_strGKGTemplateAsmName;
+		break;
+	case DMT_COL_HAED_MGT:				// 列头管控柜
+		strTemplateName = g_strGKGTemplateAsmName;
+		break;
+	case DMT_TAC:						// 空调柜
+		strTemplateName = g_strKTGTemplateAsmName;
+		break;
+	case DMT_FHC:						// 消防柜
+		strTemplateName = g_strXFGTemplateAsmName;
+		break;
+	case DMT_COL_HAED_EMPTY:			// 列头空柜
+		strTemplateName = g_strGKGTemplateAsmName;
+		break;
+	case DMT_PDR:						// 配电柜
+		strTemplateName = g_strPDGTemplateAsmName;
+		break;
+	case DMT_COL_HEAD_PDR:				// 列头配电柜
+		strTemplateName = g_strPDGTemplateAsmName;
+		break;
+	case DMT_ROW_EMPTY:					// 行间空柜
+		strTemplateName = g_strHJKGTemplateAsmName;
+		break;
+	case DMT_DAO_FENG:					// 导风柜
+		strTemplateName = g_strDFGTemplateAsmName;
+		break;
+	case DMT_CASO4_FLOOR:				// 硫酸钙地板
+		break;
+	case DMT_STEEL_FLOOR:				// 全钢通风地板
+		break;
+	case DMT_COLD_FRONT_DOOR:			// 通道平门
+		strTemplateName = g_strTDPMTemplateAsmName;
+		break;
+	case DMT_COLD_BACK_DOOR:			// 通道凸门
+		strTemplateName = g_strTDTMTemplateAsmName;
+		break;
+	case DMT_LEFT_FRAME:				// 左框架
+		break;
+	case DMT_RIGHT_FRAME:				// 右框架
+		break;
+	case DMT_FLIP_WINDOW:				// 翻转顶窗
+		strTemplateName = g_strFZDCTemplateAsmName;
+		break;
+	case DMT_FIXED_WINDOW:				// 固定顶窗
+		strTemplateName = g_strGDDCTemplateAsmName;
+		break;
+	case DMT_ADJUST_WINDOW:				// 可调顶窗
+		strTemplateName = g_strKTDCTemplateAsmName;
+		break;
+	case DMT_FOOTSTEP:					// 踏步
+		break;
+	case DMT_ZOU_XIAN_JIA:				// 强弱电走线架
+		strTemplateName = g_strZXJTemplateAsmName;
+		break;
+	case DMT_GUANG_XIAN_ZXJ:			// 光纤走线架
+		strTemplateName = g_strGXCTemplateAsmName;
+		break;
+	case DMT_WALL_PILLAR:				// 墙柱
+		break;
+	default:
+		break;
+	}
+	return strTemplateName;
+}
+
+// 获取装配坐标名名
+CString CTotalUnitBuilder::GetCompCsysNameByModelType(
+	int nModelType													// 组件类型
+	)
+{
+	CString strCompCsysName;
+	switch (nModelType)
+	{
+	case DMT_ITC:						// 服务器机柜
+		strCompCsysName = g_strFWQJGCompCsysName;
+		break;
+	case DMT_MGT:						// 管控柜
+		strCompCsysName = g_strGKGCompCsysName;
+		break;
+	case DMT_COL_HAED_MGT:				// 列头管控柜
+		strCompCsysName = g_strGKGCompCsysName;
+		break;
+	case DMT_TAC:						// 空调柜
+		strCompCsysName = g_strKTGCompCsysName;
+		break;
+	case DMT_FHC:						// 消防柜
+		strCompCsysName = g_strXFGCompCsysName;
+		break;
+	case DMT_COL_HAED_EMPTY:			// 列头空柜
+		strCompCsysName = g_strGKGCompCsysName;
+		break;
+	case DMT_PDR:						// 配电柜
+		strCompCsysName = g_strPDGCompCsysName;
+		break;
+	case DMT_COL_HEAD_PDR:				// 列头配电柜
+		strCompCsysName = g_strPDGCompCsysName;
+		break;
+	case DMT_ROW_EMPTY:					// 行间空柜
+		strCompCsysName = g_strHJKGCompCsysName;
+		break;
+	case DMT_DAO_FENG:					// 导风柜
+		strCompCsysName = g_strDFGCompCsysName;
+		break;
+	case DMT_CASO4_FLOOR:				// 硫酸钙地板
+		break;
+	case DMT_STEEL_FLOOR:				// 全钢通风地板
+		break;
+	case DMT_COLD_FRONT_DOOR:			// 通道平门
+		strCompCsysName = g_strTDPMCompCsysName;
+		break;
+	case DMT_COLD_BACK_DOOR:			// 通道凸门
+		strCompCsysName = g_strTDTMCompCsysName;
+		break;
+	case DMT_LEFT_FRAME:				// 左框架
+		break;
+	case DMT_RIGHT_FRAME:				// 右框架
+		break;
+	case DMT_FLIP_WINDOW:				// 翻转顶窗
+		strCompCsysName = g_strFZDCCompCsysName;
+		break;
+	case DMT_FIXED_WINDOW:				// 固定顶窗
+		strCompCsysName = g_strGDDCCompCsysName;
+		break;
+	case DMT_ADJUST_WINDOW:				// 可调顶窗
+		strCompCsysName = g_strKTDCCompCsysName;
+		break;
+	case DMT_FOOTSTEP:					// 踏步
+		break;
+	case DMT_ZOU_XIAN_JIA:				// 强弱电走线架
+		strCompCsysName = g_strZXJCompCsysName;
+		break;
+	case DMT_GUANG_XIAN_ZXJ:			// 光纤走线架
+		strCompCsysName = g_strGXCCompCsysName;
+		break;
+	case DMT_WALL_PILLAR:				// 墙柱
+		break;
+	default:
+		break;
+	}
+	return strCompCsysName;
 }
 
 // 测试生成模型
@@ -543,7 +641,6 @@ bool CTotalUnitBuilder::TestBuildModelByXML(const CString &strXMLPath)
 	totalUnitConfig.strAsmName = _T("TOTAL_MODEL_00001");
 	ModelConfiguration modelConfig;
 	int nModelType = -1, nFindMdlConfig = -1;
-	int nIndex = 1;
 	for (size_t i=0; i<arrSymbols.size(); i++)
 	{
 		nModelType = GetDesignModelType(arrSymbols[i]->m_nSubType);
@@ -556,7 +653,7 @@ bool CTotalUnitBuilder::TestBuildModelByXML(const CString &strXMLPath)
 			modelConfig.nMajorClass = -1;
 			modelConfig.nModelType = nModelType;
 			modelConfig.bIsCreate = true;
-			modelConfig.strTempPartNo.Format( _T("JIGUI_%d"), nIndex++);
+			modelConfig.strTempPartNo = GetTempPartNo(GetTemplateNameByModelType(nModelType));
 			modelConfig.strFormalPartNo = _T("");
 			modelConfig.strPurchaseNo = _T("");
 			modelConfig.dHeight = 500.0;
