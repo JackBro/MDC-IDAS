@@ -530,7 +530,7 @@ bool CTotalUnitBuilder::SelectGKGConfiguration(
 	vector<CLaySymbolObj*> arrMCCSymbols;
 	GetLayoutSymbols(SCT_MCC, arrSymbols, arrMCCSymbols);
 	vector<CLaySymbolObj*> arrTempMCCSymbols;
-	GetLayoutSymbols(SCT_MCC, arrSymbols, arrTempMCCSymbols);
+	GetLayoutSymbols(SCT_FMCC, arrSymbols, arrTempMCCSymbols);
 	if (!arrTempMCCSymbols.empty())
 	{
 		for (size_t i = 0; i < arrTempMCCSymbols.size(); i++)
@@ -991,7 +991,7 @@ bool CTotalUnitBuilder::TestBuildModelByReqTableAndLayoutFile(const CString &str
 
 	// Ñ¡Åä¹Ü¿Ø¹ñ
 	ModelConfiguration GKGConfig;
-	if (SelectFWQJGConfiguration(reqTabData, xmlParse, arrSymbols, GKGConfig))
+	if (SelectGKGConfiguration(reqTabData, xmlParse, arrSymbols, GKGConfig))
 		totalUnitConfig.arrModelConfig.push_back(GKGConfig);
 	xmlParse.UnInit();
 
