@@ -80,7 +80,11 @@ ProMdl CTotalUnitBuilder::LoadMdlByPartNo(
 	// 临时用本地的模型
 	if (NULL == pMdl)
 	{
-		CString strLibPath = CString(L"E:\\ProETest\\MDC-IDAS\\ZTE_LIB\\") + strPartNo + CString(L".asm");
+		ProPath szCurPath;
+		ProDirectoryCurrentGet(szCurPath);
+		CString strLibPath = szCurPath;
+		strLibPath += L"\\ZTE_LIB\\";
+		strLibPath += strPartNo + CString(L".asm");
 		wcsncpy_s(szMdlPath, PRO_PATH_SIZE, (LPCTSTR)strLibPath, _TRUNCATE);
 		ProMdlLoad(szMdlPath, PRO_MDL_ASSEMBLY, PRO_B_FALSE, &pMdl);
 	}
