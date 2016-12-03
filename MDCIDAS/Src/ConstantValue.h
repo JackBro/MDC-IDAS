@@ -626,9 +626,9 @@ typedef struct __tagPanelDBData
 	CString strState;								// 状态
 	CString strClass;								// 类别
 	double dHeight;									// 高度
+	CString strUNum;								// 适配U数
 	double dWidth;									// 宽度
 	double dDepth;									// 深度
-	CString strUNum;								// 适配U数
 	CString strRemark;								// 备注
 
 	__tagPanelDBData()
@@ -641,9 +641,9 @@ typedef struct __tagPanelDBData
 		strState = _T("");
 		strClass = _T("");
 		dHeight = 0.0;
+		strUNum = _T("");
 		dWidth = 0.0;
 		dDepth = 0.0;
-		strUNum = _T("");
 		strRemark = _T("");
 	}
 	__tagPanelDBData(const __tagPanelDBData &data)
@@ -656,9 +656,9 @@ typedef struct __tagPanelDBData
 		strState = data.strState;
 		strClass = data.strClass;
 		dHeight = data.dHeight;
+		strUNum = data.strUNum;
 		dWidth = data.dWidth;
 		dDepth = data.dDepth;
-		strUNum = data.strUNum;
 		strRemark = data.strRemark;
 	}
 	__tagPanelDBData operator=(const __tagPanelDBData &data)
@@ -673,9 +673,9 @@ typedef struct __tagPanelDBData
 		strState = data.strState;
 		strClass = data.strClass;
 		dHeight = data.dHeight;
+		strUNum = data.strUNum;
 		dWidth = data.dWidth;
 		dDepth = data.dDepth;
-		strUNum = data.strUNum;
 		strRemark = data.strRemark;
 		return *this;
 	}
@@ -691,11 +691,11 @@ typedef struct __tagJiGuiMenDBData
 	CString strUnit;								// 单位
 	CString strState;								// 状态
 	CString strClass;								// 类别
+	double dFixedHeight;							// 适配高度
 	double dHeight;									// 高度
+	double dFixedWidth;								// 适配宽度
 	double dWidth;									// 宽度
 	double dDepth;									// 深度
-	double dFixedHeight;							// 适配高度
-	double dFixedWidth;								// 适配宽度
 	CString strIsPadHole;							// PAD安装孔
 	CString strIsHinge;								// 铰链
 	CString strRemark;								// 备注
@@ -709,11 +709,11 @@ typedef struct __tagJiGuiMenDBData
 		strUnit = _T("");
 		strState = _T("");
 		strClass = _T("");
+		dFixedHeight = 0.0;
 		dHeight = 0.0;
+		dFixedWidth = 0.0;
 		dWidth = 0.0;
 		dDepth = 0.0;
-		dFixedHeight = 0.0;
-		dFixedWidth = 0.0;
 		strIsPadHole = _T("");
 		strIsHinge = _T("");
 		strRemark = _T("");
@@ -727,11 +727,11 @@ typedef struct __tagJiGuiMenDBData
 		strUnit = data.strUnit;
 		strState = data.strState;
 		strClass = data.strClass;
+		dFixedHeight = data.dFixedHeight;
 		dHeight = data.dHeight;
+		dFixedWidth = data.dFixedWidth;
 		dWidth = data.dWidth;
 		dDepth = data.dDepth;
-		dFixedHeight = data.dFixedHeight;
-		dFixedWidth = data.dFixedWidth;
 		strIsPadHole = data.strIsPadHole;
 		strIsHinge = data.strIsHinge;
 		strRemark = data.strRemark;
@@ -747,17 +747,785 @@ typedef struct __tagJiGuiMenDBData
 		strUnit = data.strUnit;
 		strState = data.strState;
 		strClass = data.strClass;
+		dFixedHeight = data.dFixedHeight;
 		dHeight = data.dHeight;
+		dFixedWidth = data.dFixedWidth;
 		dWidth = data.dWidth;
 		dDepth = data.dDepth;
-		dFixedHeight = data.dFixedHeight;
-		dFixedWidth = data.dFixedWidth;
 		strIsPadHole = data.strIsPadHole;
 		strIsHinge = data.strIsHinge;
 		strRemark = data.strRemark;
 		return *this;
 	}
 }JiGuiMenDBData;
+
+// 机柜侧门的数据
+typedef struct __tagJiGuiCeMenDBData
+{
+	CString strCode;								// 代码
+	CString strPartNo;								// 图号
+	CString strName;								// 名称
+	CString strEngName;								// 英文名
+	CString strUnit;								// 单位
+	CString strState;								// 状态
+	CString strClass;								// 类别
+	double dFixedHeight;							// 适配高度
+	double dHeight;									// 高度
+	double dFixedDepth;								// 适配深度
+	double dDepth;									// 深度
+	double dThickness;								// 厚度
+	CString strRemark;								// 备注
+
+	__tagJiGuiCeMenDBData()
+	{
+		strCode = _T("");
+		strPartNo = _T("");
+		strName = _T("");
+		strEngName = _T("");
+		strUnit = _T("");
+		strState = _T("");
+		strClass = _T("");
+		dFixedHeight = 0.0;
+		dHeight = 0.0;
+		dFixedDepth = 0.0;
+		dDepth = 0.0;
+		dThickness = 0.0;
+		strRemark = _T("");
+	}
+	__tagJiGuiCeMenDBData(const __tagJiGuiCeMenDBData &data)
+	{
+		strCode = data.strCode;
+		strPartNo = data.strPartNo;
+		strName = data.strName;
+		strEngName = data.strEngName;
+		strUnit = data.strUnit;
+		strState = data.strState;
+		strClass = data.strClass;
+		dFixedHeight = data.dFixedHeight;
+		dHeight = data.dHeight;
+		dFixedDepth = data.dFixedDepth;
+		dDepth = data.dDepth;
+		dThickness = data.dThickness;
+		strRemark = data.strRemark;
+	}
+	__tagJiGuiCeMenDBData operator=(const __tagJiGuiCeMenDBData &data)
+	{
+		if (&data == this)
+			return *this;
+		strCode = data.strCode;
+		strPartNo = data.strPartNo;
+		strName = data.strName;
+		strEngName = data.strEngName;
+		strUnit = data.strUnit;
+		strState = data.strState;
+		strClass = data.strClass;
+		dFixedHeight = data.dFixedHeight;
+		dHeight = data.dHeight;
+		dFixedDepth = data.dFixedDepth;
+		dDepth = data.dDepth;
+		dThickness = data.dThickness;
+		strRemark = data.strRemark;
+		return *this;
+	}
+}JiGuiCeMenDBData;
+
+// 机柜附件_托板的数据
+typedef struct __tagJGFJPlateDBData
+{
+	CString strCode;								// 代码
+	CString strPartNo;								// 图号
+	CString strName;								// 名称
+	CString strEngName;								// 英文名
+	CString strUnit;								// 单位
+	CString strState;								// 状态
+	CString strClass;								// 类别
+	double dHeight;									// 高度
+	double dWidth;									// 宽度
+	double dDepth;									// 深度
+	CString strRemark;								// 备注
+
+	__tagJGFJPlateDBData()
+	{
+		strCode = _T("");
+		strPartNo = _T("");
+		strName = _T("");
+		strEngName = _T("");
+		strUnit = _T("");
+		strState = _T("");
+		strClass = _T("");
+		dHeight = 0.0;
+		dWidth = 0.0;
+		dDepth = 0.0;
+		strRemark = _T("");
+	}
+	__tagJGFJPlateDBData(const __tagJGFJPlateDBData &data)
+	{
+		strCode = data.strCode;
+		strPartNo = data.strPartNo;
+		strName = data.strName;
+		strEngName = data.strEngName;
+		strUnit = data.strUnit;
+		strState = data.strState;
+		strClass = data.strClass;
+		dHeight = data.dHeight;
+		dWidth = data.dWidth;
+		dDepth = data.dDepth;
+		strRemark = data.strRemark;
+	}
+	__tagJGFJPlateDBData operator=(const __tagJGFJPlateDBData &data)
+	{
+		if (&data == this)
+			return *this;
+		strCode = data.strCode;
+		strPartNo = data.strPartNo;
+		strName = data.strName;
+		strEngName = data.strEngName;
+		strUnit = data.strUnit;
+		strState = data.strState;
+		strClass = data.strClass;
+		dHeight = data.dHeight;
+		dWidth = data.dWidth;
+		dDepth = data.dDepth;
+		strRemark = data.strRemark;
+		return *this;
+	}
+}JGFJPlateDBData;
+
+// 机柜附件_汇流排的数据
+typedef struct __tagJGFJHLPDBData
+{
+	CString strCode;								// 代码
+	CString strPartNo;								// 图号
+	CString strName;								// 名称
+	CString strEngName;								// 英文名
+	CString strUnit;								// 单位
+	CString strState;								// 状态
+	CString strClass;								// 类别
+	double dHeight;									// 高度
+	double dWidth;									// 宽度
+	double dDepth;									// 深度
+	CString strRemark;								// 备注
+
+	__tagJGFJHLPDBData()
+	{
+		strCode = _T("");
+		strPartNo = _T("");
+		strName = _T("");
+		strEngName = _T("");
+		strUnit = _T("");
+		strState = _T("");
+		strClass = _T("");
+		dHeight = 0.0;
+		dWidth = 0.0;
+		dDepth = 0.0;
+		strRemark = _T("");
+	}
+	__tagJGFJHLPDBData(const __tagJGFJHLPDBData &data)
+	{
+		strCode = data.strCode;
+		strPartNo = data.strPartNo;
+		strName = data.strName;
+		strEngName = data.strEngName;
+		strUnit = data.strUnit;
+		strState = data.strState;
+		strClass = data.strClass;
+		dHeight = data.dHeight;
+		dWidth = data.dWidth;
+		dDepth = data.dDepth;
+		strRemark = data.strRemark;
+	}
+	__tagJGFJHLPDBData operator=(const __tagJGFJHLPDBData &data)
+	{
+		if (&data == this)
+			return *this;
+		strCode = data.strCode;
+		strPartNo = data.strPartNo;
+		strName = data.strName;
+		strEngName = data.strEngName;
+		strUnit = data.strUnit;
+		strState = data.strState;
+		strClass = data.strClass;
+		dHeight = data.dHeight;
+		dWidth = data.dWidth;
+		dDepth = data.dDepth;
+		strRemark = data.strRemark;
+		return *this;
+	}
+}JGFJHLPDBData;
+
+// 机柜附件_其他的数据
+typedef struct __tagJGFJOtherDBData
+{
+	CString strXilie;								// 系列
+	CString strCode;								// 代码
+	CString strPartNo;								// 图号
+	CString strName;								// 名称
+	CString strEngName;								// 英文名
+	CString strUnit;								// 单位
+	CString strState;								// 状态
+	CString strClass;								// 类别
+	double dHeight;									// 高度
+	double dWidth;									// 宽度
+	double dDepth;									// 深度
+	CString strRemark;								// 备注
+
+	__tagJGFJOtherDBData()
+	{
+		strXilie = _T("");
+		strCode = _T("");
+		strPartNo = _T("");
+		strName = _T("");
+		strEngName = _T("");
+		strUnit = _T("");
+		strState = _T("");
+		strClass = _T("");
+		dHeight = 0.0;
+		dWidth = 0.0;
+		dDepth = 0.0;
+		strRemark = _T("");
+	}
+	__tagJGFJOtherDBData(const __tagJGFJOtherDBData &data)
+	{
+		strXilie = data.strXilie;
+		strCode = data.strCode;
+		strPartNo = data.strPartNo;
+		strName = data.strName;
+		strEngName = data.strEngName;
+		strUnit = data.strUnit;
+		strState = data.strState;
+		strClass = data.strClass;
+		dHeight = data.dHeight;
+		dWidth = data.dWidth;
+		dDepth = data.dDepth;
+		strRemark = data.strRemark;
+	}
+	__tagJGFJOtherDBData operator=(const __tagJGFJOtherDBData &data)
+	{
+		if (&data == this)
+			return *this;
+		strXilie = data.strXilie;
+		strCode = data.strCode;
+		strPartNo = data.strPartNo;
+		strName = data.strName;
+		strEngName = data.strEngName;
+		strUnit = data.strUnit;
+		strState = data.strState;
+		strClass = data.strClass;
+		dHeight = data.dHeight;
+		dWidth = data.dWidth;
+		dDepth = data.dDepth;
+		strRemark = data.strRemark;
+		return *this;
+	}
+}JGFJOtherDBData;
+
+// 顶部围板的数据
+typedef struct __tagTopWeiBanDBData
+{
+	CString strCode;								// 代码
+	CString strPartNo;								// 图号
+	CString strName;								// 名称
+	CString strEngName;								// 英文名
+	CString strUnit;								// 单位
+	CString strState;								// 状态
+	CString strClass;								// 类别
+	double dHeight;									// 高度
+	double dWidth;									// 宽度
+	double dDepth;									// 深度
+	CString strRemark;								// 备注
+
+	__tagTopWeiBanDBData()
+	{
+		strCode = _T("");
+		strPartNo = _T("");
+		strName = _T("");
+		strEngName = _T("");
+		strUnit = _T("");
+		strState = _T("");
+		strClass = _T("");
+		dHeight = 0.0;
+		dWidth = 0.0;
+		dDepth = 0.0;
+		strRemark = _T("");
+	}
+	__tagTopWeiBanDBData(const __tagTopWeiBanDBData &data)
+	{
+		strCode = data.strCode;
+		strPartNo = data.strPartNo;
+		strName = data.strName;
+		strEngName = data.strEngName;
+		strUnit = data.strUnit;
+		strState = data.strState;
+		strClass = data.strClass;
+		dHeight = data.dHeight;
+		dWidth = data.dWidth;
+		dDepth = data.dDepth;
+		strRemark = data.strRemark;
+	}
+	__tagTopWeiBanDBData operator=(const __tagTopWeiBanDBData &data)
+	{
+		if (&data == this)
+			return *this;
+		strCode = data.strCode;
+		strPartNo = data.strPartNo;
+		strName = data.strName;
+		strEngName = data.strEngName;
+		strUnit = data.strUnit;
+		strState = data.strState;
+		strClass = data.strClass;
+		dHeight = data.dHeight;
+		dWidth = data.dWidth;
+		dDepth = data.dDepth;
+		strRemark = data.strRemark;
+		return *this;
+	}
+}TopWeiBanDBData;
+
+// 顶窗的数据
+typedef struct __tagTopWindowDBData
+{
+	CString strCode;								// 代码
+	CString strPartNo;								// 图号
+	CString strName;								// 名称
+	CString strEngName;								// 英文名
+	CString strUnit;								// 单位
+	CString strState;								// 状态
+	CString strClass;								// 类别
+	double dHeight;									// 高度
+	double dWidth;									// 宽度
+	double dDepth;									// 深度
+	CString strRemark;								// 备注
+
+	__tagTopWindowDBData()
+	{
+		strCode = _T("");
+		strPartNo = _T("");
+		strName = _T("");
+		strEngName = _T("");
+		strUnit = _T("");
+		strState = _T("");
+		strClass = _T("");
+		dHeight = 0.0;
+		dWidth = 0.0;
+		dDepth = 0.0;
+		strRemark = _T("");
+	}
+	__tagTopWindowDBData(const __tagTopWindowDBData &data)
+	{
+		strCode = data.strCode;
+		strPartNo = data.strPartNo;
+		strName = data.strName;
+		strEngName = data.strEngName;
+		strUnit = data.strUnit;
+		strState = data.strState;
+		strClass = data.strClass;
+		dHeight = data.dHeight;
+		dWidth = data.dWidth;
+		dDepth = data.dDepth;
+		strRemark = data.strRemark;
+	}
+	__tagTopWindowDBData operator=(const __tagTopWindowDBData &data)
+	{
+		if (&data == this)
+			return *this;
+		strCode = data.strCode;
+		strPartNo = data.strPartNo;
+		strName = data.strName;
+		strEngName = data.strEngName;
+		strUnit = data.strUnit;
+		strState = data.strState;
+		strClass = data.strClass;
+		dHeight = data.dHeight;
+		dWidth = data.dWidth;
+		dDepth = data.dDepth;
+		strRemark = data.strRemark;
+		return *this;
+	}
+}TopWindowDBData;
+
+// 地板的数据
+typedef struct __tagFloorDBData
+{
+	CString strCode;								// 代码
+	CString strPartNo;								// 图号
+	CString strName;								// 名称
+	CString strEngName;								// 英文名
+	CString strUnit;								// 单位
+	CString strState;								// 状态
+	CString strClass;								// 类别
+	double dFixedHeight;							// 适配高度
+	double dLength;									// 长度
+	double dWidth;									// 宽度
+	double dThickness;								// 厚度
+	CString strRemark;								// 备注
+
+	__tagFloorDBData()
+	{
+		strCode = _T("");
+		strPartNo = _T("");
+		strName = _T("");
+		strEngName = _T("");
+		strUnit = _T("");
+		strState = _T("");
+		strClass = _T("");
+		dFixedHeight = 0.0;
+		dLength = 0.0;
+		dWidth = 0.0;
+		dThickness = 0.0;
+		strRemark = _T("");
+	}
+	__tagFloorDBData(const __tagFloorDBData &data)
+	{
+		strCode = data.strCode;
+		strPartNo = data.strPartNo;
+		strName = data.strName;
+		strEngName = data.strEngName;
+		strUnit = data.strUnit;
+		strState = data.strState;
+		strClass = data.strClass;
+		dFixedHeight = data.dFixedHeight;
+		dLength = data.dLength;
+		dWidth = data.dWidth;
+		dThickness = data.dThickness;
+		strRemark = data.strRemark;
+	}
+	__tagFloorDBData operator=(const __tagFloorDBData &data)
+	{
+		if (&data == this)
+			return *this;
+		strCode = data.strCode;
+		strPartNo = data.strPartNo;
+		strName = data.strName;
+		strEngName = data.strEngName;
+		strUnit = data.strUnit;
+		strState = data.strState;
+		strClass = data.strClass;
+		dFixedHeight = data.dFixedHeight;
+		dLength = data.dLength;
+		dWidth = data.dWidth;
+		dThickness = data.dThickness;
+		strRemark = data.strRemark;
+		return *this;
+	}
+}FloorDBData;
+
+// 通道的数据
+typedef struct __tagPassageDBData
+{
+	CString strCode;								// 代码
+	CString strPartNo;								// 图号
+	CString strName;								// 名称
+	CString strEngName;								// 英文名
+	CString strUnit;								// 单位
+	CString strState;								// 状态
+	CString strClass;								// 类别
+	double dFixedHeight;							// 适配高度
+	double dHeight;									// 高度
+	double dWidth;									// 宽度
+	double dDepth;									// 深度
+	CString strRemark;								// 备注
+
+	__tagPassageDBData()
+	{
+		strCode = _T("");
+		strPartNo = _T("");
+		strName = _T("");
+		strEngName = _T("");
+		strUnit = _T("");
+		strState = _T("");
+		strClass = _T("");
+		dFixedHeight = 0.0;
+		dHeight = 0.0;
+		dWidth = 0.0;
+		dDepth = 0.0;
+		strRemark = _T("");
+	}
+	__tagPassageDBData(const __tagPassageDBData &data)
+	{
+		strCode = data.strCode;
+		strPartNo = data.strPartNo;
+		strName = data.strName;
+		strEngName = data.strEngName;
+		strUnit = data.strUnit;
+		strState = data.strState;
+		strClass = data.strClass;
+		dFixedHeight = data.dFixedHeight;
+		dHeight = data.dHeight;
+		dWidth = data.dWidth;
+		dDepth = data.dDepth;
+		strRemark = data.strRemark;
+	}
+	__tagPassageDBData operator=(const __tagPassageDBData &data)
+	{
+		if (&data == this)
+			return *this;
+		strCode = data.strCode;
+		strPartNo = data.strPartNo;
+		strName = data.strName;
+		strEngName = data.strEngName;
+		strUnit = data.strUnit;
+		strState = data.strState;
+		strClass = data.strClass;
+		dFixedHeight = data.dFixedHeight;
+		dHeight = data.dHeight;
+		dWidth = data.dWidth;
+		dDepth = data.dDepth;
+		strRemark = data.strRemark;
+		return *this;
+	}
+}PassageDBData;
+
+// 布线系统的数据
+typedef struct __tagCablingSystemDBData
+{
+	CString strCode;								// 代码
+	CString strPartNo;								// 图号
+	CString strName;								// 名称
+	CString strEngName;								// 英文名
+	CString strUnit;								// 单位
+	CString strState;								// 状态
+	CString strClass;								// 类别
+	double dHeight;									// 高度
+	double dWidth;									// 宽度
+	double dDepth;									// 深度
+	CString strRemark;								// 备注
+
+	__tagCablingSystemDBData()
+	{
+		strCode = _T("");
+		strPartNo = _T("");
+		strName = _T("");
+		strEngName = _T("");
+		strUnit = _T("");
+		strState = _T("");
+		strClass = _T("");
+		dHeight = 0.0;
+		dWidth = 0.0;
+		dDepth = 0.0;
+		strRemark = _T("");
+	}
+	__tagCablingSystemDBData(const __tagCablingSystemDBData &data)
+	{
+		strCode = data.strCode;
+		strPartNo = data.strPartNo;
+		strName = data.strName;
+		strEngName = data.strEngName;
+		strUnit = data.strUnit;
+		strState = data.strState;
+		strClass = data.strClass;
+		dHeight = data.dHeight;
+		dWidth = data.dWidth;
+		dDepth = data.dDepth;
+		strRemark = data.strRemark;
+	}
+	__tagCablingSystemDBData operator=(const __tagCablingSystemDBData &data)
+	{
+		if (&data == this)
+			return *this;
+		strCode = data.strCode;
+		strPartNo = data.strPartNo;
+		strName = data.strName;
+		strEngName = data.strEngName;
+		strUnit = data.strUnit;
+		strState = data.strState;
+		strClass = data.strClass;
+		dHeight = data.dHeight;
+		dWidth = data.dWidth;
+		dDepth = data.dDepth;
+		strRemark = data.strRemark;
+		return *this;
+	}
+}CablingSystemDBData;
+
+// 底座的数据
+typedef struct __tagDiZuoDBData
+{
+	CString strCode;								// 代码
+	CString strPartNo;								// 图号
+	CString strName;								// 名称
+	CString strEngName;								// 英文名
+	CString strUnit;								// 单位
+	CString strState;								// 状态
+	CString strClass;								// 类别
+	double dHeight;									// 高度
+	double dWidth;									// 宽度
+	double dDepth;									// 深度
+	CString strRemark;								// 备注
+
+	__tagDiZuoDBData()
+	{
+		strCode = _T("");
+		strPartNo = _T("");
+		strName = _T("");
+		strEngName = _T("");
+		strUnit = _T("");
+		strState = _T("");
+		strClass = _T("");
+		dHeight = 0.0;
+		dWidth = 0.0;
+		dDepth = 0.0;
+		strRemark = _T("");
+	}
+	__tagDiZuoDBData(const __tagDiZuoDBData &data)
+	{
+		strCode = data.strCode;
+		strPartNo = data.strPartNo;
+		strName = data.strName;
+		strEngName = data.strEngName;
+		strUnit = data.strUnit;
+		strState = data.strState;
+		strClass = data.strClass;
+		dHeight = data.dHeight;
+		dWidth = data.dWidth;
+		dDepth = data.dDepth;
+		strRemark = data.strRemark;
+	}
+	__tagDiZuoDBData operator=(const __tagDiZuoDBData &data)
+	{
+		if (&data == this)
+			return *this;
+		strCode = data.strCode;
+		strPartNo = data.strPartNo;
+		strName = data.strName;
+		strEngName = data.strEngName;
+		strUnit = data.strUnit;
+		strState = data.strState;
+		strClass = data.strClass;
+		dHeight = data.dHeight;
+		dWidth = data.dWidth;
+		dDepth = data.dDepth;
+		strRemark = data.strRemark;
+		return *this;
+	}
+}DiZuoDBData;
+
+// 底座附件的数据
+typedef struct __tagDiZuoFuJianDBData
+{
+	CString strCode;								// 代码
+	CString strPartNo;								// 图号
+	CString strName;								// 名称
+	CString strEngName;								// 英文名
+	CString strUnit;								// 单位
+	CString strState;								// 状态
+	CString strClass;								// 类别
+	double dHeight;									// 高度
+	double dWidth;									// 宽度
+	double dDepth;									// 深度
+	CString strRemark;								// 备注
+
+	__tagDiZuoFuJianDBData()
+	{
+		strCode = _T("");
+		strPartNo = _T("");
+		strName = _T("");
+		strEngName = _T("");
+		strUnit = _T("");
+		strState = _T("");
+		strClass = _T("");
+		dHeight = 0.0;
+		dWidth = 0.0;
+		dDepth = 0.0;
+		strRemark = _T("");
+	}
+	__tagDiZuoFuJianDBData(const __tagDiZuoFuJianDBData &data)
+	{
+		strCode = data.strCode;
+		strPartNo = data.strPartNo;
+		strName = data.strName;
+		strEngName = data.strEngName;
+		strUnit = data.strUnit;
+		strState = data.strState;
+		strClass = data.strClass;
+		dHeight = data.dHeight;
+		dWidth = data.dWidth;
+		dDepth = data.dDepth;
+		strRemark = data.strRemark;
+	}
+	__tagDiZuoFuJianDBData operator=(const __tagDiZuoFuJianDBData &data)
+	{
+		if (&data == this)
+			return *this;
+		strCode = data.strCode;
+		strPartNo = data.strPartNo;
+		strName = data.strName;
+		strEngName = data.strEngName;
+		strUnit = data.strUnit;
+		strState = data.strState;
+		strClass = data.strClass;
+		dHeight = data.dHeight;
+		dWidth = data.dWidth;
+		dDepth = data.dDepth;
+		strRemark = data.strRemark;
+		return *this;
+	}
+}DiZuoFuJianDBData;
+
+// 专用底座的数据
+typedef struct __tagSpecialDiZuoDBData
+{
+	CString strXilie;								// 系列
+	CString strCode;								// 代码
+	CString strPartNo;								// 图号
+	CString strName;								// 名称
+	CString strEngName;								// 英文名
+	CString strUnit;								// 单位
+	CString strState;								// 状态
+	CString strClass;								// 类别
+	double dHeight;									// 高度
+	double dWidth;									// 宽度
+	double dDepth;									// 深度
+	CString strRemark;								// 备注
+
+	__tagSpecialDiZuoDBData()
+	{
+		strXilie = _T("");
+		strCode = _T("");
+		strPartNo = _T("");
+		strName = _T("");
+		strEngName = _T("");
+		strUnit = _T("");
+		strState = _T("");
+		strClass = _T("");
+		dHeight = 0.0;
+		dWidth = 0.0;
+		dDepth = 0.0;
+		strRemark = _T("");
+	}
+	__tagSpecialDiZuoDBData(const __tagSpecialDiZuoDBData &data)
+	{
+		strXilie = data.strXilie;
+		strCode = data.strCode;
+		strPartNo = data.strPartNo;
+		strName = data.strName;
+		strEngName = data.strEngName;
+		strUnit = data.strUnit;
+		strState = data.strState;
+		strClass = data.strClass;
+		dHeight = data.dHeight;
+		dWidth = data.dWidth;
+		dDepth = data.dDepth;
+		strRemark = data.strRemark;
+	}
+	__tagSpecialDiZuoDBData operator=(const __tagSpecialDiZuoDBData &data)
+	{
+		if (&data == this)
+			return *this;
+		strXilie = data.strXilie;
+		strCode = data.strCode;
+		strPartNo = data.strPartNo;
+		strName = data.strName;
+		strEngName = data.strEngName;
+		strUnit = data.strUnit;
+		strState = data.strState;
+		strClass = data.strClass;
+		dHeight = data.dHeight;
+		dWidth = data.dWidth;
+		dDepth = data.dDepth;
+		strRemark = data.strRemark;
+		return *this;
+	}
+}SpecialDiZuoDBData;
 
 //===================================================================================================
 // 电缆模块
