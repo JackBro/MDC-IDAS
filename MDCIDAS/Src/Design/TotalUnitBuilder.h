@@ -136,7 +136,7 @@ public:
 	// 根据XML文件生成模型
 	bool TestBuildModelByXML(const CString &strXMLPath);
 	// 根据订单需求采集表和整机布局图XML文件生成整机配置模型
-	bool TestBuildModelByReqTableAndLayoutFile(const CString &strXMLPath);
+	bool TestBuildModelByReqTableAndLayoutFile(const CString &strDVFPath);
 };
 
 //===================================================================================================

@@ -363,4 +363,32 @@ bool InitDesignGlobalData()
 	return true;
 }
 
+// 根据布局图DVF转换为XML文件
+bool TransDVF2XML(const CString &strDVFPath, const CString &strXMLPath)
+{
+	if (!IsFileExist(strDVFPath))
+		return false;
+
+	// 加载动态库
+	CString strDVF2XMLDllName;
+	GetMainModulePath(strDVF2XMLDllName, theApp.m_hInstance);
+#if WIN64
+	strDVF2XMLDllName += L"\\DVF2XML_x64.dll";
+#else
+	strDVF2XMLDllName += L"\\DVF2XML.dll";
+#endif
+
+	HMODULE hConvertModule = ::LoadLibrary(strDVF2XMLDllName);
+	if (hConvertModule == NULL)
+		return false;
+
+	bool bResult = false;
+	// 转换函数
+	fun_ExportDVF2Xml pExportDVF2Xml = (fun_ExportDVF2Xml)GetProcAddress(hConvertModule, "ExportDVF2Xml");
+	if (pExportDVF2Xml != NULL)
+		bResult = pExportDVF2Xml((LPCTSTR)strDVFPath, (LPCTSTR)strXMLPath);
+
+	return bResult;
+}
+
 //===================================================================================================

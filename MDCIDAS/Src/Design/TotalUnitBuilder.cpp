@@ -943,8 +943,13 @@ bool CTotalUnitBuilder::TestBuildModelByXML(const CString &strXMLPath)
 }
 
 // 根据订单需求采集表和整机布局图XML文件生成整机配置模型
-bool CTotalUnitBuilder::TestBuildModelByReqTableAndLayoutFile(const CString &strXMLPath)
+bool CTotalUnitBuilder::TestBuildModelByReqTableAndLayoutFile(const CString &strDVFPath)
 {
+	CString strXMLPath;
+	GetTempFile(strXMLPath, _T("xml"));
+	if (!TransDVF2XML(strDVFPath, strXMLPath))
+		return false;
+
 	// 需求采集表的初始化测试数据
 	RequirementTabData reqTabData;
 	reqTabData.nModuleType = MT_LONG_MODULE;						// 长模块

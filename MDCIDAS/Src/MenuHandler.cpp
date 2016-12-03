@@ -15,6 +15,7 @@
 #include "CablePreGlobal.h"
 #include "DlgRoutingCableByParam.h"
 #include "DlgMain.h"
+#include "DVF2XML.h"
 
 //===================================================================================================
 
@@ -95,9 +96,9 @@ void ModelBuild()
 	ProPath szCurPath;
 	ProDirectoryCurrentGet(szCurPath);
 	CTotalUnitBuilder builder;
-	CString strXMLPath = szCurPath;
-	strXMLPath += L"\\布局\\测试.xml";
-	builder.TestBuildModelByReqTableAndLayoutFile(strXMLPath);
+	CString strDVFPath = szCurPath;
+	strDVFPath += L"\\布局\\测试.dvf";
+	builder.TestBuildModelByReqTableAndLayoutFile(strDVFPath);
 }
 
 BOOL CMenuHandler::Init()

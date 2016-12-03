@@ -157,5 +157,10 @@ int GetDesignModelType(int nSymbolSubtype);
 // 初始化全局变量
 bool InitDesignGlobalData();
 
+// 导出xml函数
+typedef bool (*fun_ExportDVF2Xml)(const wchar_t* pDVFFileName, const wchar_t* pXMLFileName);
+// 根据布局图DVF转换为XML文件
+bool TransDVF2XML(const CString &strDVFPath, const CString &strXMLPath);
+
 //===================================================================================================
 
