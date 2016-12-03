@@ -11,6 +11,7 @@
 
 #include "SVBaseDef.h"
 #include "DocModelDef.h"
+#include "XmlToObject.h"
 
 //===================================================================================================
 //===================================================================================================
@@ -339,80 +340,6 @@ typedef struct __tagRequirementTabData
 	}
 }RequirementTabData;
 
-// 布局图元素数据
-typedef struct __tagLayoutItemData
-{
-	int nType;										// 元素符号类型，参照LayoutItemType
-	double dWidth;									// 宽度
-	double dDepth;									// 深度
-	SVDOUBLE3 o;									// 原点
-	SVDOUBLE3 x;									// X向
-	SVDOUBLE3 y;									// Y向
-
-	__tagLayoutItemData()
-	{
-		nType = SCT_NULL;
-		dWidth = 0.0;
-		dDepth = 0.0;
-	}
-	__tagLayoutItemData(const __tagLayoutItemData &data)
-	{
-		nType = data.nType;
-		dWidth = data.dWidth;
-		dDepth = data.dDepth;
-		o = data.o;
-		x = data.x;
-		y = data.y;
-	}
-	__tagLayoutItemData operator=(const __tagLayoutItemData &data)
-	{
-		if (&data == this)
-			return *this;
-		nType = data.nType;
-		dWidth = data.dWidth;
-		dDepth = data.dDepth;
-		o = data.o;
-		x = data.x;
-		y = data.y;
-		return *this;
-	}
-}LayoutItemData;
-
-typedef vector<LayoutItemData> LayoutItemDataArray;
-
-// 布局图数据
-typedef struct __tagLayoutData
-{
-	double dTotalLength;							// 总长度
-	double dTotalWidth;								// 总宽度
-	CString strRemark;								// 备注信息
-	LayoutItemDataArray arrItems;					// 符号集
-
-	__tagLayoutData()
-	{
-		dTotalLength = 0.0;
-		dTotalWidth = 0.0;
-		strRemark = _T("");
-	}
-	__tagLayoutData(const __tagLayoutData &data)
-	{
-		dTotalLength = data.dTotalLength;
-		dTotalWidth = data.dTotalWidth;
-		strRemark = data.strRemark;
-		arrItems = data.arrItems;
-	}
-	__tagLayoutData operator=(const __tagLayoutData &data)
-	{
-		if (&data == this)
-			return *this;
-		dTotalLength = data.dTotalLength;
-		dTotalWidth = data.dTotalWidth;
-		strRemark = data.strRemark;
-		arrItems = data.arrItems;
-		return *this;
-	}
-}LayoutData;
-
 // 组件配置
 typedef struct __tagModelConfiguration
 {
@@ -524,6 +451,162 @@ typedef struct __tagTotalUnitConfiguration
 		return *this;
 	}
 }TotalUnitConfiguration;
+
+// 布局图数据库结构
+typedef struct __tagLayoutDBData
+{
+	CString strNumber;								// 编号
+	CString strDate;								// 创建日期
+	CString strXMLPath;								// XML文件路径
+	CXmlToObject *pLayoutXML;						// 布局XML文件指针
+
+	__tagLayoutDBData()
+	{
+		strNumber = _T("");
+		strDate = _T("");
+		strXMLPath = _T("");
+		pLayoutXML = NULL;
+	}
+	__tagLayoutDBData(const __tagLayoutDBData &data)
+	{
+		strNumber = data.strNumber;
+		strDate = data.strDate;
+		strXMLPath = data.strXMLPath;
+		pLayoutXML = data.pLayoutXML;
+	}
+	__tagLayoutDBData operator=(const __tagLayoutDBData &data)
+	{
+		if (&data == this)
+			return *this;
+		strNumber = data.strNumber;
+		strDate = data.strDate;
+		strXMLPath = data.strXMLPath;
+		pLayoutXML = data.pLayoutXML;
+		return *this;
+	}
+}LayoutDBData;
+
+// 整机配置数据库结构
+typedef struct __tagConfigDBData
+{
+	CString strNumber;								// 编号
+	CString strDate;								// 创建日期
+	TotalUnitConfiguration totalConfig;				// 整机配置数据
+
+	__tagConfigDBData()
+	{
+		strNumber = _T("");
+		strDate = _T("");
+	}
+	__tagConfigDBData(const __tagConfigDBData &data)
+	{
+		strNumber = data.strNumber;
+		strDate = data.strDate;
+		totalConfig = data.totalConfig;
+	}
+	__tagConfigDBData operator=(const __tagConfigDBData &data)
+	{
+		if (&data == this)
+			return *this;
+		strNumber = data.strNumber;
+		strDate = data.strDate;
+		totalConfig = data.totalConfig;
+		return *this;
+	}
+}ConfigDBData;
+
+// 整机数据库结构
+typedef struct __tagTotalLayoutConfigDBData
+{
+	LayoutDBData layout;							// 布局图数据
+	ConfigDBData config;							// 整机配置数据
+
+	__tagTotalLayoutConfigDBData()
+	{
+	}
+	__tagTotalLayoutConfigDBData(const __tagTotalLayoutConfigDBData &data)
+	{
+		layout = data.layout;
+		config = data.config;
+	}
+	__tagTotalLayoutConfigDBData operator=(const __tagTotalLayoutConfigDBData &data)
+	{
+		if (&data == this)
+			return *this;
+		layout = data.layout;
+		config = data.config;
+		return *this;
+	}
+}TotalLayoutConfigDBData;
+
+typedef vector<TotalLayoutConfigDBData> TotalLayoutConfigDBDataArray;
+
+// 需求采集数据库结构
+typedef struct __tagRequirementDBData
+{
+	CString strNumber;										// 编号
+	CString strDate;										// 创建日期
+	RequirementTabData tabData;								// 需求采集表数据结构
+	TotalLayoutConfigDBDataArray arrTotalData;				// 整机数据集
+
+	__tagRequirementDBData()
+	{
+		strNumber = _T("");
+		strDate = _T("");
+	}
+	__tagRequirementDBData(const __tagRequirementDBData &data)
+	{
+		strNumber = data.strNumber;
+		strDate = data.strDate;
+		tabData = data.tabData;
+		arrTotalData = data.arrTotalData;
+	}
+	__tagRequirementDBData operator=(const __tagRequirementDBData &data)
+	{
+		if (&data == this)
+			return *this;
+		strNumber = data.strNumber;
+		strDate = data.strDate;
+		tabData = data.tabData;
+		arrTotalData = data.arrTotalData;
+		return *this;
+	}
+}RequirementDBData;
+
+typedef vector<RequirementDBData> RequirementDBDataArray;
+
+// 项目数据库结构
+typedef struct __tagProjectDBData
+{
+	CString strUser;								// 用户
+	CString strNumber;								// 编号
+	CString strDate;								// 创建日期
+	RequirementDBDataArray arrReqDBData;			// 需求采集数据集
+
+	__tagProjectDBData()
+	{
+		strUser = _T("");
+		strNumber = _T("");
+		strDate = _T("");
+	}
+	__tagProjectDBData(const __tagProjectDBData &data)
+	{
+		strUser = data.strUser;
+		strNumber = data.strNumber;
+		strDate = data.strDate;
+		arrReqDBData = data.arrReqDBData;
+	}
+	__tagProjectDBData operator=(const __tagProjectDBData &data)
+	{
+		if (&data == this)
+			return *this;
+		strUser = data.strUser;
+		strNumber = data.strNumber;
+		strDate = data.strDate;
+		arrReqDBData = data.arrReqDBData;
+		return *this;
+	}
+}ProjectDBData;
 
 // 机柜的数据
 typedef struct __tagJiGuiDBData

@@ -141,6 +141,10 @@ public:
 	bool TestAutoBuildModel();
 	// 测试批量生成参数驱动模型
 	bool TestAutoBuildModel(const CString &strAsmPath, const CString &strPartNo, const CString &strName, const CString &strClass, double dHeight, double dWidth, double dDepth, const CString &strCompCsysName);
+	// 测试整机配置
+	bool TestTotalDesign();
+	// 初始化默认订单需求采集表
+	bool InitDefaultReqTabData(RequirementTabData &reqTabData);
 };
 
 //===================================================================================================

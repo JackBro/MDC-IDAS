@@ -1146,3 +1146,96 @@ bool CTotalUnitBuilder::TestAutoBuildModel(const CString &strAsmPath, const CStr
 
 	return true;
 }
+
+// 测试整机配置
+bool CTotalUnitBuilder::TestTotalDesign()
+{
+	ProPath szCurPath;
+	ProDirectoryCurrentGet(szCurPath);
+	CTotalUnitBuilder builder;
+	CString strDVFPath = szCurPath;
+	strDVFPath += L"\\布局\\测试.dvf";
+	CString strXMLPath;
+	GetTempFile(strXMLPath, _T("xml"));
+	if (!TransDVF2XML(strDVFPath, strXMLPath))
+		return false;
+
+	CXmlToObject xmlParse;
+	xmlParse.Init();
+	xmlParse.OpenFile(strXMLPath);
+
+	ProjectDBData projectDB;
+	projectDB.strUser = L"刘国庆";
+	projectDB.strNumber = L"北京移动20161203A";
+	projectDB.strDate = L"20161203 9:02";
+	projectDB.arrReqDBData.resize(2);
+
+	projectDB.arrReqDBData[0].strNumber = L"北京移动20161127A01";
+	projectDB.arrReqDBData[0].strDate = L"20161203 10:02";
+	InitDefaultReqTabData(projectDB.arrReqDBData[0].tabData);
+	projectDB.arrReqDBData[0].arrTotalData.resize(2);
+	projectDB.arrReqDBData[0].arrTotalData[0].layout.strNumber = L"北京移动20161127A01_01_DVF";
+	projectDB.arrReqDBData[0].arrTotalData[0].layout.strDate = L"20161203 10:10";
+	projectDB.arrReqDBData[0].arrTotalData[0].layout.strXMLPath = strXMLPath;
+	projectDB.arrReqDBData[0].arrTotalData[0].layout.pLayoutXML = &xmlParse;
+	projectDB.arrReqDBData[0].arrTotalData[0].config.strNumber = L"北京移动20161127A01_01_XLS";
+	projectDB.arrReqDBData[0].arrTotalData[0].config.strDate = L"20161203 10:13";
+	projectDB.arrReqDBData[0].arrTotalData[1].layout.strNumber = L"北京移动20161127A01_02_DVF";
+	projectDB.arrReqDBData[0].arrTotalData[1].layout.strDate = L"20161203 10:20";
+	projectDB.arrReqDBData[0].arrTotalData[1].layout.strXMLPath = strXMLPath;
+	projectDB.arrReqDBData[0].arrTotalData[1].layout.pLayoutXML = &xmlParse;
+	projectDB.arrReqDBData[0].arrTotalData[1].config.strNumber = L"北京移动20161127A01_02_XLS";
+	projectDB.arrReqDBData[0].arrTotalData[1].config.strDate = L"20161203 10:23";
+
+	projectDB.arrReqDBData[1].strNumber = L"北京移动20161127A02";
+	projectDB.arrReqDBData[1].strDate = L"20161203 10:35";
+	InitDefaultReqTabData(projectDB.arrReqDBData[1].tabData);
+	projectDB.arrReqDBData[1].arrTotalData.resize(2);
+	projectDB.arrReqDBData[1].arrTotalData[0].layout.strNumber = L"北京移动20161127A02_01_DVF";
+	projectDB.arrReqDBData[1].arrTotalData[0].layout.strDate = L"20161203 10:40";
+	projectDB.arrReqDBData[1].arrTotalData[0].layout.strXMLPath = strXMLPath;
+	projectDB.arrReqDBData[1].arrTotalData[0].layout.pLayoutXML = &xmlParse;
+	projectDB.arrReqDBData[1].arrTotalData[0].config.strNumber = L"北京移动20161127A02_01_XLS";
+	projectDB.arrReqDBData[1].arrTotalData[0].config.strDate = L"20161203 10:43";
+	projectDB.arrReqDBData[1].arrTotalData[1].layout.strNumber = L"北京移动20161127A02_02_DVF";
+	projectDB.arrReqDBData[1].arrTotalData[1].layout.strDate = L"20161203 10:50";
+	projectDB.arrReqDBData[1].arrTotalData[1].layout.strXMLPath = strXMLPath;
+	projectDB.arrReqDBData[1].arrTotalData[1].layout.pLayoutXML = &xmlParse;
+	projectDB.arrReqDBData[1].arrTotalData[1].config.strNumber = L"北京移动20161127A02_02_XLS";
+	projectDB.arrReqDBData[1].arrTotalData[1].config.strDate = L"20161203 10:53";
+
+	return false;
+}
+
+// 初始化默认订单需求采集表
+bool CTotalUnitBuilder::InitDefaultReqTabData(RequirementTabData &reqTabData)
+{
+	reqTabData.nModuleType = MT_LONG_MODULE;						// 长模块
+	reqTabData.bIsExtFloorExist = true;								// 是否存在外部地板
+	reqTabData.nAirstreamPattern = AP_COLD_SEAL;					// 冷通道封闭
+	reqTabData.dPassageWidth = 1800.0;								// 通道宽度
+	reqTabData.dHeightOfITRack = 2000;								// IT机柜规格——高度
+	reqTabData.dWidthOfITRack = 600;								// IT机柜规格——宽度
+	reqTabData.dDepthOfITRack = 1200;								// IT机柜规格——深度
+	reqTabData.nFrontDoorTypeOfITRack = FDT_SINGLE_DENSEHOLE_DOOR;	// IT机柜的前门类型
+	reqTabData.nBackDoorTypeOfITRack = FDT_DOUBLE_DENSEHOLE_DOOR;	// IT机柜的后门类型
+	reqTabData.nFrontDoorLockTypeOfITRack = FDLT_UNIVERSIAL_LOCK;	// IT机柜的前门锁类型
+	reqTabData.nBackDoorLockTypeOfITRack = FDLT_UNIVERSIAL_LOCK;	// IT机柜的后门锁类型
+	reqTabData.nSideDoorTypeOfITRack = SDT_DEFAULT_TYPE;			// IT机柜的侧门
+	reqTabData.nHeightOfPedestal = HP_300;							// 底座高度
+	reqTabData.nInsideFloorType = IFT_DEFAULT_FLOOR;				// 模块内部地板
+	reqTabData.nZouXianJiaType = ZXJT_MODULE_TYPE;					// 强弱电走线架配置类型
+	reqTabData.dDistanceBetwZXJAndJigui = 0.0;						// (走线架机房配置)走线架距离机柜顶部距离；
+	reqTabData.nNumOf1UPanel = 5;									// 1U假面板的数量
+	reqTabData.nNumOf2UPanel = 5;									// 2U假面板的数量
+	reqTabData.nNumOfLPallet = 5;									// L型托板的数量
+	reqTabData.nNumOfLightLayer = 5;								// 轻载层板的数量
+	reqTabData.nNumOfHeavyLayer = 5;								// 重载层板的数量
+	reqTabData.nNumOfStringingPanel = 5;							// 穿线面板的数量
+	reqTabData.nHuiLiuPaiType = HLPT_SHUZHUANG_TYPE;				// 汇流排的类型
+	reqTabData.bIsWeiBanExist = true;								// 围板是否配置
+	reqTabData.bIsInsideFloorExist = true;							// 模块内部是否配置地板
+	reqTabData.bIsTaBuExist = true;									// 是否配置踏步
+	reqTabData.nControlCabinetType = CCT_IT_PAD_CAB;				// 管控柜类型
+	return true;
+}
