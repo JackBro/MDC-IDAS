@@ -137,6 +137,10 @@ public:
 	bool TestBuildModelByXML(const CString &strXMLPath);
 	// 根据订单需求采集表和整机布局图XML文件生成整机配置模型
 	bool TestBuildModelByReqTableAndLayoutFile(const CString &strDVFPath);
+	// 测试批量生成参数驱动模型
+	bool TestAutoBuildModel();
+	// 测试批量生成参数驱动模型
+	bool TestAutoBuildModel(const CString &strAsmPath, const CString &strPartNo, const CString &strName, const CString &strClass, double dHeight, double dWidth, double dDepth, const CString &strCompCsysName);
 };
 
 //===================================================================================================

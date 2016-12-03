@@ -1019,3 +1019,130 @@ bool CTotalUnitBuilder::TestBuildModelByReqTableAndLayoutFile(const CString &str
 
 	return true;
 }
+
+// 测试批量生成参数驱动模型
+bool CTotalUnitBuilder::TestAutoBuildModel()
+{
+	CFileDialog dlgFile(TRUE, _T("*.xls"), NULL, OFN_FILEMUSTEXIST | OFN_HIDEREADONLY,	_T("Excel文件(*.xls)|*.xls||"));
+	if (GetVersion() < 0x80000000)
+		// 运行的操作系统是Windows NT/2000
+		dlgFile.m_ofn.lStructSize =88;	// 显示新的文件对话框
+	else
+		// 运行的操作系统Windows 95/98
+		dlgFile.m_ofn.lStructSize =76;	// 显示老的文件对话框
+
+	if (dlgFile.DoModal() != IDOK)
+		return false;
+
+	IExcelOperator *pExcelOper = CreateExcelOperator();
+	if (!pExcelOper->CreateApp())
+		return FALSE;
+
+	if (!pExcelOper->OpenXls(dlgFile.GetPathName()))
+	{
+		pExcelOper->QuitApp();
+		DestroyExcelOperator(pExcelOper);
+		return FALSE;
+	}
+
+	CString strAsmPath = dlgFile.GetPathName();
+	strAsmPath = strAsmPath.Left(strAsmPath.ReverseFind(L'\\')+1) + L"JGJ_TEMPLATE.ASM";
+
+	int nCurRow = 2, nCurCol = 2;
+	CString strCell, strPartNo, strName, strClass, strCompCsysName;
+	double dHeight, dWidth, dDepth;
+	for (int i=0; ; i++)
+	{
+		nCurCol = 3;
+		pExcelOper->GetCellValue(nCurRow, nCurCol++, strCell);
+		if (strCell.IsEmpty())
+			break;
+		strPartNo = strCell;
+		strPartNo.Replace(L" ", L"");
+		pExcelOper->GetCellValue(nCurRow, nCurCol++, strCell);
+		if (strCell.IsEmpty())
+			break;
+		strName = strCell;
+		pExcelOper->GetCellValue(nCurRow, nCurCol++, strCell);
+		if (strCell.IsEmpty())
+			break;
+		strClass = strCell;
+		pExcelOper->GetCellValue(nCurRow, nCurCol++, strCell);
+		if (strCell.IsEmpty())
+			break;
+		dHeight = _wtof(strCell);
+		pExcelOper->GetCellValue(nCurRow, nCurCol++, strCell);
+		if (strCell.IsEmpty())
+			break;
+		dWidth = _wtof(strCell);
+		pExcelOper->GetCellValue(nCurRow, nCurCol++, strCell);
+		if (strCell.IsEmpty())
+			break;
+		dDepth = _wtof(strCell);
+		pExcelOper->GetCellValue(nCurRow, nCurCol++, strCell);
+		if (strCell.IsEmpty())
+			break;
+		strCompCsysName = strCell;
+		TestAutoBuildModel(strAsmPath, strPartNo, strName, strClass, dHeight, dWidth, dDepth, strCompCsysName);
+		nCurRow++;
+	}
+
+	pExcelOper->QuitApp();
+	DestroyExcelOperator(pExcelOper);
+	return true;
+}
+
+// 测试批量生成参数驱动模型
+bool CTotalUnitBuilder::TestAutoBuildModel(const CString &strAsmPath, const CString &strPartNo, const CString &strName, const CString &strClass, double dHeight, double dWidth, double dDepth, const CString &strCompCsysName)
+{
+	ProMdl pMdl = NULL;
+	ProPath szMdlPath;
+	wcsncpy_s(szMdlPath, PRO_PATH_SIZE, strAsmPath, _TRUNCATE);
+	ProMdlLoad(szMdlPath, PRO_MDL_ASSEMBLY, PRO_B_FALSE, &pMdl);
+	if (NULL == pMdl)
+		return false;
+
+	ProName szPartNo, szName, szCompCsysName;
+	wcsncpy_s(szPartNo, PRO_NAME_SIZE, strPartNo, _TRUNCATE);
+	wcsncpy_s(szName, PRO_NAME_SIZE, strName, _TRUNCATE);
+	wcsncpy_s(szCompCsysName, PRO_NAME_SIZE, strCompCsysName, _TRUNCATE);
+
+	ProName szOldMdlName;
+	ProMdlNameGet(pMdl, szOldMdlName);
+	ProMdlRename(pMdl, szPartNo);
+
+	vector<ProAsmcomp> arrComps;
+	CPCLMdl::GetSolidFeature((ProSolid)pMdl, PRO_FEAT_COMPONENT, arrComps);
+	ProMdl pSubMdl = NULL;
+	ProName szNewSubMdlName;
+	CString strNewSubMdlName;
+	for (size_t i=0; i<arrComps.size(); i++)
+	{
+		ProAsmcompMdlGet(&arrComps[i], &pSubMdl);
+		if (NULL == pSubMdl)
+			continue;
+		ProMdlNameGet(pSubMdl, szNewSubMdlName);
+		strNewSubMdlName = szNewSubMdlName;
+		strNewSubMdlName.Replace(szOldMdlName, szPartNo);
+		wcsncpy_s(szNewSubMdlName, PRO_NAME_SIZE, strNewSubMdlName, _TRUNCATE);
+		ProMdlRename(pSubMdl, szNewSubMdlName);
+	}
+
+	ProMdlCommonnameSet(pMdl, szName);
+
+	ProModelitem mdlItem;
+	ProMdlToModelitem(pMdl, &mdlItem);
+	CPCLParameter::SetParameter(&mdlItem, g_strITParaHeightName, dHeight, FALSE);
+	CPCLParameter::SetParameter(&mdlItem, g_strITParaWidthName, dWidth, FALSE);
+	CPCLParameter::SetParameter(&mdlItem, g_strITParaDepthName, dDepth, FALSE);
+	CPCLParameter::SetParameter(&mdlItem, L"NAME", strClass, FALSE);
+	ProGeomitem csysItem = {PRO_CSYS, 41, pMdl};
+	ProModelitemNameSet(&csysItem, szCompCsysName);
+
+	ProSolidRegenerate((ProSolid)pMdl, PRO_REGEN_NO_FLAGS);
+
+	ProMdlSave(pMdl);
+	ProMdlEraseAll(pMdl);
+
+	return true;
+}
