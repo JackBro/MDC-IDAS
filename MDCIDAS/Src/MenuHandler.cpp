@@ -91,8 +91,16 @@ void Test()
 	dlgMain.DoModal();
 }
 
+void ParametricDesign()
+{
+	AFX_MANAGE_STATE(AfxGetStaticModuleState());
+	CTotalUnitBuilder builder;
+	builder.TestAutoBuildModel();
+}
+
 void ModelBuild()
 {
+	AFX_MANAGE_STATE(AfxGetStaticModuleState());
 	ProPath szCurPath;
 	ProDirectoryCurrentGet(szCurPath);
 	CTotalUnitBuilder builder;
@@ -124,7 +132,7 @@ BOOL CMenuHandler::Init()
 		// 模块化配置选型
 		AddMenuItem(szModelDesignChildMenuName, "MI_SelectModelType", Test, MainAccessAvailable, Msg);
 		// 参数化模型设计
-		AddMenuItem(szModelDesignChildMenuName, "MI_ParametricDesign", Test, MainAccessAvailable, Msg);
+		AddMenuItem(szModelDesignChildMenuName, "MI_ParametricDesign", ParametricDesign, MainAccessAvailable, Msg);
 		// 整机配置结构模型生成
 		AddMenuItem(szModelDesignChildMenuName, "MI_ModelBuild", ModelBuild, MainAccessAvailable, Msg);
 		// 总装新增定制结构件
