@@ -75,6 +75,9 @@ typedef enum __tagDesignModelType
 	DMT_ZOU_XIAN_JIA		= 1021,					// 强弱电走线架
 	DMT_GUANG_XIAN_ZXJ		= 1022,					// 光纤走线架
 	DMT_WALL_PILLAR			= 1023,					// 墙柱
+	DMT_JIA_PANEL			= 1024,					// 假面板
+	DMT_CHUAN_XIAN_PANEL	= 1025,					// 穿线面板
+
 }DesignModelType;
 
 // 模块类型

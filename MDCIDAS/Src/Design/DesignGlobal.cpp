@@ -262,7 +262,7 @@ bool InitDesignGlobalData()
 		g_strZXJZJBCompCsysName = lpValue;
 	if (GetPrivateProfileString(strCompCsysConfig, L"凸门立柱", L"", lpValue, MAX_PATH, strConfigFile) > 0)
 		g_strTMLZCompCsysName = lpValue;
-	if (GetPrivateProfileString(strCompCsysConfig, L"连接支架", L"", lpValue, MAX_PATH, strConfigFile) > 0)
+	if (GetPrivateProfileString(strCompCsysConfig, L"凸门立柱底座", L"", lpValue, MAX_PATH, strConfigFile) > 0)
 		g_strLJZJCompCsysName = lpValue;
 	if (GetPrivateProfileString(strCompCsysConfig, L"踏步", L"", lpValue, MAX_PATH, strConfigFile) > 0)
 		g_strTBZJCompCsysName = lpValue;
@@ -329,7 +329,7 @@ bool InitDesignGlobalData()
 		g_strZXJZJBTemplateAsmName = lpValue;
 	if (GetPrivateProfileString(strTemplateNameConfig, L"凸门立柱", L"", lpValue, MAX_PATH, strConfigFile) > 0)
 		g_strTMLZTemplateAsmName = lpValue;
-	if (GetPrivateProfileString(strTemplateNameConfig, L"连接支架", L"", lpValue, MAX_PATH, strConfigFile) > 0)
+	if (GetPrivateProfileString(strTemplateNameConfig, L"凸门立柱底座", L"", lpValue, MAX_PATH, strConfigFile) > 0)
 		g_strLJZJTemplateAsmName = lpValue;
 	if (GetPrivateProfileString(strTemplateNameConfig, L"踏步", L"", lpValue, MAX_PATH, strConfigFile) > 0)
 		g_strTBZJTemplateAsmName = lpValue;

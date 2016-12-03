@@ -114,6 +114,22 @@ public:
 		ModelConfiguration &gkgConfig									// 整机配置
 		);
 
+	// 根据订单采集表和布局图符号集，选配假面板
+	bool SelectJMBConfiguration(
+		const RequirementTabData &reqTabData,							// 需求采集表
+		CXmlToObject &xmlData,											// 布局图XML相关数据
+		vector<CLaySymbolObj*> &arrSymbols,								// 布局图符号集
+		ModelConfiguration &jmbConfig									// 整机配置
+		);
+
+	// 根据订单采集表和布局图符号集，选配穿线面板
+	bool SelectCXMBConfiguration(
+		const RequirementTabData &reqTabData,							// 需求采集表
+		CXmlToObject &xmlData,											// 布局图XML相关数据
+		vector<CLaySymbolObj*> &arrSymbols,								// 布局图符号集
+		ModelConfiguration &cxmbConfig									// 整机配置
+		);
+
 	// 根据订单采集表，通过数据库获取服务器机柜的配置信息
 	bool GetFWQJGDBData(
 		const RequirementTabData &reqTabData,							// 需求采集表
@@ -124,6 +140,18 @@ public:
 	bool GetGKGDBData(
 		const RequirementTabData &reqTabData,							// 需求采集表
 		JiGuiDBData &gkgData											// 机柜数据
+		);
+
+	// 根据订单采集表，通过数据库获取假面板配置信息
+	bool GetJMBDBData(
+		const RequirementTabData &reqTabData,							// 需求采集表
+		PanelDBData &jmbData											// 机柜数据
+		);
+
+	// 根据订单采集表，通过数据库获取穿线面板配置信息
+	bool GetCXMBDBData(
+		const RequirementTabData &reqTabData,							// 需求采集表
+		PanelDBData &jmbData											// 机柜数据
 		);
 
 	// 获取指定类型的布局图符号集

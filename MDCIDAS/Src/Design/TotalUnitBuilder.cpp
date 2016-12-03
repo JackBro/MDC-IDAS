@@ -602,6 +602,122 @@ bool CTotalUnitBuilder::SelectGKGConfiguration(
 	return true;
 }
 
+// 根据订单采集表和布局图符号集，选配假面板
+bool CTotalUnitBuilder::SelectJMBConfiguration(
+	const RequirementTabData &reqTabData,							// 需求采集表
+	CXmlToObject &xmlData,											// 布局图XML相关数据
+	vector<CLaySymbolObj*> &arrSymbols,								// 布局图符号集
+	ModelConfiguration &jmbConfig									// 整机配置
+	)
+{
+	// 获取管控柜符号集
+	vector<CLaySymbolObj*> arrMCCSymbols;
+	//GetLayoutSymbols(SCT_MCC, arrSymbols, arrMCCSymbols);
+	//if (arrMCCSymbols.empty())
+	//	return false;
+
+	jmbConfig.strMajorClass = _T("面板");
+	jmbConfig.nModelType = DMT_JIA_PANEL;
+
+	// 获取数据库选配数据
+	PanelDBData jmbDBData;
+	if (GetJMBDBData(reqTabData, jmbDBData))
+	{
+		// 把正式图号的相关数据写入整机配置中
+		jmbConfig.strTempPartNo = _T("");
+		jmbConfig.strFormalPartNo = jmbDBData.strPartNo;
+		jmbConfig.strPurchaseNo = jmbDBData.strCode;
+		jmbConfig.dHeight = jmbDBData.dHeight;
+		jmbConfig.dWidth = jmbDBData.dWidth;
+		jmbConfig.dDepth = jmbDBData.dDepth;
+		jmbConfig.strRemark = jmbDBData.strRemark;
+	}
+	else
+	{
+		// 生成临时图号
+		jmbConfig.strTempPartNo = GetTemplateNameByModelType(jmbConfig.nModelType);
+		jmbConfig.strFormalPartNo = _T("");
+		jmbConfig.strPurchaseNo = _T("");
+		jmbConfig.dHeight = reqTabData.dHeightOfITRack;
+		jmbConfig.dWidth = reqTabData.dWidthOfITRack;
+		jmbConfig.dDepth = reqTabData.dDepthOfITRack;
+		jmbConfig.strRemark = _T("");
+	}
+
+	// 获取装配位置
+	//jmbConfig.arrPosition.resize(arrMCCSymbols.size());
+	//for (size_t i=0; i<arrMCCSymbols.size(); i++)
+	//	GetModelPosition(xmlData.m_dLeft, xmlData.m_dTop, xmlData.m_dWidth, xmlData.m_dHeight,
+	//	arrMCCSymbols[i]->m_dWidth, arrMCCSymbols[i]->m_dHeight, arrMCCSymbols[i]->m_ptCenter.x,
+	//	arrMCCSymbols[i]->m_ptCenter.y, arrMCCSymbols[i]->m_dAngle, jmbConfig.arrPosition[i]);
+	//// 确定装配高度
+	//double dZ = GetHeightOfPedestal(reqTabData.nHeightOfPedestal);
+	//if (!ISDEQUAL(dZ, 0.0))
+	//{
+	//	for (size_t i=0; i<jmbConfig.arrPosition.size(); i++)
+	//		jmbConfig.arrPosition[i].o.z = dZ;
+	//}
+	return true;
+}
+
+// 根据订单采集表和布局图符号集，选配穿线面板
+bool CTotalUnitBuilder::SelectCXMBConfiguration(
+	const RequirementTabData &reqTabData,							// 需求采集表
+	CXmlToObject &xmlData,											// 布局图XML相关数据
+	vector<CLaySymbolObj*> &arrSymbols,								// 布局图符号集
+	ModelConfiguration &cxmbConfig									// 整机配置
+	)
+{
+	// 获取管控柜符号集
+	//vector<CLaySymbolObj*> arrMCCSymbols;
+	//GetLayoutSymbols(SCT_MCC, arrSymbols, arrMCCSymbols);
+	//if (arrMCCSymbols.empty())
+	//	return false;
+
+	cxmbConfig.strMajorClass = _T("面板");
+	cxmbConfig.nModelType = DMT_CHUAN_XIAN_PANEL;
+
+	// 获取数据库选配数据
+	PanelDBData jmbDBData;
+	if (GetCXMBDBData(reqTabData, jmbDBData))
+	{
+		// 把正式图号的相关数据写入整机配置中
+		cxmbConfig.strTempPartNo = _T("");
+		cxmbConfig.strFormalPartNo = jmbDBData.strPartNo;
+		cxmbConfig.strPurchaseNo = jmbDBData.strCode;
+		cxmbConfig.dHeight = jmbDBData.dHeight;
+		cxmbConfig.dWidth = jmbDBData.dWidth;
+		cxmbConfig.dDepth = jmbDBData.dDepth;
+		cxmbConfig.strRemark = jmbDBData.strRemark;
+	}
+	else
+	{
+		// 生成临时图号
+		cxmbConfig.strTempPartNo = GetTemplateNameByModelType(cxmbConfig.nModelType);
+		cxmbConfig.strFormalPartNo = _T("");
+		cxmbConfig.strPurchaseNo = _T("");
+		cxmbConfig.dHeight = reqTabData.dHeightOfITRack;
+		cxmbConfig.dWidth = reqTabData.dWidthOfITRack;
+		cxmbConfig.dDepth = reqTabData.dDepthOfITRack;
+		cxmbConfig.strRemark = _T("");
+	}
+
+	// 获取装配位置
+	//jmbConfig.arrPosition.resize(arrMCCSymbols.size());
+	//for (size_t i=0; i<arrMCCSymbols.size(); i++)
+	//	GetModelPosition(xmlData.m_dLeft, xmlData.m_dTop, xmlData.m_dWidth, xmlData.m_dHeight,
+	//	arrMCCSymbols[i]->m_dWidth, arrMCCSymbols[i]->m_dHeight, arrMCCSymbols[i]->m_ptCenter.x,
+	//	arrMCCSymbols[i]->m_ptCenter.y, arrMCCSymbols[i]->m_dAngle, jmbConfig.arrPosition[i]);
+	//// 确定装配高度
+	//double dZ = GetHeightOfPedestal(reqTabData.nHeightOfPedestal);
+	//if (!ISDEQUAL(dZ, 0.0))
+	//{
+	//	for (size_t i=0; i<jmbConfig.arrPosition.size(); i++)
+	//		jmbConfig.arrPosition[i].o.z = dZ;
+	//}
+	return true;
+}
+
 // 根据订单采集表，通过数据库获取服务器机柜的配置信息
 bool CTotalUnitBuilder::GetFWQJGDBData(
 	const RequirementTabData &reqTabData,							// 需求采集表
@@ -638,25 +754,71 @@ bool CTotalUnitBuilder::GetGKGDBData(
 	)
 {
 	reqTabData;
-	gkgData.strCode = _T("624100315501");				// 代码
-	gkgData.strPartNo = _T("624100315500");				// 图号
-	gkgData.strName = _T("2000PAD密孔门机柜");			// 名称
-	gkgData.strEngName = _T("cabinet");					// 英文名
-	gkgData.strUnit = _T("个");							// 单位
-	gkgData.strState = _T("通用");						// 状态
-	gkgData.strClass = _T("管控柜");					// 类别
-	gkgData.dHeight = 2000.0;							// 高
-	gkgData.dWidth = 600;								// 宽
-	gkgData.dDepth = 1200;								// 深
-	gkgData.strFrontDoor = _T("单开密孔门");			// 前门
-	gkgData.strFrontDoorLock = _T("通用");				// 前门锁型
-	gkgData.strBackDoor = _T("单开PAD密孔门");			// 后门
-	gkgData.strBackDoorLock = _T("通用");				// 后门锁型
-	gkgData.strJiaMianBan = _T("");						// 假面板
+	gkgData.strCode = _T("624100315501");					// 代码
+	gkgData.strPartNo = _T("624100315500");					// 图号
+	gkgData.strName = _T("2000PAD密孔门机柜");				// 名称
+	gkgData.strEngName = _T("cabinet");						// 英文名
+	gkgData.strUnit = _T("个");								// 单位
+	gkgData.strState = _T("通用");							// 状态
+	gkgData.strClass = _T("管控柜");						// 类别
+	gkgData.dHeight = 2000.0;								// 高
+	gkgData.dWidth = 600;									// 宽
+	gkgData.dDepth = 1200;									// 深
+	gkgData.strFrontDoor = _T("单开密孔门");				// 前门
+	gkgData.strFrontDoorLock = _T("通用");					// 前门锁型
+	gkgData.strBackDoor = _T("单开PAD密孔门");				// 后门
+	gkgData.strBackDoorLock = _T("通用");					// 后门锁型
+	gkgData.strJiaMianBan = _T("");							// 假面板
 	gkgData.strChuanXianMianBan = _T("1");					// 穿线面板
 	gkgData.strLTuoBan = _T("5");							// L型托板
 	// 备注
 	gkgData.strRemark = _T("冷通道封闭或热通道封闭，无脚轮和地脚；1U穿线面板；5对L型导轨；1套127032931003门接地线");
+	return true;
+}
+
+// 根据订单采集表，通过数据库获取假面板配置信息
+bool CTotalUnitBuilder::GetJMBDBData(
+	 const RequirementTabData &reqTabData,							// 需求采集表
+	 PanelDBData &jmbData											// 机柜数据
+	 )
+{
+	reqTabData;
+	jmbData.strCode = _T("624100315501");					// 代码
+	jmbData.strPartNo = _T("624100315500");					// 图号
+	jmbData.strName = _T("2000PAD密孔门机柜");				// 名称
+	jmbData.strEngName = _T("cabinet");						// 英文名
+	jmbData.strUnit = _T("个");								// 单位
+	jmbData.strState = _T("通用");							// 状态
+	jmbData.strClass = _T("假面板");						// 类别
+	jmbData.dHeight = 2000.0;								// 高
+	jmbData.strUNum = _T("1U");								// 适配U数
+	jmbData.dWidth = 600;									// 宽
+	jmbData.dDepth = 1200;									// 深
+	// 备注
+	jmbData.strRemark = _T("冷通道封闭或热通道封闭，无脚轮和地脚；1U穿线面板；5对L型导轨；1套127032931003门接地线");
+	return true;
+}
+
+// 根据订单采集表，通过数据库获取穿线面板配置信息
+bool CTotalUnitBuilder::GetCXMBDBData(
+	  const RequirementTabData &reqTabData,							// 需求采集表
+	  PanelDBData &cxmbData											// 机柜数据
+	)
+{
+	reqTabData;
+	cxmbData.strCode = _T("624100315501");					// 代码
+	cxmbData.strPartNo = _T("624100315500");				// 图号
+	cxmbData.strName = _T("2000PAD密孔门机柜");				// 名称
+	cxmbData.strEngName = _T("cabinet");					// 英文名
+	cxmbData.strUnit = _T("个");							// 单位
+	cxmbData.strState = _T("通用");							// 状态
+	cxmbData.strClass = _T("穿线面板");						// 类别
+	cxmbData.dHeight = 2000.0;								// 高
+	cxmbData.strUNum = _T("1U");							// 适配U数
+	cxmbData.dWidth = 600;									// 宽
+	cxmbData.dDepth = 1200;									// 深
+	// 备注
+	cxmbData.strRemark = _T("");
 	return true;
 }
 
@@ -1014,6 +1176,20 @@ bool CTotalUnitBuilder::TestBuildModelByReqTableAndLayoutFile(const CString &str
 	if (SelectGKGConfiguration(reqTabData, xmlParse, arrSymbols, GKGConfig))
 		totalUnitConfig.arrModelConfig.push_back(GKGConfig);
 	xmlParse.UnInit();
+
+	// 选配假面板
+	ModelConfiguration jmbConfig;
+	if (SelectJMBConfiguration(reqTabData, xmlParse, arrSymbols, jmbConfig))
+		totalUnitConfig.arrModelConfig.push_back(jmbConfig);
+	xmlParse.UnInit();
+
+	// 选配穿线面板
+	ModelConfiguration cxmbConfig;
+	if (SelectCXMBConfiguration(reqTabData, xmlParse, arrSymbols, cxmbConfig))
+		totalUnitConfig.arrModelConfig.push_back(cxmbConfig);
+	xmlParse.UnInit();
+
+
 
 	BuildModel(totalUnitConfig);
 
